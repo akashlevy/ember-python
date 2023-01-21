@@ -6,6 +6,7 @@ spi = SpiDev()
 spi.open(0,0)
 spi.cshigh = True
 spi.max_speed_hz = 4000
+spi.mode = 0b01
 
 # Message to run a READ message by writing to the CMD register
 msg = [0xd8] + [0x00]*19 + [0x04]
@@ -14,7 +15,7 @@ msg = [0xd8] + [0x00]*19 + [0x04]
 msg = [0x7c] + [0x00]*20
 
 # Transfer message and print bytes received on mosi
-print(spi.xfer(msg))
+print(''.join([chr(byte) for byte in spi.xfer(msg)]))
 
 # Close SPI interface
 spi.close()
