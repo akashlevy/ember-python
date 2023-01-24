@@ -98,7 +98,7 @@ class EMBERDriver(object):
     print(val)
 
     # Write to address register
-    self.write_reg(REG_ADDR, val)
+    self.write_reg(REG_MISC, val)
 
   def test_read(self):
     '''Test READ operation'''
