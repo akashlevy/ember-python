@@ -154,4 +154,4 @@ class EMBERDriver(object):
 #
 if __name__ == '__main__':
   with EMBERDriver("config.json") as ember:
-    print("Received:", "{0:160b}".format(ember.read_reg(31)))
+    print("Received:", "{0:0160b}".format(ember.read_reg(31)))
