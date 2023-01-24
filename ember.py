@@ -55,8 +55,8 @@ class EMBERDriver(object):
 
     # Create GPIO driver
     GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
-    GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
+    #GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
+    #GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
       
   def close(self):
     '''Close all drivers'''
