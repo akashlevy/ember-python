@@ -4,8 +4,8 @@ import json
 # Import spidev library
 from spidev import SpiDev
 
-# Import GPIO library
-import RPi.GPIO as GPIO
+# # Import GPIO library
+# import RPi.GPIO as GPIO
 
 # Pin mappings
 RRAM_BUSY_PIN = 16
@@ -53,15 +53,15 @@ class EMBERDriver(object):
       else:
         raise Exception("No SPI connection detected:", val)
 
-    # Create GPIO driver
-    #GPIO.setmode(GPIO.BOARD)
-    #GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
-    #GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
+    # # Create GPIO driver
+    # GPIO.setmode(GPIO.BOARD)
+    # GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
+    # GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
       
   def close(self):
     '''Close all drivers'''
     self.spi.close()
-    #GPIO.cleanup()
+    # GPIO.cleanup()
   
   def __enter__(self):
     '''Enter to use 'with' construct in python'''
