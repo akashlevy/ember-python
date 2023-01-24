@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Don't include dummy files
+RPi.py
+spidev.py
