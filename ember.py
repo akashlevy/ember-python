@@ -98,7 +98,7 @@ class EMBERDriver(object):
     print(val)
 
     # Write to address register
-    self.write_reg(REG_MISC, val)
+    self.write_reg(REG_ADDR, val)
 
   def test_read(self):
     '''Test READ operation'''
@@ -159,8 +159,8 @@ class EMBERDriver(object):
 # TOP-LEVEL EXAMPLE
 #
 if __name__ == '__main__':
-  with EMBERDriver("config.json", False) as ember:
-    # print("Received:", "{0:0160b}".format(ember.read_reg(REG_RAM)))
+  with EMBERDriver("config.json") as ember:
+    print("Received:", "{0:0160b}".format(ember.read_reg(REG_RAM)))
     print("Write to address register...", 16)
     ember.set_addr(16)
     print("Read from address register...", ember.read_reg(REG_ADDR))
