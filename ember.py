@@ -95,6 +95,7 @@ class EMBERDriver(object):
 
     # Get register value to program
     val = (addr_step << 32) | (addr_stop << 16) | addr_start
+    print(val)
 
     # Write to address register
     self.write_reg(REG_ADDR, val)
@@ -151,6 +152,7 @@ class EMBERDriver(object):
     msg = (1 << 167) | (reg << 162) | (val << 2)
 
     # Transfer message and print bytes received on mosi
+    print(list(bytearray(msg.to_bytes(21, "big"))))
     self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))))
 
 #
