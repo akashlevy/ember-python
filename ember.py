@@ -133,7 +133,7 @@ class EMBERDriver(object):
     msg = reg << 162
 
     # Transfer message and print bytes received on mosi
-    return int.from_bytes(self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))))[:20], "big")
+    return int.from_bytes(self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))))[:-20], "big")
 
   def write_reg(self, reg, val):
     '''Write val to register reg'''
