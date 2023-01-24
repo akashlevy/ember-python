@@ -5,7 +5,7 @@ import json
 from spidev import SpiDev
 
 # Import GPIO library
-from RPi import GPIO
+import RPi.GPIO as GPIO
 
 # Pin mappings
 RRAM_BUSY_PIN = 24
@@ -154,4 +154,4 @@ class EMBERDriver(object):
 #
 if __name__ == '__main__':
   with EMBERDriver("config.json") as ember:
-    print("Received: %160b" % ember.read_reg(31))
+    print("Received:", "{160:b}".format(ember.read_reg(31)))
