@@ -148,12 +148,12 @@ class EMBERDriver(object):
     # Assert that val is an int
     assert(isinstance(val, int))
 
-    # Message to read from register
+    # Message to write to register
     msg = (1 << 167) | (reg << 162) | (val << 2)
 
     # Transfer message and print bytes received on mosi
-    print(list(bytearray(msg.to_bytes(21, "big"))))
-    self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))))
+    print(list(bytearray(msg.to_bytes(22, "big"))))
+    self.spi.xfer(list(bytearray(msg.to_bytes(22, "big"))))
 
 #
 # TOP-LEVEL EXAMPLE
