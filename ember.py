@@ -111,13 +111,13 @@ class EMBERDriver(object):
     '''Read FSM state register when mclk is paused'''
     return self.read_reg(REG_STATE)
 
-  '''Write to programming configuration register'''
   def write_prog_cfg_bits(self, rangei, prog):
+    '''Write to programming configuration register'''
     # TODO
     self.write_reg(rangei, prog)
-
-  '''Write to miscellaneous configuration register'''
+  
   def write_misc_cfg_bits(self, misc):
+    '''Write to miscellaneous configuration register'''
     # TODO
     self.write_reg(REG_MISC, misc)
 
@@ -155,3 +155,4 @@ class EMBERDriver(object):
 if __name__ == '__main__':
   with EMBERDriver("config.json") as ember:
     print("Received:", "{0:0160b}".format(ember.read_reg(31)))
+    print("Test READ:", ember.test_read())
