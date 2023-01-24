@@ -19,6 +19,7 @@ REG_CMD = 22
 REG_STATE = 23
 REG_DIAG = 24
 REG_READ = 25
+REG_RAM = 31
 
 # FSM opcodes
 OP_TEST_PULSE = 0
@@ -57,11 +58,13 @@ class EMBERDriver(object):
     # GPIO.setmode(GPIO.BOARD)
     # GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
     # GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
+    pass
       
   def close(self):
     '''Close all drivers'''
     self.spi.close()
     # GPIO.cleanup()
+    pass
   
   def __enter__(self):
     '''Enter to use 'with' construct in python'''
@@ -76,6 +79,7 @@ class EMBERDriver(object):
   #
   def configure(self, settings):
     '''Write all settings'''
+    # TODO
     pass
 
   def set_addr(self, addr_start, addr_stop=None, addr_step=1):
@@ -154,5 +158,7 @@ class EMBERDriver(object):
 #
 if __name__ == '__main__':
   with EMBERDriver("config.json") as ember:
-    print("Received:", "{0:0160b}".format(ember.read_reg(31)))
-    print("Test READ:", ember.test_read())
+    print("Received:", "{0:0160b}".format(ember.read_reg(REG_RAM)))
+    print("Write to address register...", ember.set_addr(16))
+    print("Read from address register...", ember.read_reg(REG_ADDR))
+    #print("Test READ:", ember.test_read())
