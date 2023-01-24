@@ -133,7 +133,7 @@ class EMBERDriver(object):
     msg = reg << 162
 
     # Transfer message and print bytes received on mosi
-    return int.from_bytes(self.spi.xfer(list(bytearray(msg.to_bytes(21, "big")))), "big")
+    return int.from_bytes(self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))))[1:], "big")
 
   def write_reg(self, reg, val):
     '''Write val to register reg'''
@@ -154,4 +154,4 @@ class EMBERDriver(object):
 #
 if __name__ == '__main__':
   with EMBERDriver("config.json") as ember:
-    print("Received:", "{160:b}".format(ember.read_reg(31)))
+    print("Received:", "{0:160b}".format(ember.read_reg(31)))
