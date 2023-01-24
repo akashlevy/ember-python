@@ -152,8 +152,8 @@ class EMBERDriver(object):
     msg = (1 << 167) | (reg << 162) | (val << 2)
 
     # Transfer message and print bytes received on mosi
-    print(list(bytearray(msg.to_bytes(21, "big"))).append(0))
-    self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))).append(0))
+    print(list(bytearray(msg.to_bytes(21, "big"))) + [0])
+    self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
 
 #
 # TOP-LEVEL EXAMPLE
