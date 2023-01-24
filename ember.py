@@ -8,8 +8,8 @@ from spidev import SpiDev
 import RPi.GPIO as GPIO
 
 # Pin mappings
-RRAM_BUSY_PIN = 24
-MCLK_PAUSE_PIN = 25
+RRAM_BUSY_PIN = 16
+MCLK_PAUSE_PIN = 18
 
 # Register indices
 REG_MISC = 16
