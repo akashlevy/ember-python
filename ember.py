@@ -163,6 +163,7 @@ class EMBERDriver(object):
     self.spi.close()
     self.mlogfile.close()
     self.plogfile.close()
+    GPIO.cleanup()
     pass
 
   #
