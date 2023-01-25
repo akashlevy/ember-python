@@ -23,6 +23,7 @@ REG_CMD = 22
 REG_STATE = 23
 REG_DIAG = 24
 REG_READ = 25
+REG_NONE = 30
 REG_RAM = 31
 
 # FSM opcodes
@@ -265,14 +266,11 @@ class EMBERDriver(object):
     """Perform a SET operation."""
     # Get parameters
     self.settings["set_first"] = 1
-    self.settings["di_init_mask"] = self.settings["di_init_mask"] if mask is None else mask
-    self.settings["wl_dac_set_lvl_cycle"] = self.settings["wl_dac_set_lvl_cycle"] if vwl is None else vwl
-    self.settings["bl_dac_set_lvl_cycle"] = self.settings["bl_dac_set_lvl_cycle"] if vbl is None else vbl
+    mask = self.settings["di_init_mask"] = self.settings["di_init_mask"] if mask is None else mask
+    vwl = self.settings["wl_dac_set_lvl_cycle"] = self.settings["wl_dac_set_lvl_cycle"] if vwl is None else vwl
+    vbl = self.settings["bl_dac_set_lvl_cycle"] = self.settings["bl_dac_set_lvl_cycle"] if vbl is None else vbl
     self.settings["pw_set_cycle_exp"] = self.settings["pw_set_cycle_exp"] if pw_exp is None else pw_exp
     self.settings["pw_set_cycle_mantissa"] = self.settings["pw_set_cycle_mantissa"] if pw_mantissa is None else pw_mantissa
-    mask = self.settings["di_init_mask"]
-    vwl = self.settings["wl_dac_set_lvl_cycle"]
-    vbl = self.settings["bl_dac_set_lvl_cycle"]
     pw = self.settings["pw_set_cycle_mantissa"] << self.settings["pw_set_cycle_exp"]
 
     # Increment the number of SETs
@@ -292,14 +290,11 @@ class EMBERDriver(object):
     """Perform a RESET operation."""
     # Get parameters
     self.settings["set_first"] = 0
-    self.settings["di_init_mask"] = self.settings["di_init_mask"] if mask is None else mask
-    self.settings["wl_dac_rst_lvl_cycle"] = self.settings["wl_dac_rst_lvl_cycle"] if vwl is None else vwl
-    self.settings["sl_dac_rst_lvl_cycle"] = self.settings["sl_dac_rst_lvl_cycle"] if vsl is None else vsl
+    mask = self.settings["di_init_mask"] = self.settings["di_init_mask"] if mask is None else mask
+    vwl = self.settings["wl_dac_rst_lvl_cycle"] = self.settings["wl_dac_rst_lvl_cycle"] if vwl is None else vwl
+    vsl = self.settings["sl_dac_rst_lvl_cycle"] = self.settings["sl_dac_rst_lvl_cycle"] if vsl is None else vsl
     self.settings["pw_rst_cycle_exp"] = self.settings["pw_rst_cycle_exp"] if pw_exp is None else pw_exp
     self.settings["pw_rst_cycle_mantissa"] = self.settings["pw_rst_cycle_mantissa"] if pw_mantissa is None else pw_mantissa
-    mask = self.settings["di_init_mask"]
-    vwl = self.settings["wl_dac_rst_lvl_cycle"]
-    vsl = self.settings["sl_dac_rst_lvl_cycle"]
     pw = self.settings["pw_rst_cycle_mantissa"] << self.settings["pw_rst_cycle_exp"]
 
     # Increment the number of SETs
@@ -447,7 +442,8 @@ class EMBERDriver(object):
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
     while GPIO.input(RRAM_BUSY_PIN):
-      pass
+      # Write to dummy register to keep sclk going
+      self.write_reg(REG_NONE, 0)
 
   def pause_mclk(self):
     """Pause main clock"""
@@ -462,4 +458,14 @@ class EMBERDriver(object):
 #
 if __name__ == "__main__":
   with EMBERDriver("CHIP1", "config.json", test_conn=False) as ember:
-    ember.single_read()
+    for addr in range(48):
+      ember.set_addr(addr)
+      if addr % 2 == 0:
+        ember.set_pulse(0x555555555555)
+      else:
+        ember.set_pulse(0xaaaaaaaaaaaa)
+    reads = []
+    for addr in range(48):
+      ember.set_addr(addr)
+      reads.append(ember.single_read())
+    print(reads)
