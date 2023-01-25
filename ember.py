@@ -115,7 +115,8 @@ class EMBERDriver(object):
     # Load settings
     self.debug = debug
     if isinstance(settings, str):
-      self.settings = json.load(open(settings))
+      with open(settings) as settingsf:
+        self.settings = json.load(settingsf)
       self.level_settings = self.settings["level_settings"]
     self.last_misc, self.last_prog = None, None
 
