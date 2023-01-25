@@ -3,7 +3,6 @@ import json, time, warnings
 from math import ceil, log2
 
 # Import external libraries
-import numpy as np
 import RPIO
 from spidev import SpiDev
 
@@ -162,7 +161,6 @@ class EMBERDriver(object):
     self.spi.close()
     self.mlogfile.close()
     self.plogfile.close()
-    # GPIO.cleanup()
     pass
 
   #
@@ -217,8 +215,8 @@ class EMBERDriver(object):
         mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
 
         # Loop through pulse magnitude
-        for vwl in np.arange(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"], s["wl_dac_set_lvl_step"]):
-          for vbl in np.arange(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"], s["bl_dac_set_lvl_step"]):
+        for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"], s["wl_dac_set_lvl_step"]):
+          for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"], s["bl_dac_set_lvl_step"]):
             # Mask bits below threshold according to READ value
             mask &= self.single_read(i, "upper_write", mask)
             
@@ -238,8 +236,8 @@ class EMBERDriver(object):
         mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
 
         # Loop through pulse magnitude
-        for vwl in np.arange(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"], s["wl_dac_rst_lvl_step"]):
-          for vsl in np.arange(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"], s["sl_dac_rst_lvl_step"]):
+        for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"], s["wl_dac_rst_lvl_step"]):
+          for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"], s["sl_dac_rst_lvl_step"]):
             # Mask bits according to READ value
             mask &= (~self.single_read(i, "lower_write", mask) & 0xFFFFFFFFFFFF)
 
