@@ -164,7 +164,6 @@ class EMBERDriver(object):
     self.mlogfile.close()
     self.plogfile.close()
     GPIO.cleanup()
-    pass
 
   #
   # HIGH LEVEL OPERATIONS
@@ -424,6 +423,8 @@ class EMBERDriver(object):
     if self.debug:
       print("Read", val, "from reg", reg)
 
+    time.sleep(0.1)
+
     # Return value
     return val
 
@@ -445,6 +446,8 @@ class EMBERDriver(object):
 
     # Transfer message to write register
     self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
+
+    time.sleep(0.1)
 
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
