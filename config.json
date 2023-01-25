@@ -26,7 +26,7 @@
 
   "pw_set_cycle_exp" : 0,
   "pw_set_cycle_mantissa" : 10,
-  "wl_dac_set_lvl_cycle" : 100,
+  "wl_dac_set_lvl_cycle" : 150,
   "bl_dac_set_lvl_cycle" : 31,
 
   "num_levels" : 3,
