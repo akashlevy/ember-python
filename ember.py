@@ -114,6 +114,7 @@ class EMBERDriver(object):
   def __init__(self, chip, settings, test_conn=True, debug=True):
     """Initialize and configure SPI/GPIO interfaces"""
     # Load settings
+    self.addr = 0
     self.chip = chip
     self.debug = debug
     if isinstance(settings, str):
@@ -369,6 +370,9 @@ class EMBERDriver(object):
 
     # Write to address register
     self.write_reg(REG_ADDR, val)
+
+    # Update address field
+    self.addr = addr_start
 
   def single_read(self, level=0, ref="upper_read", mask=None):
     """Test READ operation"""
