@@ -470,6 +470,7 @@ if __name__ == "__main__":
     ember.unpause_mclk()
     for addr in range(48):
       ember.set_addr(addr)
+      ember.read_reg(REG_ADDR)
       if addr % 2 == 0:
         ember.set_pulse(mask=0x555555555555)
       else:
@@ -477,6 +478,7 @@ if __name__ == "__main__":
     reads = []
     for addr in range(48):
       ember.set_addr(addr)
+      ember.read_reg(REG_ADDR)
       reads.append(ember.single_read())
     for num in reads:
       print("{0:048b}".format(num))
