@@ -467,3 +467,4 @@ if __name__ == "__main__":
     ember.read_reg(1)
     ember.read_reg(2)
     ember.read_reg(3)
+    ember.single_read()
