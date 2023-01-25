@@ -476,7 +476,7 @@ if __name__ == "__main__":
     #   else:
     #     ember.set_pulse(mask=0xaaaaaaaaaaaa)
     reads = []
-    for addr in range(48):
+    for addr in range(96):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       reads.append(ember.single_read())
