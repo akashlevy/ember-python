@@ -196,6 +196,8 @@ class EMBERDriver(object):
       data = [int(''.join(d), base=2) for d in data] # convert from binary to array of ints
       return data
 
+
+# TODO: SET MAKES CONDUCTANCE HIGHER
   def write(self, data):
     """Perform write-verify"""
     # Verify that data is int or valid int array and convert to int array
