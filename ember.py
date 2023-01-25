@@ -470,16 +470,17 @@ if __name__ == "__main__":
     # Enable activity in chip
     ember.unpause_mclk()
 
-    # Write checkerboard
+    # Form in checkerboard
     for addr in range(48):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
-      if addr % 2 == 0:
-        #ember.set_pulse(mask=0x555555555555)
-        ember.set_pulse(mask=0x1)
-      else:
-        #ember.set_pulse(mask=0xaaaaaaaaaaaa)
-        ember.set_pulse(mask=0x2)
+      if ember.single_read() == 0:
+        if addr % 2 == 0:
+          #ember.set_pulse(mask=0x555555555555)
+          ember.set_pulse(mask=0x1)
+        else:
+          #ember.set_pulse(mask=0xaaaaaaaaaaaa)
+          ember.set_pulse(mask=0x2)
 
     # Read checkerboard and following cells
     reads = []
