@@ -467,7 +467,7 @@ class EMBERDriver(object):
 #
 if __name__ == "__main__":
   with EMBERDriver("CHIP1", "config.json", test_conn=True) as ember:
-    ember.unpause_mclk()
+    ember.pause_mclk()
     # for addr in range(48):
     #   ember.set_addr(addr)
     #   if addr % 2 == 0:
