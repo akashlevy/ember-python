@@ -478,4 +478,5 @@ if __name__ == "__main__":
     for addr in range(48):
       ember.set_addr(addr)
       reads.append(ember.single_read())
-    print(reads)
+    for num in reads:
+      print("{0:048b}".format(num))
