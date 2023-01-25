@@ -24,7 +24,7 @@
   "wl_dac_rst_lvl_cycle" : 0,
   "sl_dac_rst_lvl_cycle" : 0,
 
-  "pw_set_cycle_exp" : 0,
+  "pw_set_cycle_exp" : 3,
   "pw_set_cycle_mantissa" : 31,
   "wl_dac_set_lvl_cycle" : 250,
   "bl_dac_set_lvl_cycle" : 31,
