@@ -467,15 +467,15 @@ class EMBERDriver(object):
 #
 if __name__ == "__main__":
   with EMBERDriver("CHIP1", "config.json", test_conn=True) as ember:
-    ember.pause_mclk()
-    # for addr in range(48):
-    #   ember.set_addr(addr)
-    #   if addr % 2 == 0:
-    #     ember.set_pulse(mask=0x555555555555)
-    #   else:
-    #     ember.set_pulse(mask=0xaaaaaaaaaaaa)
-    # reads = []
-    # for addr in range(48):
-    #   ember.set_addr(addr)
-    #   reads.append(ember.single_read())
-    # print(reads)
+    ember.unpause_mclk()
+    for addr in range(48):
+      ember.set_addr(addr)
+      if addr % 2 == 0:
+        ember.set_pulse(mask=0x555555555555)
+      else:
+        ember.set_pulse(mask=0xaaaaaaaaaaaa)
+    reads = []
+    for addr in range(48):
+      ember.set_addr(addr)
+      reads.append(ember.single_read())
+    print(reads)
