@@ -475,9 +475,11 @@ if __name__ == "__main__":
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       if addr % 2 == 0:
-        ember.set_pulse(mask=0x555555555555)
+        #ember.set_pulse(mask=0x555555555555)
+        ember.set_pulse(mask=0x1)
       else:
-        ember.set_pulse(mask=0xaaaaaaaaaaaa)
+        #ember.set_pulse(mask=0xaaaaaaaaaaaa)
+        ember.set_pulse(mask=0x2)
 
     # Read checkerboard and following cells
     reads = []
