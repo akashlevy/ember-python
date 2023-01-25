@@ -417,7 +417,7 @@ class EMBERDriver(object):
     msg = reg << 162
 
     # Transfer message and collect miso values to read register
-    val = int.from_bytes(self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))))[1:], "big")
+    val = int.from_bytes(self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])[1:-1], "big")
 
     # Debug print out
     if self.debug:
@@ -442,7 +442,7 @@ class EMBERDriver(object):
       print("Write", val, "to reg", reg)
 
     # Transfer message to write register
-    self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0, 0])
+    self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
 
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
