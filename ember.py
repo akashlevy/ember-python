@@ -114,10 +114,11 @@ class EMBERDriver(object):
   def __init__(self, chip, settings, test_conn=True, debug=True):
     """Initialize and configure SPI/GPIO interfaces"""
     # Load settings
+    self.chip = chip
     self.debug = debug
     if isinstance(settings, str):
-      with open(settings) as settingsf:
-        self.settings = json.load(settingsf)
+      with open(settings) as settings_file:
+        self.settings = json.load(settings_file)
       self.level_settings = self.settings["level_settings"]
     self.last_misc, self.last_prog = None, None
 
