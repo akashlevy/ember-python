@@ -472,6 +472,15 @@ if __name__ == "__main__":
     # Enable activity in chip
     ember.unpause_mclk()
 
+    # Pre-read
+    reads = []
+    for addr in range(128, 176):
+      ember.set_addr(addr)
+      ember.read_reg(REG_ADDR)
+      reads.append(ember.single_read())
+    for num in reads:
+      print("{0:048b}".format(num))
+
     # Form in checkerboard
     for addr in range(128, 176):
       ember.set_addr(addr)
