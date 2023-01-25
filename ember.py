@@ -461,10 +461,5 @@ class EMBERDriver(object):
 # TOP-LEVEL EXAMPLE
 #
 if __name__ == "__main__":
-  with EMBERDriver("CHIP1", "config.json") as ember:
-    ember.read_reg(16)
-    ember.read_reg(0)
-    ember.read_reg(1)
-    ember.read_reg(2)
-    ember.read_reg(3)
+  with EMBERDriver("CHIP1", "config.json", test_conn=False) as ember:
     ember.single_read()
