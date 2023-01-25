@@ -51,13 +51,13 @@ MISC_FIELDS = [
 
   ("set_first", 1),
 
-  ("pw_rst_exp", 3),
-  ("pw_rst_mantissa", 5),
+  ("pw_rst_cycle_exp", 3),
+  ("pw_rst_cycle_mantissa", 5),
   ("wl_dac_rst_lvl_cycle", 8),
   ("sl_dac_rst_lvl_cycle", 5),
 
-  ("pw_set_exp", 3),
-  ("pw_set_mantissa", 5),
+  ("pw_set_cycle_exp", 3),
+  ("pw_set_cycle_mantissa", 5),
   ("wl_dac_set_lvl_cycle", 8),
   ("bl_dac_set_lvl_cycle", 5),
 
@@ -113,13 +113,12 @@ class EMBERDriver(object):
   """Class to interface with EMBER chip"""
   def __init__(self, chip, settings, test_conn=True, debug=True):
     """Initialize and configure SPI/GPIO interfaces"""
-    # Load and configure settings
+    # Load settings
     self.debug = debug
     if isinstance(settings, str):
       self.settings = json.load(open(settings))
       self.level_settings = self.settings["level_settings"]
-    self.last_misc = None
-    self.configure(self.settings)
+    self.last_misc, self.last_prog = None, None
 
     # Create SPI device
     self.spi = SpiDev()
@@ -128,13 +127,6 @@ class EMBERDriver(object):
     self.spi.max_speed_hz = self.settings["spi_freq"]
     self.spi.mode = 1
 
-    # Initialize profiling
-    self.prof = {"READs": 0, "SETs": 0, "RESETs": 0, "CELL_READs": 0, "CELL_SETs": 0, "CELL_RESETs": 0}
-
-    # Initialize RRAM logging
-    self.mlogfile = open(settings["master_log_file"], "a")
-    self.plogfile = open(settings["prog_log_file"], "a")
-
     # Test connection
     if test_conn:
       val = self.read_reg(31)
@@ -142,6 +134,16 @@ class EMBERDriver(object):
         print("SPI connection detected!")
       else:
         raise EMBERException("No SPI connection detected:", val)
+
+    # Commit settings
+    self.commit_settings()
+
+    # Initialize profiling
+    self.prof = {"READs": 0, "SETs": 0, "RESETs": 0, "CELL_READs": 0, "CELL_SETs": 0, "CELL_RESETs": 0}
+
+    # Initialize RRAM logging
+    self.mlogfile = open(self.settings["master_log_file"], "a")
+    self.plogfile = open(self.settings["prog_log_file"], "a")
     
     # Set up Raspberry Pi IO (RPIO) driver
     RPIO.setup(RRAM_BUSY_PIN, RPIO.IN)
@@ -331,14 +333,14 @@ class EMBERDriver(object):
 
     # Write to level setting registers
     num_levels = (self.settings["num_levels"] + 15) % 16 + 1 # when num_levels=0, interpret as num_levels=16
-    assert(num_levels >= len(num_levels))
+    assert(num_levels >= len(self.settings["level_settings"]))
     for rangei in range(num_levels):
       # Skip if level setting is unchanged from previous commit
       try:
         if self.settings["level_settings"][rangei] == self.last_prog[rangei]:
           continue
-      except IndexError:
-        continue
+      except (TypeError, IndexError):
+        pass
 
       # Determine value of programming register
       prog = 0
@@ -349,7 +351,7 @@ class EMBERDriver(object):
       self.write_reg(rangei, prog)
     
     # Remember last set of level settings
-    self.last_prog = self.prog.copy()
+    self.last_prog = self.settings["level_settings"]
     
   def set_addr(self, addr_start, addr_stop=None, addr_step=1):
     """Set address"""
@@ -389,8 +391,12 @@ class EMBERDriver(object):
       raise EMBERException("Invalid read ref:", ref)
     
     # Set mask appropriately
-    self.settings["di_init_mask"] = mask if mask is not None else self.settings["di_init_mask"]
+    mask = self.settings["di_init_mask"] = mask if mask is not None else self.settings["di_init_mask"]
     self.commit_settings()
+
+    # Increment the number of SETs
+    self.prof["SETs"] += 1
+    self.prof["CELL_SETs"] += bin(mask).count("1")
 
     # Execute test READ operation
     self.write_reg(REG_CMD, OP_TEST_READ)
@@ -457,11 +463,11 @@ class EMBERDriver(object):
 # TOP-LEVEL EXAMPLE
 #
 if __name__ == "__main__":
-  with EMBERDriver("config.json") as ember:
+  with EMBERDriver("CHIP1", "config.json") as ember:
     print("Received:", "{0:0160b}".format(ember.read_reg(REG_RAM)))
     print("Write to address register...", 16)
     ember.set_addr(16)
     print("Read from address register...", ember.read_reg(REG_ADDR))
-    print("Test READ:", ember.test_read())
+    print("Test READ:", ember.single_read())
     print("PROG WIDTH:", sum([field[1] for field in PROG_FIELDS]))
     print("MISC WIDTH:", sum([field[1] for field in MISC_FIELDS]))
