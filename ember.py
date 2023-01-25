@@ -440,10 +440,9 @@ class EMBERDriver(object):
     # Debug print out
     if self.debug:
       print("Write", val, "to reg", reg)
-      print(list(bytearray(msg.to_bytes(21, "big"))) + [0])
 
     # Transfer message to write register
-    self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
+    self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0, 0])
 
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
