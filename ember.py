@@ -315,7 +315,11 @@ class EMBERDriver(object):
     # Determine value of miscellaneous register
     misc = 0
     for field, width in MISC_FIELDS:
-      assert(self.settings[field] >= 0 and self.settings[field] < 2**width)
+      try:
+        assert(self.settings[field] >= 0 and self.settings[field] < 2**width)
+      except AssertionError as e:
+        print("Field, width:", self.settings[field], width)
+        raise e
       misc <<= width
       misc |= self.settings[field]
     
