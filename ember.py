@@ -196,8 +196,6 @@ class EMBERDriver(object):
       data = [int(''.join(d), base=2) for d in data] # convert from binary to array of ints
       return data
 
-
-# TODO: SET MAKES CONDUCTANCE HIGHER
   def write(self, data):
     """Perform write-verify"""
     # Verify that data is int or valid int array and convert to int array
@@ -225,7 +223,7 @@ class EMBERDriver(object):
         for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"], s["wl_dac_set_lvl_step"]):
           for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"], s["bl_dac_set_lvl_step"]):
             # Mask bits below threshold according to READ value
-            mask &= self.single_read(i, "upper_write", mask)
+            mask &= (~self.single_read(i, "lower_write", mask) & 0xFFFFFFFFFFFF)
             
             # If fully masked, do not apply pulse
             if mask == 0:
@@ -234,7 +232,7 @@ class EMBERDriver(object):
                 break
             # If not fully masked, apply SET pulse to unmasked bits
             else:
-              self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"])
+              self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
         
         #
         # RESET loop
@@ -246,7 +244,7 @@ class EMBERDriver(object):
         for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"], s["wl_dac_rst_lvl_step"]):
           for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"], s["sl_dac_rst_lvl_step"]):
             # Mask bits according to READ value
-            mask &= (~self.single_read(i, "lower_write", mask) & 0xFFFFFFFFFFFF)
+            mask &= self.single_read(i, "upper_write", mask)
 
             # If fully masked, do not apply pulse
             if (mask == 0):
@@ -255,7 +253,7 @@ class EMBERDriver(object):
                 break
             # If not fully masked, apply RESET pulse to unmasked bits
             else:
-              self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"])
+              self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
 
   def cycle(self):
     """CYCLE operation"""
@@ -400,9 +398,9 @@ class EMBERDriver(object):
     mask = self.settings["di_init_mask"] = mask if mask is not None else self.settings["di_init_mask"]
     self.commit_settings()
 
-    # Increment the number of SETs
-    self.prof["SETs"] += 1
-    self.prof["CELL_SETs"] += bin(mask).count("1")
+    # Increment the number of READs
+    self.prof["READs"] += 1
+    self.prof["CELL_READs"] += bin(mask).count("1")
 
     # Execute test READ operation
     self.write_reg(REG_CMD, OP_TEST_READ)
@@ -453,16 +451,18 @@ class EMBERDriver(object):
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
     while GPIO.input(RRAM_BUSY_PIN):
-      # Write to dummy register to keep sclk going
+      # Write to dummy register to keep sclk going (TODO: transfer one byte instead)        
       self.write_reg(REG_NONE, 0)
 
-  def pause_mclk(self):
+  def pause_mclk(self, delay=0):
     """Pause main clock"""
     GPIO.output(MCLK_PAUSE_PIN, True)
+    time.sleep(delay)
 
-  def unpause_mclk(self):
+  def unpause_mclk(self, delay=0):
     """Unpause main clock"""
     GPIO.output(MCLK_PAUSE_PIN, False)
+    time.sleep(delay)
     
 #
 # TOP-LEVEL EXAMPLE
