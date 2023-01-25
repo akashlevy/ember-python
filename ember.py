@@ -467,14 +467,19 @@ class EMBERDriver(object):
 #
 if __name__ == "__main__":
   with EMBERDriver("CHIP1", "config.json", test_conn=True) as ember:
+    # Enable activity in chip
     ember.unpause_mclk()
-    # for addr in range(48):
-    #   ember.set_addr(addr)
-    #   ember.read_reg(REG_ADDR)
-    #   if addr % 2 == 0:
-    #     ember.set_pulse(mask=0x555555555555)
-    #   else:
-    #     ember.set_pulse(mask=0xaaaaaaaaaaaa)
+
+    # Write checkerboard
+    for addr in range(48):
+      ember.set_addr(addr)
+      ember.read_reg(REG_ADDR)
+      if addr % 2 == 0:
+        ember.set_pulse(mask=0x555555555555)
+      else:
+        ember.set_pulse(mask=0xaaaaaaaaaaaa)
+
+    # Read checkerboard and following cells
     reads = []
     for addr in range(96):
       ember.set_addr(addr)
