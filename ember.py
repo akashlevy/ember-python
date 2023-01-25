@@ -3,7 +3,7 @@ import json, time, warnings
 from math import ceil, log2
 
 # Import external libraries
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 from spidev import SpiDev
 
 
@@ -145,10 +145,10 @@ class EMBERDriver(object):
     self.mlogfile = open(self.settings["master_log_file"], "a")
     self.plogfile = open(self.settings["prog_log_file"], "a")
     
-    # Set up Raspberry Pi GPIO driver
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
-    GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
+    # # Set up Raspberry Pi GPIO driver
+    # GPIO.setmode(GPIO.BCM)
+    # GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
+    # GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
       
   def __enter__(self):
     """Enter to use "with" construct in python"""
@@ -163,7 +163,7 @@ class EMBERDriver(object):
     self.spi.close()
     self.mlogfile.close()
     self.plogfile.close()
-    GPIO.cleanup()
+    # GPIO.cleanup()
 
   #
   # HIGH LEVEL OPERATIONS
@@ -423,8 +423,6 @@ class EMBERDriver(object):
     if self.debug:
       print("Read", val, "from reg", reg)
 
-    time.sleep(0.1)
-
     # Return value
     return val
 
@@ -446,8 +444,6 @@ class EMBERDriver(object):
 
     # Transfer message to write register
     self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
-
-    time.sleep(0.1)
 
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
