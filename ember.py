@@ -462,4 +462,8 @@ class EMBERDriver(object):
 #
 if __name__ == "__main__":
   with EMBERDriver("CHIP1", "config.json") as ember:
-    pass
+    ember.read_reg(16)
+    ember.read_reg(0)
+    ember.read_reg(1)
+    ember.read_reg(2)
+    ember.read_reg(3)
