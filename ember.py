@@ -466,7 +466,7 @@ class EMBERDriver(object):
 # TOP-LEVEL EXAMPLE
 #
 if __name__ == "__main__":
-  with EMBERDriver("CHIP1", "config.json", test_conn=False) as ember:
+  with EMBERDriver("CHIP1", "config.json", test_conn=True) as ember:
     ember.unpause_mclk()
     # for addr in range(48):
     #   ember.set_addr(addr)
