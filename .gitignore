@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 
 # Don't include dummy files
-RPIO.py
+RPi/*
 spidev.py

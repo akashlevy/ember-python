@@ -3,7 +3,7 @@ import json, time, warnings
 from math import ceil, log2
 
 # Import external libraries
-import RPIO
+import RPi.GPIO as GPIO
 from spidev import SpiDev
 
 
@@ -144,9 +144,10 @@ class EMBERDriver(object):
     self.mlogfile = open(self.settings["master_log_file"], "a")
     self.plogfile = open(self.settings["prog_log_file"], "a")
     
-    # Set up Raspberry Pi IO (RPIO) driver
-    RPIO.setup(RRAM_BUSY_PIN, RPIO.IN)
-    RPIO.setup(MCLK_PAUSE_PIN, RPIO.OUT)
+    # Set up Raspberry Pi GPIO driver
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
+    GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
       
   def __enter__(self):
     """Enter to use "with" construct in python"""
@@ -446,16 +447,16 @@ class EMBERDriver(object):
 
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
-    while RPIO.input(RRAM_BUSY_PIN):
+    while GPIO.input(RRAM_BUSY_PIN):
       pass
 
   def pause_mclk(self):
     """Pause main clock"""
-    RPIO.output(MCLK_PAUSE_PIN, True)
+    GPIO.output(MCLK_PAUSE_PIN, True)
 
   def unpause_mclk(self):
     """Unpause main clock"""
-    RPIO.output(MCLK_PAUSE_PIN, False)
+    GPIO.output(MCLK_PAUSE_PIN, False)
     
 #
 # TOP-LEVEL EXAMPLE
