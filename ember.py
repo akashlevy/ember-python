@@ -133,7 +133,7 @@ class EMBERDriver(object):
       if val == 0x52414D:
         print("SPI connection detected!")
       else:
-        raise EMBERException("No SPI connection detected:", val)
+        raise EMBERException("No SPI connection detected: %s" % val)
 
     # Commit settings
     self.commit_settings()
@@ -388,7 +388,7 @@ class EMBERDriver(object):
     elif ref == "upper_write":
       self.settings["level_settings"][0]["adc_upper_read_ref_lvl"] = self.level_settings[level]["adc_upper_write_ref_lvl"]
     else:
-      raise EMBERException("Invalid read ref:", ref)
+      raise EMBERException("Invalid read ref: %s" % ref)
     
     # Set mask appropriately
     mask = self.settings["di_init_mask"] = mask if mask is not None else self.settings["di_init_mask"]
