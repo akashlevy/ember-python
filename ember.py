@@ -473,20 +473,20 @@ if __name__ == "__main__":
     ember.unpause_mclk()
 
     # Form in checkerboard
-    for addr in range(48):
+    for addr in range(128, 176):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       if ember.single_read() == 0:
         if addr % 2 == 0:
-          #ember.set_pulse(mask=0x555555555555)
-          ember.set_pulse(mask=0x4)
+          ember.set_pulse(mask=0x555555555555)
+          #ember.set_pulse(mask=0x4)
         else:
-          #ember.set_pulse(mask=0xaaaaaaaaaaaa)
-          ember.set_pulse(mask=0x2)
+          ember.set_pulse(mask=0xaaaaaaaaaaaa)
+          #ember.set_pulse(mask=0x2)
 
     # Read checkerboard and following cells
     reads = []
-    for addr in range(96):
+    for addr in range(128, 176):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       reads.append(ember.single_read())
