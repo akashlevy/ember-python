@@ -318,7 +318,6 @@ class EMBERDriver(object):
       try:
         assert(self.settings[field] >= 0 and self.settings[field] < 2**width)
       except AssertionError as e:
-        print(self.settings)
         print("Field, width, value:", field, width, self.settings[field])
         raise e
       misc <<= width
@@ -466,9 +465,9 @@ if __name__ == "__main__":
     for addr in range(48):
       ember.set_addr(addr)
       if addr % 2 == 0:
-        ember.set_pulse(0x555555555555)
+        ember.set_pulse(mask=0x555555555555)
       else:
-        ember.set_pulse(0xaaaaaaaaaaaa)
+        ember.set_pulse(mask=0xaaaaaaaaaaaa)
     reads = []
     for addr in range(48):
       ember.set_addr(addr)
