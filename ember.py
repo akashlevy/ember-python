@@ -164,9 +164,9 @@ class EMBERDriver(object):
   def close(self):
     """Close all drivers"""
     self.spi.close()
+    # GPIO.cleanup()
     self.mlogfile.close()
     self.plogfile.close()
-    GPIO.cleanup()
 
   #
   # HIGH LEVEL OPERATIONS
