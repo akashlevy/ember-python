@@ -3,7 +3,7 @@ import json, time, warnings
 from math import ceil, log2
 
 # Import external libraries
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 from spidev import SpiDev
 
 
@@ -145,10 +145,10 @@ class EMBERDriver(object):
     self.mlogfile = open(self.settings["master_log_file"], "a")
     self.plogfile = open(self.settings["prog_log_file"], "a")
     
-    # # Set up Raspberry Pi GPIO driver
-    # GPIO.setmode(GPIO.BCM)
-    # GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
-    # GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
+    # Set up Raspberry Pi GPIO driver
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
+    GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
       
   def __enter__(self):
     """Enter to use "with" construct in python"""
@@ -163,7 +163,7 @@ class EMBERDriver(object):
     self.spi.close()
     self.mlogfile.close()
     self.plogfile.close()
-    # GPIO.cleanup()
+    GPIO.cleanup()
 
   #
   # HIGH LEVEL OPERATIONS
@@ -462,8 +462,4 @@ class EMBERDriver(object):
 #
 if __name__ == "__main__":
   with EMBERDriver("CHIP1", "config.json") as ember:
-    ember.read_reg(16)
-    ember.read_reg(0)
-    ember.read_reg(1)
-    ember.read_reg(2)
-    ember.read_reg(3)
+    pass
