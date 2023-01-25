@@ -5,15 +5,15 @@
   "spi_freq" : 4000,
   "hispeed" : false,
 
-  "post_read_setup_cycles" : 4,
-  "step_write_setup_cycles" : 4,
-  "step_read_setup_cycles" : 4,
-  "write_to_init_read_setup_cycles" : 4,
-  "read_to_init_write_setup_cycles" : 4,
-  "idle_to_init_read_setup_cycles" : 4,
-  "idle_to_init_write_setup_cycles" : 4,
+  "post_read_setup_cycles" : 16,
+  "step_write_setup_cycles" : 16,
+  "step_read_setup_cycles" : 16,
+  "write_to_init_read_setup_cycles" : 16,
+  "read_to_init_write_setup_cycles" : 16,
+  "idle_to_init_read_setup_cycles" : 16,
+  "idle_to_init_write_setup_cycles" : 16,
 
-  "all_dacs_on" : 1,
+  "all_dacs_on" : 0,
   "ignore_failures" : 1,
   "di_init_mask" : 281474976710655,
 
