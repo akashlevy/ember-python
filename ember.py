@@ -106,7 +106,7 @@ PROG_FIELDS = [
 class EMBERException(Exception):
   """Exception produced by the EMBERDriver class"""
   def __init__(self, msg):
-      super().__init__("EMBERDriver: " + msg)
+      super().__init__(msg)
 
 class EMBERDriver(object):
   """Class to interface with EMBER chip"""
@@ -422,7 +422,6 @@ class EMBERDriver(object):
     # Debug print out
     if self.debug:
       print("Read", val, "from reg", reg)
-      print(list(bytearray(val.to_bytes(21, "big"))) + [0])
 
     # Return value
     return val
