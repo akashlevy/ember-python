@@ -107,7 +107,7 @@ PROG_FIELDS = [
 class EMBERException(Exception):
   """Exception produced by the EMBERDriver class"""
   def __init__(self, msg):
-      super().__init__(f"EMBERDriver: {msg}")
+      super().__init__("EMBERDriver: " + msg)
 
 class EMBERDriver(object):
   """Class to interface with EMBER chip"""
@@ -285,8 +285,8 @@ class EMBERDriver(object):
     self.wait_for_idle()
 
     # Log the pulse
-    self.mlogfile.write(f"{self.chip},{time.time()},{self.addr},")
-    self.mlogfile.write(f"SET,{mask},{vwl},{vbl},0,{pw}\n")
+    self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
+    self.mlogfile.write("SET,%s,%s,%s,0,%s\n" % (mask, vwl, vbl, pw))
 
   def reset_pulse(self, vwl=None, vsl=None, pw_exp=None, pw_mantissa=None, mask=None):
     """Perform a RESET operation."""
@@ -312,8 +312,8 @@ class EMBERDriver(object):
     self.wait_for_idle()
 
     # Log the pulse
-    self.mlogfile.write(f"{self.chip},{time.time()},{self.addr},")
-    self.mlogfile.write(f"RESET,{mask},{vwl},{vsl},0,{pw}\n")
+    self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
+    self.mlogfile.write("RESET,%s,%s,0,%s,%s\n" % (mask, vwl, vsl, pw))
 
   def commit_settings(self):
     """Write all settings"""
