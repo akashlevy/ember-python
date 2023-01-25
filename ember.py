@@ -318,6 +318,7 @@ class EMBERDriver(object):
       try:
         assert(self.settings[field] >= 0 and self.settings[field] < 2**width)
       except AssertionError as e:
+        print(self.settings)
         print("Field, width, value:", field, width, self.settings[field])
         raise e
       misc <<= width
