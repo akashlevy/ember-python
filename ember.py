@@ -561,6 +561,6 @@ if __name__ == "__main__":
     readstr = ""
     for num in reads:
       for cell in num:
-        read_str = read_str + "{0:02b} ".format(cell)
+        readstr = readstr + "{0:02b} ".format(cell)
       print(read_str)
     
