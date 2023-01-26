@@ -548,3 +548,19 @@ if __name__ == "__main__":
       reads.append(ember.single_read(mask=0xffffffffffff))
     for num in reads:
       print("{0:048b}".format(num))
+      
+      
+    
+    # multiple bit per cell read
+    # Read checkerboard and following cells
+    reads = []
+    for addr in range(range_start, range_stop):
+      ember.set_addr(addr)
+      ember.read_reg(REG_ADDR)
+      reads.append(ember.read())
+    readstr = ""
+    for num in reads:
+      for cell in num:
+        read_str = read_str + "{0:02b} ".format(cell)
+      print(read_str)
+    
