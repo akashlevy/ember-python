@@ -553,6 +553,7 @@ if __name__ == "__main__":
     
     # multiple bit per cell read
     # Read checkerboard and following cells
+    
     reads = []
     for addr in range(range_start, range_stop):
       ember.set_addr(addr)
