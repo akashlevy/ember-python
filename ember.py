@@ -561,5 +561,5 @@ if __name__ == "__main__":
       reads.append(ember.read())
     readstr = ""
     for num in reads:
-      print("{0:096b}".format(num))
+      print(num)
     
