@@ -472,8 +472,8 @@ if __name__ == "__main__":
     # Enable activity in chip
     ember.unpause_mclk()
     
-    range_start = 271
-    range_stop = 280
+    range_start = 500
+    range_stop = 520
 
     # Pre-read
     reads = []
