@@ -500,3 +500,29 @@ if __name__ == "__main__":
       reads.append(ember.single_read(mask=0xffffffffffff))
     for num in reads:
       print("{0:048b}".format(num))
+      
+    
+    # Go back and try to reset formed cells
+    
+    print('Now resetting...')
+    
+    for addr in range(200, 248):
+      ember.set_addr(addr)
+      ember.read_reg(REG_ADDR)
+      if addr % 2 == 0:
+        ember.reset_pulse(mask=0x555555555555)
+        # ember.set_pulse(mask=0x4)
+      else:
+        ember.reset_pulse(mask=0xaaaaaaaaaaaa)
+        # ember.set_pulse(mask=0x2)    
+
+    # Read reset cells
+    reads = []
+    for addr in range(200, 248):
+      ember.set_addr(addr)
+      ember.read_reg(REG_ADDR)
+      reads.append(ember.single_read(mask=0xffffffffffff))
+    for num in reads:
+      print("{0:048b}".format(num))     
+
+    
