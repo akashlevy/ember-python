@@ -471,10 +471,13 @@ if __name__ == "__main__":
   with EMBERDriver("CHIP1", "config.json", test_conn=True) as ember:
     # Enable activity in chip
     ember.unpause_mclk()
+    
+    range_start = 249
+    range_stop = 250
 
     # Pre-read
     reads = []
-    for addr in range(200, 248):
+    for addr in range(range_start, range_stop):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       reads.append(ember.single_read(mask=0xffffffffffff))
@@ -482,7 +485,7 @@ if __name__ == "__main__":
       print("{0:048b}".format(num))
 
     # Form in checkerboard
-    for addr in range(200, 248):
+    for addr in range(range_start, range_stop):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       if addr % 2 == 0:
@@ -494,7 +497,7 @@ if __name__ == "__main__":
 
     # Read checkerboard and following cells
     reads = []
-    for addr in range(200, 248):
+    for addr in range(range_start, range_stop):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       reads.append(ember.single_read(mask=0xffffffffffff))
@@ -506,7 +509,7 @@ if __name__ == "__main__":
     
     print('Now resetting...')
     
-    for addr in range(200, 248):
+    for addr in range(range_start, range_stop):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       if addr % 2 == 0:
@@ -518,7 +521,7 @@ if __name__ == "__main__":
 
     # Read reset cells
     reads = []
-    for addr in range(200, 248):
+    for addr in range(range_start, range_stop):
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       reads.append(ember.single_read(mask=0xffffffffffff))
