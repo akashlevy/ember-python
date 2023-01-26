@@ -562,4 +562,5 @@ if __name__ == "__main__":
     readstr = ""
     for num in reads:
       print(num)
+    print(ember.settings["num_levels"])
     
