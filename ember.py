@@ -483,7 +483,8 @@ if __name__ == "__main__":
       #reads.append(ember.single_read(mask=0xffffffffffff))
       reads.append(ember.read())
     for num in reads:
-      print("{0:048b}".format(num))
+      #print("{0:048b}".format(num))
+      print(num)
 
     # Form in checkerboard
     for addr in range(range_start, range_stop):
