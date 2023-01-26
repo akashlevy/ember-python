@@ -472,8 +472,8 @@ if __name__ == "__main__":
     # Enable activity in chip
     ember.unpause_mclk()
     
-    range_start = 531
-    range_stop = 540
+    range_start = 541
+    range_stop = 550
 
     # Pre-read
     reads = []
@@ -551,8 +551,18 @@ if __name__ == "__main__":
     for num in reads:
       print("{0:048b}".format(num))
       
-      
-    
+    # re-perform reset  
+    for addr in range(range_start, range_stop):
+      ember.set_addr(addr)
+      ember.read_reg(REG_ADDR)
+      if addr % 2 == 0:
+        ember.reset_pulse(mask=0x555555555555)
+        # ember.set_pulse(mask=0x4)
+      else:
+        ember.reset_pulse(mask=0xaaaaaaaaaaaa)
+        # ember.set_pulse(mask=0x2)   
+
+
     # multiple bit per cell read
     # Read checkerboard and following cells
     

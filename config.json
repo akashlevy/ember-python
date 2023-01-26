@@ -22,7 +22,7 @@
   "pw_rst_cycle_exp" : 7,
   "pw_rst_cycle_mantissa" : 31,
   "wl_dac_rst_lvl_cycle" : 255,
-  "sl_dac_rst_lvl_cycle" : 31,
+  "sl_dac_rst_lvl_cycle" : 27,
 
   "pw_set_cycle_exp" : 3,
   "pw_set_cycle_mantissa" : 31,
