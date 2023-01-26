@@ -472,8 +472,8 @@ if __name__ == "__main__":
     # Enable activity in chip
     ember.unpause_mclk()
     
-    range_start = 261
-    range_stop = 270
+    range_start = 271
+    range_stop = 280
 
     # Pre-read
     reads = []
@@ -533,10 +533,10 @@ if __name__ == "__main__":
       ember.set_addr(addr)
       ember.read_reg(REG_ADDR)
       if addr % 2 == 0:
-        ember.set_pulse(mask=0x555555555555, vbl=127)
+        ember.set_pulse(mask=0x555555555555, vbl=15)
         # ember.set_pulse(mask=0x4)
       else:
-        ember.set_pulse(mask=0xaaaaaaaaaaaa, vbl=127)
+        ember.set_pulse(mask=0xaaaaaaaaaaaa, vbl=15)
         # ember.set_pulse(mask=0x2)
     
     
