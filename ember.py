@@ -561,7 +561,5 @@ if __name__ == "__main__":
       reads.append(ember.read())
     readstr = ""
     for num in reads:
-      for cell in num:
-        readstr = readstr + "{0:02b} ".format(cell)
-      print(readstr)
+      print("{0:048b}{0:48b}".format(num[0], num[1]))
     
