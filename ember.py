@@ -228,8 +228,8 @@ class EMBERDriver(object):
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
 
     # Loop through pulse magnitude
-    for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"], s["wl_dac_set_lvl_step"]):
-      for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"], s["bl_dac_set_lvl_step"]):
+    for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"]+1, s["wl_dac_set_lvl_step"]):
+      for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"]+1, s["bl_dac_set_lvl_step"]):
         # Mask bits below threshold according to READ value
         mask &= (~self.single_read(i, "lower_write", mask) & 0xFFFFFFFFFFFF)
         
@@ -239,7 +239,7 @@ class EMBERDriver(object):
           if (attempts > 0) and (vwl == s["wl_dac_set_lvl_start"]) and (vbl == s["bl_dac_set_lvl_start"]):
             return True # Done with level
           else:
-            return False # Not done with level
+            return False # Not done with level (but done with the SET loop)
         # If not fully masked, apply SET pulse to unmasked bits
         else:
           self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
@@ -252,8 +252,8 @@ class EMBERDriver(object):
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
 
     # Loop through pulse magnitude
-    for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"], s["wl_dac_rst_lvl_step"]):
-      for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"], s["sl_dac_rst_lvl_step"]):
+    for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"]+1, s["wl_dac_rst_lvl_step"]):
+      for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"]+1, s["sl_dac_rst_lvl_step"]):
         # Mask bits according to READ value
         mask &= self.single_read(i, "upper_write", mask)
 
@@ -261,7 +261,9 @@ class EMBERDriver(object):
         if (mask == 0):
           # If fully masked, and no previous RESET pulses on this attempt, then we are done
           if (vwl == s["wl_dac_rst_lvl_start"]) and (vsl == s["sl_dac_rst_lvl_start"]):
-            break
+            return True # Done with level
+          else:
+            return False # Not done with level (but done with the RESET loop)
         # If not fully masked, apply RESET pulse to unmasked bits
         else:
           self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
