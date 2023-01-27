@@ -395,7 +395,7 @@ class EMBERDriver(object):
   def single_read(self, level=0, ref="upper_read", mask=None):
     """Test READ operation"""
     # Copy level settings from desired level
-    self.settings["level_settings"][0] = self.level_settings[level]
+    self.settings["level_settings"][0] = self.level_settings[level].copy()
 
     # Use READ operation
     if ref == "upper_read":
