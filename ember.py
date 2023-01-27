@@ -412,8 +412,9 @@ class EMBERDriver(object):
     else:
       raise EMBERException("Invalid read ref: %s" % ref)
     
-    # Set mask appropriately
+    # Set mask and set_rst appropriately
     mask = self.settings["di_init_mask"] = mask if mask is not None else self.settings["di_init_mask"]
+    self.settings["set_rst"] = 1
     self.commit_settings()
 
     # Increment the number of READs
