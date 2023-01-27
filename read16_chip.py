@@ -13,7 +13,7 @@ parser.add_argument("--step-addr", type=int, default=1, help="address stride")
 args = parser.parse_args()
 
 # Initialize EMBER system and open outfile
-with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile) as outfile:
+with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") as outfile:
   # Do operation across cells
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     # Set address and read
