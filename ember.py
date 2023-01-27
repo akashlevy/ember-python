@@ -191,6 +191,7 @@ class EMBERDriver(object):
     if num_levels == 2:
       return data[0]
     else:
+      data = data[::-1] # reverse string
       data = ["{0:048b}".format(d) for d in data] # convert to binary strings
       data = zip(*data) # transpose
       data = [int(''.join(d), base=2) for d in data] # convert from binary to array of ints
