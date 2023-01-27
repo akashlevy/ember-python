@@ -216,7 +216,7 @@ class EMBERDriver(object):
           break
         
         # RESET loop: returns True if done with attempt
-        if self._write_reset_loop(data, i):
+        if self._write_reset_loop(data, i, attempts):
           break
 
   def _write_set_loop(self, data, i, attempts):
@@ -226,6 +226,8 @@ class EMBERDriver(object):
 
     # Start with mask based on which cells need to be targeted
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+    if mask == 0:
+      return True # Done with level if no cells need to be targeted
 
     # Loop through pulse magnitude
     for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"]+1, s["wl_dac_set_lvl_step"]):
@@ -244,12 +246,14 @@ class EMBERDriver(object):
         else:
           self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
 
-  def _write_reset_loop(self, data, i):
+  def _write_reset_loop(self, data, i, attempts):
     # Get settings for level i
     s = self.settings["level_settings"][i]
 
     # Start with mask based on which cells need to be targeted
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+    if mask == 0:
+      return True # Done with level if no cells need to be targeted
 
     # Loop through pulse magnitude
     for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"]+1, s["wl_dac_rst_lvl_step"]):
@@ -259,8 +263,8 @@ class EMBERDriver(object):
 
         # If fully masked, do not apply pulse
         if (mask == 0):
-          # If fully masked, and no previous RESET pulses on this attempt, then we are done
-          if (vwl == s["wl_dac_rst_lvl_start"]) and (vsl == s["sl_dac_rst_lvl_start"]):
+          # If fully masked, at least one attempt complete, and no previous RESET pulses on this attempt, then we are done
+          if (attempts > 0) and (vwl == s["wl_dac_rst_lvl_start"]) and (vsl == s["sl_dac_rst_lvl_start"]):
             return True # Done with level
           else:
             return False # Not done with level (but done with the RESET loop)
