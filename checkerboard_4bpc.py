@@ -20,6 +20,21 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
     ember.set_addr(addr)
     ember.write([(i + addr) % 16 for i in range(48)])
 
+    # Read directly after write
+    read = ember.read()
+
+    # Print address and read value
+    print("Address", addr)
+    print("READ", read)
+
+    # Write to outfile
+    outfile.write(str(addr))
+    outfile.write("\t")
+    outfile.write(str(time.time()))
+    outfile.write("\t")
+    outfile.write("\t".join([str(r) for r in read]))
+    outfile.write("\n")
+
   # READ operation across cells
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     # Set address and read
