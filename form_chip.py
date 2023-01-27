@@ -17,7 +17,7 @@ with EMBERDriver(args.chipname, args.config) as ember:
   prereads = []
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     ember.set_addr(addr)
-    prereads.append(ember.read(0xFFFFFFFFFFFF))
+    prereads.append(ember.read())
   print("PREREAD:")
   for read in prereads:
     print(read)
@@ -32,7 +32,7 @@ with EMBERDriver(args.chipname, args.config) as ember:
   postreads = []
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     ember.set_addr(addr)
-    postreads.append(ember.read(0xFFFFFFFFFFFF))
+    postreads.append(ember.read())
   print("POSTREAD:")
   for read in postreads:
     print(read)
