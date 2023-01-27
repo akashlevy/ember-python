@@ -1,4 +1,4 @@
-"""Script to READ a chip (16 levels across dynamic range)"""
+"""Script to READ a chip"""
 import argparse, time
 from ember import EMBERDriver
 
@@ -29,5 +29,8 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
     outfile.write("\t")
     outfile.write(str(time.time()))
     outfile.write("\t")
-    outfile.write("\t".join([str(r) for r in read]))
+    if isinstance(read, int):
+      outfile.write(read)
+    elif isinstance(read, list):
+      outfile.write("\t".join([str(r) for r in read]))
     outfile.write("\n")
