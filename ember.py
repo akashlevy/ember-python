@@ -228,7 +228,7 @@ class EMBERDriver(object):
     # Start with mask based on which cells need to be targeted
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
     if mask == 0:
-      return True # Done with level if no cells need to be targeted
+      return True # Done with level if no cells at level need to be targeted
 
     # Loop through pulse magnitude
     for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"]+1, s["wl_dac_set_lvl_step"]):
@@ -254,7 +254,7 @@ class EMBERDriver(object):
     # Start with mask based on which cells need to be targeted
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
     if mask == 0:
-      return True # Done with level if no cells need to be targeted
+      return True # Done with level if no cells at level need to be targeted
 
     # Loop through pulse magnitude
     for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"]+1, s["wl_dac_rst_lvl_step"]):
@@ -370,7 +370,7 @@ class EMBERDriver(object):
       self.write_reg(rangei, prog)
     
     # Remember last set of level settings
-    self.last_prog = self.settings["level_settings"]
+    self.last_prog = self.settings["level_settings"].copy()
     
   def set_addr(self, addr_start, addr_stop=None, addr_step=1):
     """Set address"""
@@ -414,7 +414,6 @@ class EMBERDriver(object):
     
     # Set mask and set_rst appropriately
     mask = self.settings["di_init_mask"] = mask if mask is not None else self.settings["di_init_mask"]
-    self.settings["set_rst"] = 1
     self.commit_settings()
 
     # Increment the number of READs
