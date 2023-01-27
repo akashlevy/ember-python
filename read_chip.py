@@ -6,7 +6,7 @@ from ember import EMBERDriver
 parser = argparse.ArgumentParser(description="READ a chip (16 levels across dynamic range).")
 parser.add_argument("chipname", help="chip name for logging")
 parser.add_argument("outfile", help="file to output to")
-parser.add_argument("--config", type=str, default="settings/read16.json", help="config file")
+parser.add_argument("--config", type=str, default="settings/4bpc.json", help="config file")
 parser.add_argument("--start-addr", type=int, default=0, help="start address")
 parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
