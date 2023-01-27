@@ -428,7 +428,7 @@ class EMBERDriver(object):
 
     # Log the pulse
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
-    self.mlogfile.write("READ,%s,%s,%s,,\n" % (mask, i, read))
+    self.mlogfile.write("READ,%s,%s,%s,,\n" % (mask, level, read))
 
     # Return READ value
     return read
