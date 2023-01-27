@@ -145,8 +145,8 @@ class EMBERDriver(object):
     self.prof = {"READs": 0, "SETs": 0, "RESETs": 0, "CELL_READs": 0, "CELL_SETs": 0, "CELL_RESETs": 0}
 
     # Initialize RRAM logging
-    self.mlogfile = open(self.settings["master_log_file"], "a")
-    self.plogfile = open(self.settings["prog_log_file"], "a")
+    self.mlogfile = open(self.settings["master_log_file"].replace(".log", "." + str(int(time.time())) + ".log"), "a")
+    self.plogfile = open(self.settings["prog_log_file"].replace(".log", "." + str(int(time.time())) + ".log"), "a")
     
     # Set up Raspberry Pi GPIO driver
     GPIO.setmode(GPIO.BCM)
