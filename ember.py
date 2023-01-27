@@ -402,8 +402,8 @@ class EMBERDriver(object):
         self.settings["level_settings"][0]["adc_upper_read_ref_lvl"] = self.level_settings[level-1]["adc_upper_read_ref_lvl"]
     elif ref == "upper_write":
       self.settings["level_settings"][0]["adc_upper_read_ref_lvl"] = self.level_settings[level]["adc_upper_write_ref_lvl"]
-    elif ref == "upper_write":
-      self.settings["level_settings"][0]["adc_upper_read_ref_lvl"] = self.level_settings[level]["adc_upper_write_ref_lvl"]
+    elif ref == "lower_write":
+      self.settings["level_settings"][0]["adc_upper_read_ref_lvl"] = self.level_settings[level]["adc_lower_write_ref_lvl"]
     else:
       raise EMBERException("Invalid read ref: %s" % ref)
     
