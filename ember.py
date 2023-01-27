@@ -204,57 +204,67 @@ class EMBERDriver(object):
     if isinstance(data, int):
       assert(data >= 0 and data < 2**48)
       data = [int(d) for d in "{0:048b}".format(data)] # convert to array of bits
-      print(data)
     assert(all([d < num_levels for d in data]))
     
+    # NOTE: set_first, loop_order, and PW looping are not implemented in this function though they are in spec
     # Write levels one by one
     for i in range(num_levels):
-      # Get settings for level i
-      s = self.settings["level_settings"][i]
-
       # Maximum number of SET/RESET loops to attempt
       for attempts in range(self.settings["max_attempts"]):
-        #
-        # SET loop
-        #
-        # Start with mask based on which cells need to be targeted
-        mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
-
-        # Loop through pulse magnitude
-        for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"], s["wl_dac_set_lvl_step"]):
-          for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"], s["bl_dac_set_lvl_step"]):
-            # Mask bits below threshold according to READ value
-            mask &= (~self.single_read(i, "lower_write", mask) & 0xFFFFFFFFFFFF)
-            
-            # If fully masked, do not apply pulse
-            if mask == 0:
-              # If fully masked, at least one attempt complete, and no previous SET pulses on this attempt, then we are done
-              if (attempts > 0) and (vwl == s["wl_dac_set_lvl_start"]) and (vbl == s["bl_dac_set_lvl_start"]):
-                break
-            # If not fully masked, apply SET pulse to unmasked bits
-            else:
-              self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
+        # SET loop: returns True if done with attempt
+        if self._write_set_loop(data, i, attempts):
+          break
         
-        #
-        # RESET loop
-        #
-        # Start with mask based on which cells need to be targeted
-        mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+        # RESET loop: returns True if done with attempt
+        if self._write_reset_loop(data, i):
+          break
 
-        # Loop through pulse magnitude
-        for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"], s["wl_dac_rst_lvl_step"]):
-          for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"], s["sl_dac_rst_lvl_step"]):
-            # Mask bits according to READ value
-            mask &= self.single_read(i, "upper_write", mask)
+  def _write_set_loop(self, data, i, attempts):
+    """Do SET loop for write-verify and return True if done with entire set process"""
+    # Get settings for level i
+    s = self.settings["level_settings"][i]
 
-            # If fully masked, do not apply pulse
-            if (mask == 0):
-              # If fully masked, and no previous RESET pulses on this attempt, then we are done
-              if (vwl == s["wl_dac_rst_lvl_start"]) and (vsl == s["sl_dac_rst_lvl_start"]):
-                break
-            # If not fully masked, apply RESET pulse to unmasked bits
-            else:
-              self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
+    # Start with mask based on which cells need to be targeted
+    mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+
+    # Loop through pulse magnitude
+    for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"], s["wl_dac_set_lvl_step"]):
+      for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"], s["bl_dac_set_lvl_step"]):
+        # Mask bits below threshold according to READ value
+        mask &= (~self.single_read(i, "lower_write", mask) & 0xFFFFFFFFFFFF)
+        
+        # If fully masked, do not apply pulse
+        if mask == 0:
+          # If fully masked, at least one attempt complete, and no previous SET pulses on this attempt, then we are done with this level
+          if (attempts > 0) and (vwl == s["wl_dac_set_lvl_start"]) and (vbl == s["bl_dac_set_lvl_start"]):
+            return True # Done with level
+          else:
+            return False # Not done with level
+        # If not fully masked, apply SET pulse to unmasked bits
+        else:
+          self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
+
+  def _write_reset_loop(self, data, i):
+    # Get settings for level i
+    s = self.settings["level_settings"][i]
+
+    # Start with mask based on which cells need to be targeted
+    mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+
+    # Loop through pulse magnitude
+    for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"], s["wl_dac_rst_lvl_step"]):
+      for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"], s["sl_dac_rst_lvl_step"]):
+        # Mask bits according to READ value
+        mask &= self.single_read(i, "upper_write", mask)
+
+        # If fully masked, do not apply pulse
+        if (mask == 0):
+          # If fully masked, and no previous RESET pulses on this attempt, then we are done
+          if (vwl == s["wl_dac_rst_lvl_start"]) and (vsl == s["sl_dac_rst_lvl_start"]):
+            break
+        # If not fully masked, apply RESET pulse to unmasked bits
+        else:
+          self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
 
   def cycle(self):
     """CYCLE operation"""
