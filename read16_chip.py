@@ -25,9 +25,9 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
     print("READ", read)
 
     # Write to outfile
-    outfile.write(addr)
+    outfile.write(str(addr))
     outfile.write("\t")
-    outfile.write(time.time())
+    outfile.write(str(time.time()))
     outfile.write("\t")
     outfile.write("\t".join([str(r) for r in read]))
     outfile.write("\n")
