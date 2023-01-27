@@ -222,7 +222,7 @@ class EMBERDriver(object):
   def _write_set_loop(self, data, i, attempts):
     """Do SET loop for write-verify and return True if done with entire set process"""
     # Get settings for level i
-    s = self.settings["level_settings"][i]
+    s = self.level_settings[i]
 
     # Start with mask based on which cells need to be targeted
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
@@ -248,7 +248,7 @@ class EMBERDriver(object):
 
   def _write_reset_loop(self, data, i, attempts):
     # Get settings for level i
-    s = self.settings["level_settings"][i]
+    s = self.level_settings[i]
 
     # Start with mask based on which cells need to be targeted
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
