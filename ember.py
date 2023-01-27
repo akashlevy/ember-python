@@ -204,6 +204,7 @@ class EMBERDriver(object):
     if isinstance(data, int):
       assert(data >= 0 and data < 2**48)
       data = [int(d) for d in "{0:048b}".format(data)] # convert to array of bits
+      print(data)
     assert(all([d < num_levels for d in data]))
     
     # Write levels one by one
