@@ -2,7 +2,7 @@
   "master_log_file": "log/master.log",
   "prog_log_file": "log/prog.log",
 
-  "spi_freq" : 4000,
+  "spi_freq" : 5000000,
   "hispeed" : false,
 
   "post_read_setup_cycles" : 16,
