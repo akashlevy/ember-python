@@ -29,7 +29,7 @@
   "wl_dac_set_lvl_cycle" : 0,
   "bl_dac_set_lvl_cycle" : 0,
 
-  "num_levels" : 16,
+  "num_levels" : 0,
   "use_ecc" : 0,
   "max_attempts" : 20,
 
