@@ -20,7 +20,7 @@ with EMBERDriver(args.chipname, args.config) as ember:
     prereads.append(ember.read())
   print("PREREAD:")
   for read in prereads:
-    print(read)
+    print("{0:048b}".format(read))
 
   # Do operation across cells
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
@@ -35,4 +35,4 @@ with EMBERDriver(args.chipname, args.config) as ember:
     postreads.append(ember.read())
   print("POSTREAD:")
   for read in postreads:
-    print(read)
+    print("{0:048b}".format(read))
