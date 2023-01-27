@@ -419,8 +419,15 @@ class EMBERDriver(object):
     self.write_reg(REG_CMD, OP_TEST_READ)
     self.wait_for_idle()
 
-    # Read value from READ register and return
-    return self.read_reg(REG_READ)
+    # Read value from READ register
+    read = self.read_reg(REG_READ)
+
+    # Log the pulse
+    self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
+    self.mlogfile.write("READ,%s,%s,,,\n" % (mask, read))
+
+    # Return READ value
+    return read
 
   #
   # LOW LEVEL OPERATIONS
