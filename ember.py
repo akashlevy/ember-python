@@ -468,7 +468,7 @@ class EMBERDriver(object):
 # TOP-LEVEL EXAMPLE
 #
 if __name__ == "__main__":
-  with EMBERDriver("CHIP1", "configs/config.json", test_conn=True) as ember:
+  with EMBERDriver("CHIP1", "settings/config.json", test_conn=True) as ember:
     # Enable activity in chip
     ember.unpause_mclk()
 
