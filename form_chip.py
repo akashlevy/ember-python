@@ -13,8 +13,26 @@ args = parser.parse_args()
 
 # Initialize NI system and open outfile
 with EMBERDriver(args.chipname, args.config) as ember:
+  # Do READ operation across cells
+  prereads = []
+  for addr in range(args.start_addr, args.end_addr, args.step_addr):
+    ember.set_addr(addr)
+    prereads.append(ember.read(0xFFFFFFFFFFFF))
+  print("PREREAD:")
+  for read in prereads:
+    print(read)
+
   # Do operation across cells
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     ember.set_addr(addr)
     ember.write(0xFFFFFFFFFFFF)
     print("Address", addr, "DONE")
+
+  # Do READ operation across cells
+  postreads = []
+  for addr in range(args.start_addr, args.end_addr, args.step_addr):
+    ember.set_addr(addr)
+    postreads.append(ember.read(0xFFFFFFFFFFFF))
+  print("POSTREAD:")
+  for read in postreads:
+    print(read)
