@@ -11,7 +11,7 @@ parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
 args = parser.parse_args()
 
-# Initialize NI system and open outfile
+# Initialize EMBER system
 with EMBERDriver(args.chipname, args.config) as ember:
   # Do READ operation across cells
   prereads = []
