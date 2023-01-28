@@ -120,7 +120,7 @@ class EMBERDriver(object):
     if isinstance(settings, str):
       with open(settings) as settings_file:
         self.settings = json.load(settings_file)
-      self.level_settings = self.settings["level_settings"]
+      self.level_settings = self.settings["level_settings"].copy()
     self.last_misc, self.last_prog = None, None
 
     # Create SPI device
