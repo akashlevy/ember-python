@@ -1,9 +1,9 @@
-"""Script to WRITE/READ a 4bpc checkerboard to chip"""
+"""Script to WRITE/READ a checkerboard to chip"""
 import argparse, time
 from ember import EMBERDriver
 
 # Get arguments
-parser = argparse.ArgumentParser(description="READ a chip (16 levels across dynamic range).")
+parser = argparse.ArgumentParser(description="Checkerboard a chip.")
 parser.add_argument("chipname", help="chip name for logging")
 parser.add_argument("outfile", help="file to output to")
 parser.add_argument("--config", type=str, default="settings/4bpc.json", help="config file")
@@ -18,7 +18,7 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     # Set address and write
     ember.set_addr(addr)
-    ember.write([(i + addr) % 16 for i in range(48)])
+    ember.write([(i + addr) % ember.settings["num_levels"] for i in range(48)])
 
     # Read directly after write
     read = ember.read()
