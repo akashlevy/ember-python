@@ -352,7 +352,7 @@ class EMBERDriver(object):
 
     # Write to level setting registers
     num_levels = (self.settings["num_levels"] + 15) % 16 + 1 # when num_levels=0, interpret as num_levels=16
-    assert(num_levels >= len(self.settings["level_settings"]))
+    assert(len(self.settings["level_settings"]) >= num_levels)
     for rangei in range(num_levels):
       # Skip if level setting is unchanged from previous commit
       try:
