@@ -174,7 +174,7 @@ class EMBERDriver(object):
   def read(self):
     """READ operation"""
     # Reset level settings
-    self.settings["level_settings"] = self.level_settings
+    self.settings["level_settings"] = self.level_settings.copy()
     self.commit_settings()
 
     # Execute READ command
