@@ -503,7 +503,7 @@ class EMBERDriver(object):
 if __name__ == "__main__":
   with EMBERDriver("CHIP1", "settings/config.json", test_conn=False) as ember:
     # Enable activity in chip
-    ember.use_sclk()
+    ember.use_mmcm()
     ember.unpause_mclk()
 
     # Pre-read
