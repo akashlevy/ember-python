@@ -12,7 +12,8 @@ warnings.filterwarnings("error")
 
 
 # Pin mappings
-RRAM_BUSY_PIN = 24
+USE_MMCM_PIN = 1
+RRAM_BUSY_PIN = 7
 MCLK_PAUSE_PIN = 25
 
 # Register indices
@@ -152,6 +153,7 @@ class EMBERDriver(object):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
     GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
+    GPIO.setup(USE_MMCM_PIN, GPIO.OUT)
       
   def __enter__(self):
     """Enter to use "with" construct in python"""
@@ -479,45 +481,32 @@ class EMBERDriver(object):
       # Write to dummy register to keep sclk going (TODO: transfer one byte instead)        
       self.write_reg(REG_NONE, 0)
 
-  def pause_mclk(self, delay=0):
+  def pause_mclk(self):
     """Pause main clock"""
     GPIO.output(MCLK_PAUSE_PIN, True)
-    time.sleep(delay)
 
-  def unpause_mclk(self, delay=0):
+  def unpause_mclk(self):
     """Unpause main clock"""
     GPIO.output(MCLK_PAUSE_PIN, False)
-    time.sleep(delay)
-    
+
+  def use_sclk(self):
+    """Switch to sclk as clk source"""
+    GPIO.output(USE_MMCM_PIN, False)
+
+  def use_mmcm(self):
+    """Switch to MMCM as clk source"""
+    GPIO.output(USE_MMCM_PIN, True)
+
 #
 # TOP-LEVEL EXAMPLE
 #
 if __name__ == "__main__":
-  with EMBERDriver("CHIP1", "settings/config.json", test_conn=True) as ember:
+  with EMBERDriver("CHIP1", "settings/config.json", test_conn=False) as ember:
     # Enable activity in chip
+    ember.use_sclk()
     ember.unpause_mclk()
 
     # Pre-read
-    reads = []
-    for addr in range(1303, 1351):
-      ember.set_addr(addr)
-      ember.read_reg(REG_ADDR)
-      reads.append(ember.single_read(mask=0xffffffffffff))
-    for num in reads:
-      print("{0:048b}".format(num))
-
-    # Form in checkerboard
-    for addr in range(1303, 1351):
-      ember.set_addr(addr)
-      ember.read_reg(REG_ADDR)
-      if addr % 2 == 0:
-        ember.set_pulse(mask=0x555555555555)
-        # ember.set_pulse(mask=0x4)
-      else:
-        ember.set_pulse(mask=0xaaaaaaaaaaaa)
-        # ember.set_pulse(mask=0x2)
-
-    # Read checkerboard and following cells
     reads = []
     for addr in range(1303, 1351):
       ember.set_addr(addr)
