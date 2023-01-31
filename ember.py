@@ -307,7 +307,7 @@ class EMBERDriver(object):
           self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
 
     # If loop completes, write failed
-    raise EMBERException("Write failed during RESET loop on address", self.addr)
+    raise EMBERException("Write failed during RESET loop on address" % self.addr)
 
   def cycle(self):
     """CYCLE operation"""
