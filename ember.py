@@ -192,7 +192,7 @@ class EMBERDriver(object):
       data.append(self.read_reg(REG_READ + i))
 
     # If 1bpc, return data as is, otherwise translate to array of numbers
-    if num_levels == 2:
+    if (num_levels == 2) and False:
       return data[0]
     else:
       data = data[::-1] # reverse string
