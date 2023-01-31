@@ -276,7 +276,7 @@ class EMBERDriver(object):
           self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
 
     # If loop completes, write failed
-    raise EMBERException("Write failed during SET loop on address", self.addr)
+    raise EMBERException("Write failed during SET loop on address %s" % self.addr)
 
   def _write_reset_loop(self, data, i, attempts, debug=False):
     # Get settings for level i
