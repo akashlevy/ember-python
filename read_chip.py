@@ -30,7 +30,7 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
     outfile.write(str(time.time()))
     outfile.write("\t")
     if isinstance(read, int):
-      outfile.write(read)
+      outfile.write(str(read))
     elif isinstance(read, list):
       outfile.write("\t".join([str(r) for r in read]))
     outfile.write("\n")
