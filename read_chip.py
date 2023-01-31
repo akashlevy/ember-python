@@ -41,4 +41,4 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
   # Print at end if requested
   if args.print_at_end:
     for read in reads:
-      print(" ".join(read))
+      print(" ".join([str(r) for r in read]))
