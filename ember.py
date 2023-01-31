@@ -211,7 +211,7 @@ class EMBERDriver(object):
     # Return data
     return data
 
-  def write(self, data):
+  def write(self, data, debug=False):
     """Perform write-verify"""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
     # Verify that data is int or valid int array and convert to int array
     num_levels = (self.settings["num_levels"] + 15) % 16 + 1 # when num_levels=0, interpret as num_levels=16
@@ -220,6 +220,9 @@ class EMBERDriver(object):
       assert(data >= 0 and data < 2**48)
       data = [int(d) for d in "{0:048b}".format(data)] # convert to array of bits
     assert(all([d < num_levels for d in data]))
+
+    # Debug print data
+    print("WRITING DATA:", data)
     
     # NOTE: set_first, loop_order, and PW looping are not implemented in this function though they are in spec
     # Write levels one by one
@@ -227,20 +230,26 @@ class EMBERDriver(object):
       # Maximum number of SET/RESET loops to attempt
       for attempts in range(self.settings["max_attempts"]):
         # SET loop: returns True if done with attempt
-        if self._write_set_loop(data, i, attempts):
+        if debug:
+          print("SET LOOP", i, "ATTEMPT", attempts)
+        if self._write_set_loop(data, i, attempts, debug):
           break
         
         # RESET loop: returns True if done with attempt
-        if self._write_reset_loop(data, i, attempts):
+        if debug:
+          print("RESET LOOP", i, "ATTEMPT", attempts)
+        if self._write_reset_loop(data, i, attempts, debug):
           break
 
-  def _write_set_loop(self, data, i, attempts):
+  def _write_set_loop(self, data, i, attempts, debug=False):
     """Do SET loop for write-verify and return True if done with entire set process"""
     # Get settings for level i
     s = self.level_settings[i]
 
     # Start with mask based on which cells need to be targeted
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+    if debug:
+      print("MASK:", mask)
     if mask == 0:
       return True # Done with level if no cells at level need to be targeted
 
@@ -261,12 +270,14 @@ class EMBERDriver(object):
         else:
           self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
 
-  def _write_reset_loop(self, data, i, attempts):
+  def _write_reset_loop(self, data, i, attempts, debug=False):
     # Get settings for level i
     s = self.level_settings[i]
 
     # Start with mask based on which cells need to be targeted
     mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+    if debug:
+      print("MASK:", mask)
     if mask == 0:
       return True # Done with level if no cells at level need to be targeted
 
