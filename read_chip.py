@@ -10,15 +10,18 @@ parser.add_argument("--config", type=str, default="settings/4bpc.json", help="co
 parser.add_argument("--start-addr", type=int, default=0, help="start address")
 parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
+parser.add_argument("--print-at-end", type=bool, default=True, help="print as array at end")
 args = parser.parse_args()
 
 # Initialize EMBER system and open outfile
 with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") as outfile:
   # Do operation across cells
+  reads = []
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     # Set address and read
     ember.set_addr(addr)
     read = ember.read()
+    reads.append(read)
 
     # Print address and read value
     print("Address", addr)
@@ -34,3 +37,8 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
     elif isinstance(read, list):
       outfile.write("\t".join([str(r) for r in read]))
     outfile.write("\n")
+
+  # Print at end if requested
+  if args.print_at_end:
+    for read in reads:
+      print(" ".join(read))
