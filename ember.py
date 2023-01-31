@@ -110,6 +110,11 @@ class EMBERException(Exception):
   def __init__(self, msg):
       super().__init__(msg)
 
+class EMBERWriteFailure(EMBERException):
+  """Exception produced by the EMBERDriver class on write failure"""
+  def __init__(self, msg):
+      super().__init__(msg)
+
 class EMBERDriver(object):
   """Class to interface with EMBER chip"""
   def __init__(self, chip, settings, test_conn=True, debug=True):
@@ -270,6 +275,9 @@ class EMBERDriver(object):
         else:
           self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
 
+    # If loop completes, write failed
+    raise EMBERException("Write failed during SET loop on address", self.addr)
+
   def _write_reset_loop(self, data, i, attempts, debug=False):
     # Get settings for level i
     s = self.level_settings[i]
@@ -297,6 +305,9 @@ class EMBERDriver(object):
         # If not fully masked, apply RESET pulse to unmasked bits
         else:
           self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
+
+    # If loop completes, write failed
+    raise EMBERException("Write failed during RESET loop on address", self.addr)
 
   def cycle(self):
     """CYCLE operation"""
