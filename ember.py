@@ -121,6 +121,7 @@ class EMBERDriver(object):
     if isinstance(settings, str):
       with open(settings) as settings_file:
         self.settings = json.load(settings_file)
+      self.di_init_mask = self.settings["di_init_mask"]
       self.level_settings = self.settings["level_settings"].copy()
     self.last_misc, self.last_prog = None, None
 
@@ -175,9 +176,10 @@ class EMBERDriver(object):
   #
   # HIGH LEVEL OPERATIONS
   #
-  def read(self):
+  def read(self, mask=None):
     """READ operation"""
     # Reset level settings
+    mask = self.settings["di_init_mask"] = self.di_init_mask if mask is None else mask
     self.settings["level_settings"] = self.level_settings.copy()
     self.commit_settings()
 
@@ -191,15 +193,23 @@ class EMBERDriver(object):
     for i in range(ceil(log2(num_levels))):
       data.append(self.read_reg(REG_READ + i))
 
-    # If 1bpc, return data as is, otherwise translate to array of numbers
-    if (num_levels == 2) and False:
-      return data[0]
-    else:
-      data = data[::-1] # reverse string
-      data = ["{0:048b}".format(d) for d in data] # convert to binary strings
-      data = zip(*data) # transpose
-      data = [int(''.join(d), base=2) for d in data] # convert from binary to array of ints
-      return data
+    # # If 1bpc, return data as is, otherwise translate to array of numbers
+    # if (num_levels == 2) and False:
+    #   return data[0]
+    # else:
+
+    # Translate to array of numbers
+    data = data[::-1] # reverse string
+    data = ["{0:048b}".format(d) for d in data] # convert to binary strings
+    data = zip(*data) # transpose
+    data = [int(''.join(d), base=2) for d in data] # convert from binary to array of ints
+    
+    # Log the READ
+    self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
+    self.mlogfile.write("MLCREAD,%s,%s\n" % (mask, ",".join(data)))
+
+    # Return data
+    return data
 
   def write(self, data):
     """Perform write-verify"""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -290,7 +300,7 @@ class EMBERDriver(object):
     """Perform a SET operation."""
     # Get parameters
     self.settings["set_first"] = 1
-    mask = self.settings["di_init_mask"] = self.settings["di_init_mask"] if mask is None else mask
+    mask = self.settings["di_init_mask"] = self.di_init_mask if mask is None else mask
     vwl = self.settings["wl_dac_set_lvl_cycle"] = self.settings["wl_dac_set_lvl_cycle"] if vwl is None else vwl
     vbl = self.settings["bl_dac_set_lvl_cycle"] = self.settings["bl_dac_set_lvl_cycle"] if vbl is None else vbl
     self.settings["pw_set_cycle_exp"] = self.settings["pw_set_cycle_exp"] if pw_exp is None else pw_exp
@@ -314,7 +324,7 @@ class EMBERDriver(object):
     """Perform a RESET operation."""
     # Get parameters
     self.settings["set_first"] = 0
-    mask = self.settings["di_init_mask"] = self.settings["di_init_mask"] if mask is None else mask
+    mask = self.settings["di_init_mask"] = self.di_init_mask if mask is None else mask
     vwl = self.settings["wl_dac_rst_lvl_cycle"] = self.settings["wl_dac_rst_lvl_cycle"] if vwl is None else vwl
     vsl = self.settings["sl_dac_rst_lvl_cycle"] = self.settings["sl_dac_rst_lvl_cycle"] if vsl is None else vsl
     self.settings["pw_rst_cycle_exp"] = self.settings["pw_rst_cycle_exp"] if pw_exp is None else pw_exp
@@ -417,7 +427,7 @@ class EMBERDriver(object):
       raise EMBERException("Invalid read ref: %s" % ref)
     
     # Set mask and set_rst appropriately
-    mask = self.settings["di_init_mask"] = mask if mask is not None else self.settings["di_init_mask"]
+    mask = self.settings["di_init_mask"] = mask if mask is not None else self.di_init_mask
     self.commit_settings()
 
     # Increment the number of READs
