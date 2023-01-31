@@ -262,7 +262,7 @@ class EMBERDriver(object):
     for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"]+1, s["wl_dac_set_lvl_step"]):
       for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"]+1, s["bl_dac_set_lvl_step"]):
         # Mask bits below threshold according to READ value
-        mask &= (~self.single_read(i, "lower_write", mask) & 0xFFFFFFFFFFFF)
+        mask &= ~self.single_read(i, "lower_write", mask)
         if debug:
           print("MASK:", mask)
         
@@ -278,7 +278,8 @@ class EMBERDriver(object):
           self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
 
     # If loop completes, write failed
-    raise EMBERException("Write failed during SET loop on address %s" % self.addr)
+    if not self.settings["ignore_failures"]:
+      raise EMBERWriteFailure("Write failed during SET loop on address %s" % self.addr)
 
   def _write_reset_loop(self, data, i, attempts, debug=False):
     # Get settings for level i
@@ -311,7 +312,8 @@ class EMBERDriver(object):
           self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
 
     # If loop completes, write failed
-    raise EMBERException("Write failed during RESET loop on address %s" % self.addr)
+    if not self.settings["ignore_failures"]:
+      raise EMBERWriteFailure("Write failed during RESET loop on address %s" % self.addr)
 
   def cycle(self):
     """CYCLE operation"""
