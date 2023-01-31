@@ -18,7 +18,8 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     # Set address and write
     ember.set_addr(addr)
-    ember.write([(i + addr) % ember.settings["num_levels"] for i in range(48)], debug=True)
+    num_levels = 16 if ember.settings["num_levels"] == 0 else ember.settings["num_levels"]
+    ember.write([(i + addr) % num_levels for i in range(48)], debug=True)
 
     # Read directly after write
     read = ember.read()
