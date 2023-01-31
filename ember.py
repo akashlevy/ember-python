@@ -263,6 +263,8 @@ class EMBERDriver(object):
       for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"]+1, s["bl_dac_set_lvl_step"]):
         # Mask bits below threshold according to READ value
         mask &= (~self.single_read(i, "lower_write", mask) & 0xFFFFFFFFFFFF)
+        if debug:
+          print("MASK:", mask)
         
         # If fully masked, do not apply pulse
         if mask == 0:
@@ -294,6 +296,8 @@ class EMBERDriver(object):
       for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"]+1, s["sl_dac_rst_lvl_step"]):
         # Mask bits according to READ value
         mask &= self.single_read(i, "upper_write", mask)
+        if debug:
+          print("MASK:", mask)
 
         # If fully masked, do not apply pulse
         if (mask == 0):
