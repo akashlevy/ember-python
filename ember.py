@@ -154,6 +154,8 @@ class EMBERDriver(object):
     GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
     GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
     GPIO.setup(USE_MMCM_PIN, GPIO.OUT)
+    self.unpause_mclk() # unpause the mclk by default
+    self.use_mmcm(self.settings["hispeed"]) # use "hispeed" setting by default
       
   def __enter__(self):
     """Enter to use "with" construct in python"""
@@ -493,19 +495,15 @@ class EMBERDriver(object):
     """Switch to sclk as clk source"""
     GPIO.output(USE_MMCM_PIN, False)
 
-  def use_mmcm(self):
+  def use_mmcm(self, use=True):
     """Switch to MMCM as clk source"""
-    GPIO.output(USE_MMCM_PIN, True)
+    GPIO.output(USE_MMCM_PIN, use)
 
 #
 # TOP-LEVEL EXAMPLE
 #
 if __name__ == "__main__":
   with EMBERDriver("CHIP1", "settings/config.json", test_conn=False) as ember:
-    # Enable activity in chip
-    ember.use_sclk()
-    ember.unpause_mclk()
-
     # Pre-read
     reads = []
     for addr in range(1303, 1351):
