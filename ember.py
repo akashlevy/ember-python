@@ -203,6 +203,8 @@ class EMBERDriver(object):
     #   return data[0]
     # else:
 
+    print(["{0:048b}".format(d) for d in data])
+
     # Translate to array of numbers
     data = data[::-1] # reverse string
     data = ["{0:048b}".format(d) for d in data] # convert to binary strings
