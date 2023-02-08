@@ -131,3 +131,4 @@ dmypy.json
 # Don't include dummy files
 RPi/*
 spidev.py
+log/

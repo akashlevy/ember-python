@@ -135,7 +135,6 @@ class EMBERDriver(object):
       # Create SPI device
       self.spi = SpiDev()
       self.spi.open(0, 0)
-      self.spi.cshigh = True
       self.spi.max_speed_hz = self.settings["spi_freq"]
       self.spi.mode = 1
 
@@ -189,10 +188,11 @@ class EMBERDriver(object):
   
   def close(self):
     """Close all drivers"""
-    self.spi.close()
-    GPIO.cleanup()
     self.mlogfile.close()
     self.plogfile.close()
+    if self.settings["spi_mode"] == "spidev":
+      self.spi.close()
+      GPIO.cleanup()
 
   #
   # HIGH LEVEL OPERATIONS
@@ -499,8 +499,8 @@ class EMBERDriver(object):
     msg = reg << 162
 
     # Transfer message and collect miso values to read register using appropriate driver
-    xfer = self.spi.xfer if self.settings["spi_mode"] == "spidev" else lambda m: self.spi.exchange(m, duplex=True)
-    val = int.from_bytes(xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])[1:-1], "big")
+    xfer = lambda m: int.from_bytes(self.spi.xfer(m)[1:-1], "big") if self.settings["spi_mode"] == "spidev" else int.from_bytes(self.spi.exchange(m, duplex=True)[1:], "big") >> 7
+    val = xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
 
     # Debug print out
     if self.debug:
@@ -525,8 +525,8 @@ class EMBERDriver(object):
       print("Write", val, "to reg", reg)
 
     # Transfer message to write register using appropriate driver
-    xfer = self.spi.xfer if self.settings["spi_mode"] == "spidev" else self.spi.exchange
-    xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
+    xfer = self.spi.xfer if self.settings["spi_mode"] == "spidev" else lambda m: self.spi.exchange(m, duplex=True)
+    xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0]*100)
 
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
@@ -562,12 +562,5 @@ class EMBERDriver(object):
 # TOP-LEVEL EXAMPLE
 #
 if __name__ == "__main__":
-  with EMBERDriver("CHIP1", "settings/config.json", test_conn=False) as ember:
-    # Pre-read
-    reads = []
-    for addr in range(1303, 1351):
-      ember.set_addr(addr)
-      ember.read_reg(REG_ADDR)
-      reads.append(ember.single_read(mask=0xffffffffffff))
-    for num in reads:
-      print("{0:048b}".format(num))
+  with EMBERDriver("CHIP1", "settings/config.json", test_conn=True) as ember:
+    pass
