@@ -500,7 +500,7 @@ class EMBERDriver(object):
 
     # Transfer message and collect miso values to read register using appropriate driver
     xfer = self.spi.xfer if self.settings["spi_mode"] == "spidev" else lambda m: self.spi.exchange(m, duplex=True)
-    val = int.from_bytes(xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0], duplex=True)[1:-1], "big")
+    val = int.from_bytes(xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])[1:-1], "big")
 
     # Debug print out
     if self.debug:
