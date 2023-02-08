@@ -2,19 +2,15 @@
 import json, time, warnings
 from math import ceil, log2
 
-# Import external libraries
-import RPi.GPIO as GPIO
-from spidev import SpiDev
-
-
 # Warnings become errors
 warnings.filterwarnings("error")
 
-
-# Pin mappings
-USE_MMCM_PIN = 1
+# Raspberry Pi GPIO pin mappings
 RRAM_BUSY_PIN = 7
 MCLK_PAUSE_PIN = 25
+
+# FTDI device locator
+FTDI_URL = "ftdi://ftdi:2232h/1"
 
 # Register indices
 REG_MISC = 16
@@ -130,12 +126,37 @@ class EMBERDriver(object):
       self.level_settings = self.settings["level_settings"].copy()
     self.last_misc, self.last_prog = None, None
 
-    # Create SPI device
-    self.spi = SpiDev()
-    self.spi.open(0, 0)
-    self.spi.cshigh = True
-    self.spi.max_speed_hz = self.settings["spi_freq"]
-    self.spi.mode = 1
+    # Setup SPI and GPIO
+    if self.settings["spi_mode"] == "spidev":
+      # Import spidev and Raspberry Pi GPIO drivers
+      from spidev import SpiDev
+      import RPi.GPIO as GPIO
+
+      # Create SPI device
+      self.spi = SpiDev()
+      self.spi.open(0, 0)
+      self.spi.cshigh = True
+      self.spi.max_speed_hz = self.settings["spi_freq"]
+      self.spi.mode = 1
+
+      # Set up Raspberry Pi GPIO driver
+      GPIO.setmode(GPIO.BCM)
+      GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
+      GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
+    elif self.settings["spi_mode"] == "ftdi":
+      # Import pyftdi SPI driver
+      from pyftdi.spi import SpiController
+
+      # Create SPI device 
+      spi = SpiController()
+      spi.configure(FTDI_URL)
+      self.spi = spi.get_port(cs=0, freq=self.settings["spi_freq"], mode=1)
+
+      # Get GPIO port to manage extra pins, use pin 4 as GPO, pin 5 as GPI (pins 0-3 are SPI)
+      self.gpio = spi.get_gpio()
+      self.gpio.set_direction(0x30, 0x10)
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 
     # Test connection
     if test_conn:
@@ -155,13 +176,8 @@ class EMBERDriver(object):
     self.mlogfile = open(self.settings["master_log_file"].replace(".log", "." + str(int(time.time())) + ".log"), "a")
     self.plogfile = open(self.settings["prog_log_file"].replace(".log", "." + str(int(time.time())) + ".log"), "a")
     
-    # Set up Raspberry Pi GPIO driver
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(RRAM_BUSY_PIN, GPIO.IN)
-    GPIO.setup(MCLK_PAUSE_PIN, GPIO.OUT)
-    GPIO.setup(USE_MMCM_PIN, GPIO.OUT)
+    # Initialize GPIO pin states
     self.unpause_mclk() # unpause the mclk by default
-    self.use_mmcm(self.settings["hispeed"]) # use "hispeed" setting by default
       
   def __enter__(self):
     """Enter to use "with" construct in python"""
@@ -197,13 +213,6 @@ class EMBERDriver(object):
     data = []
     for i in range(ceil(log2(num_levels))):
       data.append(self.read_reg(REG_READ + i))
-
-    # # If 1bpc, return data as is, otherwise translate to array of numbers
-    # if (num_levels == 2) and False:
-    #   return data[0]
-    # else:
-
-    print(["{0:048b}".format(d) for d in data])
 
     # Translate to array of numbers
     data = data[::-1] # reverse string
@@ -489,8 +498,9 @@ class EMBERDriver(object):
     # Message to read from register
     msg = reg << 162
 
-    # Transfer message and collect miso values to read register
-    val = int.from_bytes(self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])[1:-1], "big")
+    # Transfer message and collect miso values to read register using appropriate driver
+    xfer = self.spi.xfer if self.settings["spi_mode"] == "spidev" else lambda m: self.spi.exchange(m, duplex=True)
+    val = int.from_bytes(xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0], duplex=True)[1:-1], "big")
 
     # Debug print out
     if self.debug:
@@ -514,30 +524,39 @@ class EMBERDriver(object):
     if self.debug:
       print("Write", val, "to reg", reg)
 
-    # Transfer message to write register
-    self.spi.xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
+    # Transfer message to write register using appropriate driver
+    xfer = self.spi.xfer if self.settings["spi_mode"] == "spidev" else self.spi.exchange
+    xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
 
   def wait_for_idle(self):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
-    while GPIO.input(RRAM_BUSY_PIN):
-      # Write to dummy register to keep sclk going (TODO: transfer one byte instead)        
-      self.write_reg(REG_NONE, 0)
+    # Write to dummy register to keep sclk going
+    if self.settings["spi_mode"] == "spidev":
+      while GPIO.input(RRAM_BUSY_PIN):
+        self.write_reg(REG_NONE, 0)
+    elif self.settings["spi_mode"] == "ftdi":
+      while self.gpio.read() & 0x20:
+        self.write_reg(REG_NONE, 0)
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 
   def pause_mclk(self):
     """Pause main clock"""
-    GPIO.output(MCLK_PAUSE_PIN, True)
+    if self.settings["spi_mode"] == "spidev":
+      GPIO.output(MCLK_PAUSE_PIN, True)
+    elif self.settings["spi_mode"] == "ftdi":
+      self.gpio.write(0x10)
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 
   def unpause_mclk(self):
     """Unpause main clock"""
-    GPIO.output(MCLK_PAUSE_PIN, False)
-
-  def use_sclk(self):
-    """Switch to sclk as clk source"""
-    GPIO.output(USE_MMCM_PIN, False)
-
-  def use_mmcm(self, use=True):
-    """Switch to MMCM as clk source"""
-    GPIO.output(USE_MMCM_PIN, use)
+    if self.settings["spi_mode"] == "spidev":
+      GPIO.output(MCLK_PAUSE_PIN, False)
+    elif self.settings["spi_mode"] == "ftdi":
+      self.gpio.write(0x00)
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 
 #
 # TOP-LEVEL EXAMPLE
