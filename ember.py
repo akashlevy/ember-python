@@ -31,6 +31,7 @@ OP_CYCLE = 3
 OP_READ = 4
 OP_WRITE = 5
 OP_REFRESH = 6
+OP_READ_ENERGY = 7
 
 # Miscellaneous settings register fields
 MISC_FIELDS = [
@@ -331,6 +332,18 @@ class EMBERDriver(object):
     # Execute CYCLE command (alternating SET/RESETs)
     self.write_reg(REG_CMD, OP_CYCLE)
     self.wait_for_idle()
+
+  def read_energy(self, bpc=1):
+    """Read energy measurement"""
+    # Select address range for checkerboard
+    self.set_addr(100 + bpc*100, 148 + bpc*100)
+
+    # Set number of levels
+    self.settings["num_levels"] = bpc
+    self.commit_settings()
+
+    # Send "read energy" command (which will loop forever, but make non-blocking)
+    self.write_reg(REG_CMD, OP_READ_ENERGY)
 
   #
   # MEDIUM LEVEL OPERATIONS
