@@ -5,7 +5,8 @@ EMBER Python scripts for post-silicon validation and testing via SPI
 
 [x] FORM
 [x] ENDURANCE
-[ ] RETENTION
+[x] RETENTION
+[ ] CHECKERBOARD
 [ ] SET/RESET POWER
 
 ### FORM
@@ -20,8 +21,11 @@ EMBER Python scripts for post-silicon validation and testing via SPI
 - Repeat
 
 ### RETENTION
-- CYCLE 100x (WHAT SET/RESET CONDITIONS)
-- TODO!
+- CYCLE 10000
+- Run retention script
+
+### CHECKERBOARD
+- CYCLE 100x
 
 ### SET/RESET POWER
 - CYCLE with only one of SET/RESET enabled on maximum PW (other on minimum PW, no VWL)
