@@ -9,6 +9,7 @@ parser.add_argument("--config", type=str, default="settings/form.json", help="co
 parser.add_argument("--start-addr", type=int, default=0, help="start address")
 parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
+parser.add_argument("--debug", action="store_true", help="enable debugging")
 args = parser.parse_args()
 
 # Initialize EMBER system
@@ -25,7 +26,7 @@ with EMBERDriver(args.chipname, args.config) as ember:
   # Do operation across cells
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
     ember.set_addr(addr)
-    ember.write(0xFFFFFFFFFFFF)
+    ember.write(0xFFFFFFFFFFFF, debug=args.debug)
     print("Address", addr, "DONE")
 
   # Do READ operation across cells

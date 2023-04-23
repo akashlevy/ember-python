@@ -19,13 +19,15 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
     # Set address and write
     ember.set_addr(addr)
     num_levels = 16 if ember.settings["num_levels"] == 0 else ember.settings["num_levels"]
-    ember.write([(i + addr) % num_levels for i in range(48)], debug=True)
+    write_array = [(i + addr) % num_levels for i in range(48)]
+    ember.write(write_array, debug=False)
 
     # Read directly after write
     read = ember.read()
 
     # Print address and read value
     print("Address", addr)
+    print("WROTE", write_array)
     print("READ", read)
 
     # Write to outfile

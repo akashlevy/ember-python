@@ -1,5 +1,5 @@
 # Import Python libraries
-import json, time, warnings
+import copy, json, time, warnings
 from math import ceil, log2
 
 # Warnings become errors
@@ -114,7 +114,7 @@ class EMBERWriteFailure(EMBERException):
 
 class EMBERDriver(object):
   """Class to interface with EMBER chip"""
-  def __init__(self, chip, settings, test_conn=True, debug=True):
+  def __init__(self, chip, settings, test_conn=True, debug=False):
     """Initialize and configure SPI/GPIO interfaces"""
     # Load settings
     self.addr = 0
@@ -124,7 +124,7 @@ class EMBERDriver(object):
       with open(settings) as settings_file:
         self.settings = json.load(settings_file)
       self.di_init_mask = self.settings["di_init_mask"]
-      self.level_settings = self.settings["level_settings"].copy()
+      self.level_settings = copy.deepcopy(self.settings["level_settings"])
     self.last_misc, self.last_prog = None, None
 
     # Setup SPI and GPIO
@@ -198,11 +198,39 @@ class EMBERDriver(object):
   #
   # HIGH LEVEL OPERATIONS
   #
+  def superread(self, mask=None):
+    """Full-range (64-level) READ operation using 4 READs"""
+    # Backup settings
+    settings_bak = copy.deepcopy(self.settings)
+
+    # Reconfigure settings and READ 4x
+    self.settings["num_levels"] = 0
+    for i in range(4):
+      # Set level settings
+      self.settings["level_settings"] = []
+      for j in range(16):
+        self.settings["level_settings"].append(self.level_settings[0].copy())
+        self.settings["level_settings"][-1]["adc_upper_read_ref_lvl"] = i*16 + j
+
+      # READ and convert partial read to superread
+      reader = self.read(mask)
+      read = [r + i*16 for r in reader]
+      if i == 0:
+        superread = read
+      else:
+        for k, r in enumerate(superread):
+          if r == (i*16 - 1):
+            superread[k] = read[k]
+
+    # Reset settings
+    self.settings = settings_bak
+
+    # Return superread value
+    return superread
+    
   def read(self, mask=None):
     """READ operation"""
-    # Reset level settings
-    mask = self.settings["di_init_mask"] = self.di_init_mask if mask is None else mask
-    self.settings["level_settings"] = self.level_settings.copy()
+    # Commit
     self.commit_settings()
 
     # Execute READ command
@@ -216,8 +244,7 @@ class EMBERDriver(object):
       data.append(self.read_reg(REG_READ + i))
 
     # Translate to array of numbers
-    data = data[::-1] # reverse string
-    data = ["{0:048b}".format(d) for d in data] # convert to binary strings
+    data = ["{0:048b}".format(d)[::-1] for d in data][::-1] # convert to binary strings
     data = zip(*data) # transpose
     data = [int(''.join(d), base=2) for d in data] # convert from binary to array of ints
     
@@ -226,20 +253,24 @@ class EMBERDriver(object):
     self.mlogfile.write("MLCREAD,%s,%s\n" % (mask, ",".join([str(d) for d in data])))
 
     # Return data
-    return data
+    return data[:self.settings["bitwidth"]]
 
   def write(self, data, debug=False):
-    """Perform write-verify"""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    """Perform write-verify"""
+    # Commit
+    self.commit_settings()
+
     # Verify that data is int or valid int array and convert to int array
     num_levels = (self.settings["num_levels"] + 15) % 16 + 1 # when num_levels=0, interpret as num_levels=16
     assert(isinstance(data, int) or isinstance(data, list))
     if isinstance(data, int):
       assert(data >= 0 and data < 2**48)
-      data = [int(d) for d in "{0:048b}".format(data)] # convert to array of bits
+      data = [int(d) for d in "{0:048b}".format(data)[::-1]] # convert to array of bits
     assert(all([d < num_levels for d in data]))
 
     # Debug print data
-    print("WRITING DATA:", data)
+    if debug:
+      print("WRITING DATA:", data)
     
     # NOTE: set_first, loop_order, and PW looping are not implemented in this function though they are in spec
     # Write levels one by one
@@ -258,36 +289,41 @@ class EMBERDriver(object):
         if self._write_reset_loop(data, i, attempts, debug):
           break
 
+        # If loop completes, write failed
+        if attempts == (self.settings["max_attempts"] - 1) and not self.settings["ignore_failures"]:
+          raise EMBERWriteFailure("Write failed on address %s" % self.addr)
+
   def _write_set_loop(self, data, i, attempts, debug=False):
     """Do SET loop for write-verify and return True if done with entire set process"""
     # Get settings for level i
     s = self.level_settings[i]
 
     # Start with mask based on which cells need to be targeted
-    mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+    mask = int(''.join(['1' if d == i else '0' for d in data])[::-1], base=2) & self.settings["di_init_mask"]
     if debug:
       print("MASK:", mask)
     if mask == 0:
       return True # Done with level if no cells at level need to be targeted
 
-    # Loop through pulse magnitude
-    for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"]+1, s["wl_dac_set_lvl_step"]):
-      for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"]+1, s["bl_dac_set_lvl_step"]):
-        # Mask bits below threshold according to READ value
-        mask &= ~self.single_read(i, "lower_write", mask)
-        if debug:
-          print("MASK:", mask)
-        
-        # If fully masked, do not apply pulse
-        if mask == 0:
-          # If fully masked, at least one attempt complete, and no previous SET pulses on this attempt, then we are done with this level
-          if (attempts > 0) and (vwl == s["wl_dac_set_lvl_start"]) and (vbl == s["bl_dac_set_lvl_start"]):
-            return True # Done with level
+    # Loop through pulse magnitude (up to max_attempts times)
+    for loop_attempts in range(self.settings["max_attempts"]):
+      for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"]+1, s["wl_dac_set_lvl_step"]):
+        for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"]+1, s["bl_dac_set_lvl_step"]):
+          # Mask bits below threshold according to READ value
+          mask &= ~self.single_read(i, "lower_write", mask)
+          if debug:
+            print("MASK:", mask)
+          
+          # If fully masked, do not apply pulse
+          if mask == 0:
+            # If fully masked, at least one attempt complete, and no previous SET pulses on this attempt, then we are done with this level
+            if (attempts > 0) and (loop_attempts == 0) and (vwl == s["wl_dac_set_lvl_start"]) and (vbl == s["bl_dac_set_lvl_start"]):
+              return True # Done with level
+            else:
+              return False # Not done with level (but done with the SET loop)
+          # If not fully masked, apply SET pulse to unmasked bits
           else:
-            return False # Not done with level (but done with the SET loop)
-        # If not fully masked, apply SET pulse to unmasked bits
-        else:
-          self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
+            self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
 
     # If loop completes, write failed
     if not self.settings["ignore_failures"]:
@@ -298,40 +334,45 @@ class EMBERDriver(object):
     s = self.level_settings[i]
 
     # Start with mask based on which cells need to be targeted
-    mask = int(''.join(['1' if d == i else '0' for d in data]), base=2)
+    mask = int(''.join(['1' if d == i else '0' for d in data])[::-1], base=2) & self.settings["di_init_mask"]
     if debug:
       print("MASK:", mask)
     if mask == 0:
       return True # Done with level if no cells at level need to be targeted
 
-    # Loop through pulse magnitude
-    for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"]+1, s["wl_dac_rst_lvl_step"]):
-      for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"]+1, s["sl_dac_rst_lvl_step"]):
-        # Mask bits according to READ value
-        mask &= self.single_read(i, "upper_write", mask)
-        if debug:
-          print("MASK:", mask)
+    # Loop through pulse magnitude (up to max_attempts times)
+    for loop_attempts in range(self.settings["max_attempts"]):
+      for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"]+1, s["wl_dac_rst_lvl_step"]):
+        for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"]+1, s["sl_dac_rst_lvl_step"]):
+          # Mask bits according to READ value
+          mask &= self.single_read(i, "upper_write", mask)
+          if debug:
+            print("MASK:", mask)
 
-        # If fully masked, do not apply pulse
-        if (mask == 0):
-          # If fully masked, at least one attempt complete, and no previous RESET pulses on this attempt, then we are done
-          if (attempts > 0) and (vwl == s["wl_dac_rst_lvl_start"]) and (vsl == s["sl_dac_rst_lvl_start"]):
-            return True # Done with level
+          # If fully masked, do not apply pulse
+          if (mask == 0):
+            # If fully masked, at least one attempt complete, and no previous RESET pulses on this attempt, then we are done
+            if (attempts > 0) and (loop_attempts == 0) and (vwl == s["wl_dac_rst_lvl_start"]) and (vsl == s["sl_dac_rst_lvl_start"]):
+              return True # Done with level
+            else:
+              return False # Not done with level (but done with the RESET loop)
+          # If not fully masked, apply RESET pulse to unmasked bits
           else:
-            return False # Not done with level (but done with the RESET loop)
-        # If not fully masked, apply RESET pulse to unmasked bits
-        else:
-          self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
+            self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
 
     # If loop completes, write failed
     if not self.settings["ignore_failures"]:
       raise EMBERWriteFailure("Write failed during RESET loop on address %s" % self.addr)
 
-  def cycle(self):
+  def cycle(self, use_multi_addrs=False):
     """CYCLE operation"""
     # Execute CYCLE command (alternating SET/RESETs)
-    self.write_reg(REG_CMD, OP_CYCLE)
+    self.write_reg(REG_CMD, OP_CYCLE + 8*use_multi_addrs)
     self.wait_for_idle()
+
+    # Log the CYCLE
+    self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
+    self.mlogfile.write("CYCLE,%s,%s\n" % (self.settings["di_init_mask"], self.settings["max_attempts"]))
 
   def read_energy(self, bpc=1):
     """Read energy measurement"""
@@ -348,8 +389,11 @@ class EMBERDriver(object):
   #
   # MEDIUM LEVEL OPERATIONS
   #
-  def set_pulse(self, vwl=None, vbl=None, pw_exp=None, pw_mantissa=None, mask=None):
+  def set_pulse(self, vwl=None, vbl=None, pw_exp=None, pw_mantissa=None, mask=None, use_multi_addrs=False):
     """Perform a SET operation."""
+    # Backup settings
+    settings_bak = copy.deepcopy(self.settings)
+
     # Get parameters
     self.settings["set_first"] = 1
     mask = self.settings["di_init_mask"] = self.di_init_mask if mask is None else mask
@@ -365,15 +409,21 @@ class EMBERDriver(object):
 
     # Commit settings and pulse run test pulse (pulses VWL)
     self.commit_settings()
-    self.write_reg(REG_CMD, OP_TEST_PULSE)
+    self.write_reg(REG_CMD, OP_TEST_PULSE + 8*use_multi_addrs)
     self.wait_for_idle()
 
     # Log the pulse
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
     self.mlogfile.write("SET,%s,%s,%s,0,%s\n" % (mask, vwl, vbl, pw))
 
-  def reset_pulse(self, vwl=None, vsl=None, pw_exp=None, pw_mantissa=None, mask=None):
+    # Reset settings
+    self.settings = settings_bak
+
+  def reset_pulse(self, vwl=None, vsl=None, pw_exp=None, pw_mantissa=None, mask=None, use_multi_addrs=False):
     """Perform a RESET operation."""
+    # Backup settings
+    settings_bak = copy.deepcopy(self.settings)
+
     # Get parameters
     self.settings["set_first"] = 0
     mask = self.settings["di_init_mask"] = self.di_init_mask if mask is None else mask
@@ -389,12 +439,15 @@ class EMBERDriver(object):
 
     # Commit settings and pulse run test pulse (pulses VWL)
     self.commit_settings()
-    self.write_reg(REG_CMD, OP_TEST_PULSE)
+    self.write_reg(REG_CMD, OP_TEST_PULSE + 8*use_multi_addrs)
     self.wait_for_idle()
 
     # Log the pulse
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
     self.mlogfile.write("RESET,%s,%s,0,%s,%s\n" % (mask, vwl, vsl, pw))
+
+    # Reset settings
+    self.settings = settings_bak
 
   def commit_settings(self):
     """Write all settings"""
@@ -402,12 +455,16 @@ class EMBERDriver(object):
     misc = 0
     for field, width in MISC_FIELDS:
       try:
-        assert(self.settings[field] >= 0 and self.settings[field] < 2**width)
+        if field != "max_attempts":
+          assert(self.settings[field] >= 0 and self.settings[field] < 2**width)
       except AssertionError as e:
         print("Field, width, value:", field, width, self.settings[field])
         raise e
       misc <<= width
-      misc |= self.settings[field]
+      if field != "max_attempts":
+        misc |= self.settings[field]
+      else:
+        misc |= min(255, self.settings[field])
     
     # Update miscellaneous register if there was a change from previous commit
     if self.last_misc != misc:
@@ -458,8 +515,11 @@ class EMBERDriver(object):
     # Update address field
     self.addr = addr_start
 
-  def single_read(self, level=0, ref="upper_read", mask=None):
+  def single_read(self, level=0, ref="upper_read", ignore_minmax=True, mask=None):
     """Test READ operation"""
+    # Backup settings
+    settings_bak = copy.deepcopy(self.settings)
+
     # Copy level settings from desired level
     self.settings["level_settings"][0] = self.level_settings[level].copy()
 
@@ -482,6 +542,18 @@ class EMBERDriver(object):
     mask = self.settings["di_init_mask"] = mask if mask is not None else self.di_init_mask
     self.commit_settings()
 
+    # Everything is always above 0
+    if (self.settings["level_settings"][0]["adc_upper_read_ref_lvl"] == 0) and ignore_minmax:
+      # Reset settings and return mask
+      self.settings = settings_bak
+      return mask
+ 
+    # Everything is always below 63
+    if (self.settings["level_settings"][0]["adc_upper_read_ref_lvl"] == 63) and ignore_minmax:
+      # Reset settings and return 0
+      self.settings = settings_bak
+      return 0
+
     # Increment the number of READs
     self.prof["READs"] += 1
     self.prof["CELL_READs"] += bin(mask).count("1")
@@ -496,6 +568,9 @@ class EMBERDriver(object):
     # Log the pulse
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
     self.mlogfile.write("READ,%s,%s,%s,%s,\n" % (mask, level, self.settings["level_settings"][0]["adc_upper_read_ref_lvl"], read))
+
+    # Reset settings
+    self.settings = settings_bak
 
     # Return READ value
     return read
