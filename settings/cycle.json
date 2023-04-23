@@ -19,17 +19,17 @@
   "ignore_failures" : 0,
   "di_init_mask" : 65535,
 
-  "set_first" : 1,
+  "set_first" : 0,
 
-  "pw_rst_cycle_exp" : 0,
+  "pw_rst_cycle_exp" : 7,
   "pw_rst_cycle_mantissa" : 31,
   "wl_dac_rst_lvl_cycle" : 255,
-  "sl_dac_rst_lvl_cycle" : 16,
+  "sl_dac_rst_lvl_cycle" : 31,
 
   "pw_set_cycle_exp" : 0,
   "pw_set_cycle_mantissa" : 1,
-  "wl_dac_set_lvl_cycle" : 0,
-  "bl_dac_set_lvl_cycle" : 8,
+  "wl_dac_set_lvl_cycle" : 180,
+  "bl_dac_set_lvl_cycle" : 24,
 
   "num_levels" : 2,
   "use_ecc" : 0,

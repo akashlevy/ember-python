@@ -287,7 +287,8 @@ class EMBERDriver(object):
         if debug:
           print("RESET LOOP", i, "ATTEMPT", attempts)
         if self._write_reset_loop(data, i, attempts, debug):
-          break
+          pass
+          # break # END ON SET!!!
 
         # If loop completes, write failed
         if attempts == (self.settings["max_attempts"] - 1) and not self.settings["ignore_failures"]:
@@ -324,6 +325,7 @@ class EMBERDriver(object):
           # If not fully masked, apply SET pulse to unmasked bits
           else:
             self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
+      self.cycle(mask)
 
     # If loop completes, write failed
     if not self.settings["ignore_failures"]:
@@ -359,13 +361,17 @@ class EMBERDriver(object):
           # If not fully masked, apply RESET pulse to unmasked bits
           else:
             self.reset_pulse(vwl, vsl, self.settings["pw_rst_cycle_exp"], self.settings["pw_rst_cycle_mantissa"], mask)
+      self.cycle(mask)
 
     # If loop completes, write failed
     if not self.settings["ignore_failures"]:
       raise EMBERWriteFailure("Write failed during RESET loop on address %s" % self.addr)
 
-  def cycle(self, use_multi_addrs=False):
+  def cycle(self, mask=None, use_multi_addrs=False):
     """CYCLE operation"""
+    # Set mask
+    self.settings["di_init_mask"], old_mask = self.di_init_mask if mask is None else mask, self.settings["di_init_mask"]
+
     # Execute CYCLE command (alternating SET/RESETs)
     self.write_reg(REG_CMD, OP_CYCLE + 8*use_multi_addrs)
     self.wait_for_idle()
@@ -373,6 +379,9 @@ class EMBERDriver(object):
     # Log the CYCLE
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
     self.mlogfile.write("CYCLE,%s,%s\n" % (self.settings["di_init_mask"], self.settings["max_attempts"]))
+
+    # Reset mask
+    self.settings["di_init_mask"] = old_mask
 
   def read_energy(self, bpc=1):
     """Read energy measurement"""

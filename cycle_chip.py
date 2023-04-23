@@ -15,11 +15,11 @@ args = parser.parse_args()
 
 # Cycler
 def cycler(ember, args):
-  for i in range(16):
-    ember.settings["di_init_mask"] = 1 << i
-    ember.commit_settings()
-    ember.set_addr(args.start_addr, args.end_addr, args.step_addr)
-    ember.cycle(use_multi_addrs=True)
+  # for i in range(16):
+  #   ember.settings["di_init_mask"] = 1 << i
+  ember.set_addr(args.start_addr, args.end_addr, args.step_addr)
+  ember.commit_settings()
+  ember.cycle(use_multi_addrs=True)
 
 # Initialize EMBER system
 with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") as outfile:
@@ -51,7 +51,7 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
       postreads.append(ember.superread())
     
     print("CYCLES:", ncycles)
-    print("EXAMPLE:", prereads[0][0], postreads[0][0])
+    print("EXAMPLE:", prereads[0][5], postreads[0][5])
 
     # Outfile
     for addr, preread, postread in zip(range(args.start_addr, args.end_addr, args.step_addr), prereads, postreads):
