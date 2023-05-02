@@ -204,22 +204,24 @@ class EMBERDriver(object):
     settings_bak = copy.deepcopy(self.settings)
 
     # Reconfigure settings and READ 4x
-    self.settings["num_levels"] = 0
-    for i in range(4):
+    self.settings["num_levels"] = 9
+    for i in range(8):
       # Set level settings
       self.settings["level_settings"] = []
-      for j in range(16):
+      for j in range(9):
         self.settings["level_settings"].append(self.level_settings[0].copy())
-        self.settings["level_settings"][-1]["adc_upper_read_ref_lvl"] = i*16 + j
+        self.settings["level_settings"][-1]["adc_upper_read_ref_lvl"] = min(i*8 + j, 63)
 
       # READ and convert partial read to superread
       reader = self.read(mask)
-      read = [r + i*16 for r in reader]
+      # print([a["adc_upper_read_ref_lvl"] for a in self.settings["level_settings"]])
+      # print(reader)
+      read = [r + i*8 for r in reader]
       if i == 0:
         superread = read
       else:
         for k, r in enumerate(superread):
-          if r == (i*16 - 1):
+          if r == i*8:
             superread[k] = read[k]
 
     # Reset settings
@@ -255,7 +257,7 @@ class EMBERDriver(object):
     # Return data
     return data[:self.settings["bitwidth"]]
 
-  def write(self, data, debug=False):
+  def write(self, data, ignore_minmax=True, debug=False):
     """Perform write-verify"""
     # Commit
     self.commit_settings()
@@ -280,13 +282,13 @@ class EMBERDriver(object):
         # SET loop: returns True if done with attempt
         if debug:
           print("SET LOOP", i, "ATTEMPT", attempts)
-        if self._write_set_loop(data, i, attempts, debug):
+        if self._write_set_loop(data, i, attempts, ignore_minmax, debug):
           break
         
         # RESET loop: returns True if done with attempt
         if debug:
           print("RESET LOOP", i, "ATTEMPT", attempts)
-        if self._write_reset_loop(data, i, attempts, debug):
+        if self._write_reset_loop(data, i, attempts, ignore_minmax, debug):
           pass
           # break # END ON SET!!!
 
@@ -294,7 +296,7 @@ class EMBERDriver(object):
         if attempts == (self.settings["max_attempts"] - 1) and not self.settings["ignore_failures"]:
           raise EMBERWriteFailure("Write failed on address %s" % self.addr)
 
-  def _write_set_loop(self, data, i, attempts, debug=False):
+  def _write_set_loop(self, data, i, attempts, ignore_minmax=True, debug=False):
     """Do SET loop for write-verify and return True if done with entire set process"""
     # Get settings for level i
     s = self.level_settings[i]
@@ -311,7 +313,7 @@ class EMBERDriver(object):
       for vwl in range(s["wl_dac_set_lvl_start"], s["wl_dac_set_lvl_stop"]+1, s["wl_dac_set_lvl_step"]):
         for vbl in range(s["bl_dac_set_lvl_start"], s["bl_dac_set_lvl_stop"]+1, s["bl_dac_set_lvl_step"]):
           # Mask bits below threshold according to READ value
-          mask &= ~self.single_read(i, "lower_write", mask)
+          mask &= ~self.single_read(i, "lower_write", mask, ignore_minmax)
           if debug:
             print("MASK:", mask)
           
@@ -331,7 +333,7 @@ class EMBERDriver(object):
     if not self.settings["ignore_failures"]:
       raise EMBERWriteFailure("Write failed during SET loop on address %s" % self.addr)
 
-  def _write_reset_loop(self, data, i, attempts, debug=False):
+  def _write_reset_loop(self, data, i, attempts, ignore_minmax=True, debug=False):
     # Get settings for level i
     s = self.level_settings[i]
 
@@ -347,7 +349,7 @@ class EMBERDriver(object):
       for vwl in range(s["wl_dac_rst_lvl_start"], s["wl_dac_rst_lvl_stop"]+1, s["wl_dac_rst_lvl_step"]):
         for vsl in range(s["sl_dac_rst_lvl_start"], s["sl_dac_rst_lvl_stop"]+1, s["sl_dac_rst_lvl_step"]):
           # Mask bits according to READ value
-          mask &= self.single_read(i, "upper_write", mask)
+          mask &= self.single_read(i, "upper_write", mask, ignore_minmax)
           if debug:
             print("MASK:", mask)
 
@@ -502,7 +504,7 @@ class EMBERDriver(object):
       self.write_reg(rangei, prog)
     
     # Remember last set of level settings
-    self.last_prog = self.settings["level_settings"].copy()
+    self.last_prog = copy.deepcopy(self.settings["level_settings"])
     
   def set_addr(self, addr_start, addr_stop=None, addr_step=1):
     """Set address"""
@@ -524,7 +526,7 @@ class EMBERDriver(object):
     # Update address field
     self.addr = addr_start
 
-  def single_read(self, level=0, ref="upper_read", ignore_minmax=True, mask=None):
+  def single_read(self, level=0, ref="upper_read", mask=None, ignore_minmax=True):
     """Test READ operation"""
     # Backup settings
     settings_bak = copy.deepcopy(self.settings)
