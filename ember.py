@@ -327,7 +327,7 @@ class EMBERDriver(object):
           # If not fully masked, apply SET pulse to unmasked bits
           else:
             self.set_pulse(vwl, vbl, self.settings["pw_set_cycle_exp"], self.settings["pw_set_cycle_mantissa"], mask)
-      self.cycle(mask)
+      # self.cycle(mask)
 
     # If loop completes, write failed
     if not self.settings["ignore_failures"]:

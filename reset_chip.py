@@ -14,14 +14,21 @@ args = parser.parse_args()
 
 # Initialize EMBER system
 with EMBERDriver(args.chipname, args.config) as ember:
-  # Do READ operation across cells
-  prereads = []
-  for addr in range(args.start_addr, args.end_addr, args.step_addr):
-    ember.set_addr(addr)
-    prereads.append(ember.read())
-  print("PREREAD:")
-  for read in prereads:
-    print(read)
+  # Reduce max attempts, ignore failures, reduce SET PW
+  ember.settings["max_attempts"] = 100
+  ember.settings["ignore_failures"] = 1
+  ember.settings["pw_set_cycle_exp"] = 0
+  ember.settings["pw_set_cycle_mantissa"] = 1
+  ember.commit_settings()
+  
+  # # Do READ operation across cells
+  # prereads = []
+  # for addr in range(args.start_addr, args.end_addr, args.step_addr):
+  #   ember.set_addr(addr)
+  #   prereads.append(ember.read())
+  # print("PREREAD:")
+  # for read in prereads:
+  #   print(read)
 
   # Do operation across cells
   for addr in range(args.start_addr, args.end_addr, args.step_addr):
@@ -29,11 +36,11 @@ with EMBERDriver(args.chipname, args.config) as ember:
     ember.write(0, debug=args.debug)
     print("Address", addr, "DONE:", ember.read())
 
-  # Do READ operation across cells
-  postreads = []
-  for addr in range(args.start_addr, args.end_addr, args.step_addr):
-    ember.set_addr(addr)
-    postreads.append(ember.read())
-  print("POSTREAD:")
-  for read in postreads:
-    print(read)
+  # # Do READ operation across cells
+  # postreads = []
+  # for addr in range(args.start_addr, args.end_addr, args.step_addr):
+  #   ember.set_addr(addr)
+  #   postreads.append(ember.read())
+  # print("POSTREAD:")
+  # for read in postreads:
+  #   print(read)
