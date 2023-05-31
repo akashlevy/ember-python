@@ -1,8 +1,0 @@
-
-WarningEvent
-=============
-
-.. currentmodule:: keysight_kt34400
-
-.. autoclass:: WarningEvent
-        
