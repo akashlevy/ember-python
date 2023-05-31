@@ -1,0 +1,14 @@
+
+DBmRefResistance
+=================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: DBmRefResistance
+    :members:
+    :exclude-members: name
+
+
+
+

@@ -1,0 +1,14 @@
+
+CapacitanceSecondaryFunction
+=============================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: CapacitanceSecondaryFunction
+    :members:
+    :exclude-members: name
+
+
+
+

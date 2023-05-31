@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Example Code &#8212; Kt34400 2.0.0 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Status System Overview" href="statusSystem.html" />
+    <link rel="prev" title="Programming Basics" href="programming.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<table width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td valign="top"><a href="index.html"><h1 style="font-size: 2em;">Kt34400 Driver Python API</h1></a></td>
+        <td align="right"><a href="https://www.keysight.com" target="_blank"><img src="_static\keysight.gif" alt="keysight.gif"></a></td>
+</tr></table>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="statusSystem.html" title="Status System Overview"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="programming.html" title="Programming Basics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="search.html">search</a>|&nbsp;</li>-->
+
+        <li class="nav-item nav-item-this"><a href="">Example Code</a></li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="example-code">
+<span id="example"></span><h1>Example Code<a class="headerlink" href="#example-code" title="Permalink to this heading">¶</a></h1>
+<p>The following keysight_kt34400 driver Python API code provides complete, working examples that may
+be copied to a .py file and run. The examples are coded to run in simulation mode without an instrument.
+The <em>resource_name</em> and <em>options</em> variables may be edited to run with an instrument.</p>
+<p>The examples perform the following tasks:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#basic-measurement">Basic Measurement</a></p></li>
+<li><p><a class="reference internal" href="#status-service-request">Status Service Request</a></p></li>
+</ul>
+<section id="basic-measurement">
+<h2>Basic Measurement<a class="headerlink" href="#basic-measurement" title="Permalink to this heading">¶</a></h2>
+<p>File: keysight_kt34400_example1.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">keysight_kt34400 Python API Example Program</span>
+
+<span class="sd">Creates a driver object, reads a few DriverIdentity interface properties, and checks</span>
+<span class="sd">the instrument error queue.  May include additional instrument specific functionality.</span>
+
+<span class="sd">Runs in simulation mode without an instrument.</span>
+
+<span class="sd">Requires Python 3.6 or newer and keysight_kt34400 Python module installed.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">keysight_kt34400</span> <span class="k">as</span> <span class="nn">m</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># Required by keysight_kt34400</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Edit resource_name and options as needed.  resource_name is ignored if option Simulate=True.</span>
+<span class="sd">    For this example, resource_name may be a VISA address(e.g. &quot;TCPIP0::&lt;ipAddress or hostName&gt;::INSTR&quot;)</span>
+<span class="sd">    or a VISA alias.  For more information on using VISA aliases, refer to the Keysight IO</span>
+<span class="sd">    Libraries Connection Expert documentation.</span>
+<span class="sd">    See driver help file topic &#39;Creating a Driver Instance&#39; for constructor options details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">resource_name</span> <span class="o">=</span> <span class="s2">&quot;MyVisaAlias&quot;</span>
+    <span class="c1">#resource_name = &quot;TCPIP0::127.0.0.1::INSTR&quot;</span>
+    <span class="n">idQuery</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">reset</span>   <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="s2">&quot;QueryInstrStatus=False, Simulate=True, Trace=False&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  keysight_kt34400 Python API Example1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Call driver constructor with options</span>
+        <span class="k">global</span> <span class="n">driver</span> <span class="c1"># May be used in other functions</span>
+        <span class="n">driver</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">driver</span> <span class="o">=</span> <span class="n">keysight_kt34400</span><span class="o">.</span><span class="n">Kt34400</span><span class="p">(</span><span class="n">resource_name</span><span class="p">,</span> <span class="n">idQuery</span><span class="p">,</span> <span class="n">reset</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Driver Initialized&quot;</span><span class="p">)</span>
+
+        <span class="c1">#  Print a few identity properties</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  identifier: &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  revision:   &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">revision</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  vendor:     &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">vendor</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  description:&#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  model:      &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">instrument_model</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  resource:   &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">driver_operation</span><span class="o">.</span><span class="n">io_resource_descriptor</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  options:    &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">driver_operation</span><span class="o">.</span><span class="n">driver_setup</span><span class="p">)</span>
+
+
+        <span class="c1"># Reset the DMM</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+        <span class="c1">#Set up the DMM for immediate trigger</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">trigger</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">TriggerSource</span><span class="o">.</span><span class="n">IMMEDIATE</span>
+
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="c1">#---------------------DC Volt measurements------------------------</span>
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="c1">#Configure the meter to 10V range and fast mode (least resolution)</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">dc_voltage</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">Resolution</span><span class="o">.</span><span class="n">MAX</span><span class="p">)</span>
+        <span class="n">max_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">max_time</span><span class="p">)</span>
+
+        <span class="c1">#Display the Raw DC Volts Measurement</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raw DC Volts measurement: ,&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot; Volts&quot;</span><span class="p">)</span>
+
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="c1">#---------------------AC Volt measurements------------------------</span>
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="c1">#Configure the meter to 10VAC range and fast mode (least resolution)</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">ac_voltage</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">Resolution</span><span class="o">.</span><span class="n">MAX</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">max_time</span><span class="p">)</span>
+
+        <span class="c1">#Display the Raw AC Volts Measurement</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raw AC Volts measurement: ,&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot; Volts&quot;</span><span class="p">)</span>
+
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="c1">#-------------------DC Current measurements-----------------------</span>
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="c1">#Configure the meter to 100mA range and fast mode (least resolution)</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">dc_current</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mf">100E-3</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">Resolution</span><span class="o">.</span><span class="n">MAX</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">max_time</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DC Current measurement: ,&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot; Amps&quot;</span><span class="p">)</span>
+
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="c1">#-------------------AC Current measurements-----------------------</span>
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="c1">#Configure the meter to 100mA range and fast mode (least resolution)</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">ac_current</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mf">100E-3</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">Resolution</span><span class="o">.</span><span class="n">MAX</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">max_time</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AC Current measurement: ,&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot; Amps&quot;</span><span class="p">)</span>
+
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="c1">#--------------------Frequency measurements-----------------------</span>
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="c1">#Configure the meter to read frequency</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">Resolution</span><span class="o">.</span><span class="n">MAX</span><span class="p">)</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">frequency</span><span class="o">.</span><span class="n">voltage_range</span> <span class="o">=</span> <span class="mi">10</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">max_time</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Frequency measurement: ,&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot; Hz&quot;</span><span class="p">)</span>
+
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="c1">#-------------------Resistance measurements-----------------------</span>
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="c1">#Configure the meter to 10k ohm range and fast mode (least resolution)</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">resistance</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="mf">10E+3</span><span class="p">,</span><span class="n">m</span><span class="o">.</span><span class="n">Resolution</span><span class="o">.</span><span class="n">MAX</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">max_time</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2-Wire Resistance measurement: ,&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot; Ohms&quot;</span><span class="p">)</span>
+
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+        <span class="c1">#-------------------Temperature measurements----------------------</span>
+        <span class="c1">#&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+        <span class="c1">#Configure the meter to 5k ohm range</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">temperature</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">max_time</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Thermistormeasurement: ,&quot;</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="s2">&quot; degrees C&quot;</span><span class="p">)</span>
+
+
+        <span class="c1"># Check instrument for errors</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">outVal</span> <span class="o">=</span> <span class="p">()</span>
+            <span class="n">outVal</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">error_query</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  error_query: code:&quot;</span><span class="p">,</span> <span class="n">outVal</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot; message:&quot;</span><span class="p">,</span> <span class="n">outVal</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">outVal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span> <span class="c1"># 0 = No error, error queue empty</span>
+                <span class="k">break</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Exception:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">driver</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># Skip close() if constructor failed</span>
+            <span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Done - Press Enter to Exit&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#"><span class="doc">Top</span></a></p>
+</section>
+<section id="status-service-request">
+<h2>Status Service Request<a class="headerlink" href="#status-service-request" title="Permalink to this heading">¶</a></h2>
+<p>File: keysight_kt34400_status_srq.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">keysight_kt34400 Python API Status SRQ Example Program</span>
+
+<span class="sd">Demonstrates how to setup the instrument status system to request service when</span>
+<span class="sd">a supported condition occurs and how to detect the SRQ using 2 techniques:</span>
+<span class="sd">    1. Polling the instrument status byte</span>
+<span class="sd">    2. Asynchronous SRQ event callback</span>
+
+<span class="sd">Runs in simulation mode without an instrument.</span>
+
+<span class="sd">Requires Python 3.6 or newer and keysight_kt34400 Python module installed.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">keysight_kt34400</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> <span class="c1"># For keysight_kt34400 arrays</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Edit resourceName and options as needed.  resourceName is ignored if option Simulate=True</span>
+<span class="sd">    For this example, resourceName may be a VISA address(e.g. &quot;TCPIP0::&lt;ipAddress or hostName&gt;::INSTR&quot;) or a VISA alias.</span>
+<span class="sd">    For more information on using VISA aliases, refer to the Keysight IO Libraries Connection Expert documentation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">resource_name</span> <span class="o">=</span> <span class="s2">&quot;MyVisaAlias&quot;</span>
+    <span class="c1">#resource_name = &quot;TCPIP0::&lt;IP_Address&gt;::INSTR&quot;</span>
+    <span class="n">idQuery</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">reset</span>   <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="s2">&quot;QueryInstrStatus=False, Simulate=True, Trace=False&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  keysight_kt34400 Python API Example1</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Call driver constructor with options</span>
+        <span class="k">global</span> <span class="n">driver</span> <span class="c1"># May be used in other functions</span>
+        <span class="n">driver</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">driver</span> <span class="o">=</span> <span class="n">keysight_kt34400</span><span class="o">.</span><span class="n">Kt34400</span><span class="p">(</span><span class="n">resource_name</span><span class="p">,</span> <span class="n">idQuery</span><span class="p">,</span> <span class="n">reset</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Driver Initialized&quot;</span><span class="p">)</span>
+
+        <span class="c1">#  Print a few identity properties</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  identifier: &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  model:      &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">identity</span><span class="o">.</span><span class="n">instrument_model</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  resource:   &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">driver_operation</span><span class="o">.</span><span class="n">io_resource_descriptor</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  options:    &#39;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">driver_operation</span><span class="o">.</span><span class="n">driver_setup</span><span class="p">)</span>
+
+
+        <span class="c1"># Configure and test SRQs</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Testing Service Request (SRQ) on OperationComplete...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Configure status system to set StatusByte, RequestService bit on EventStatusRegister, OperationComplete bit.</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">preset</span><span class="p">();</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">standard_event</span><span class="o">.</span><span class="n">enable_register</span> <span class="o">=</span> <span class="n">keysight_kt34400</span><span class="o">.</span><span class="n">StatusStandardEventFlags</span><span class="o">.</span><span class="n">OPERATION_COMPLETE</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">service_request_enable_register</span> <span class="o">=</span> <span class="n">keysight_kt34400</span><span class="o">.</span><span class="n">StatusByteFlags</span><span class="o">.</span><span class="n">STANDARD_EVENT_SUMMARY</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span> <span class="c1"># Clear error queue and event registers for new events</span>
+
+        <span class="c1"># Polling for SRQ technique</span>
+        <span class="c1"># Program polls StatusByte while waiting for SRQ or until max time elapses.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing polling status byte for SRQ&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Do something that will cause the SRQ event to be fired</span>
+        <span class="c1"># Most but not all instruments support *OPC...</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">write_string</span><span class="p">(</span><span class="s2">&quot;*OPC&quot;</span><span class="p">)</span> <span class="c1"># Sets ESR Operation Complete bit 0 when all pending operations are complete</span>
+
+        <span class="c1"># Polling loop</span>
+        <span class="n">srq_occurred</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">status_byte</span> <span class="o">=</span> <span class="n">keysight_kt34400</span><span class="o">.</span><span class="n">StatusByteFlags</span><span class="o">.</span><span class="n">NONE</span>
+        <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span> <span class="c1"># Wait up to 500ms (iterations * sleep time) for SRQ</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.050</span><span class="p">)</span> <span class="c1"># time sets polling interval</span>
+            <span class="n">status_byte</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">serial_poll</span><span class="p">()</span> <span class="c1"># Use ReadstatusByte() on non-488.2 connections (e.g. SOCKET, ASRL)</span>
+            <span class="k">if</span> <span class="n">driver</span><span class="o">.</span><span class="n">driver_operation</span><span class="o">.</span><span class="n">simulate</span><span class="p">:</span>
+                <span class="n">status_byte</span> <span class="o">=</span> <span class="n">keysight_kt34400</span><span class="o">.</span><span class="n">StatusByteFlags</span><span class="o">.</span><span class="n">REQUEST_SERVICE_SUMMARY</span> <span class="c1"># Simulate SRQ</span>
+
+            <span class="c1"># StatusByteFlags enums have binary weighted integer values so they can be used for bitwise operations.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">status_byte</span><span class="o">.</span><span class="n">value</span> <span class="o">&amp;</span> <span class="n">keysight_kt34400</span><span class="o">.</span><span class="n">StatusByteFlags</span><span class="o">.</span><span class="n">REQUEST_SERVICE_SUMMARY</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="n">keysight_kt34400</span><span class="o">.</span><span class="n">StatusByteFlags</span><span class="o">.</span><span class="n">REQUEST_SERVICE_SUMMARY</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  SRQ detected&quot;</span><span class="p">)</span>
+                <span class="c1"># Service SRQ</span>
+                <span class="c1"># Your code to query additional status registers to determine the specific source of the SRQ,</span>
+                <span class="c1"># if needed, and to take appropriate action to service the SRQ.</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  SerialPoll(): </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">status_byte</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">status_byte</span><span class="p">)))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  EventStatusRegister:&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">standard_event</span><span class="o">.</span><span class="n">read_event_register</span><span class="p">())</span>
+                <span class="nb">print</span><span class="p">()</span>
+                <span class="n">srq_occurred</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">srq_occurred</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  ** SRQ did not occur in allotted time</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+        <span class="c1"># Asynchronous SRQ event callback technique</span>
+        <span class="c1"># Does not work on non-488.2 compliant I/O interface connections (e.g. SOCKET, ASRL)</span>
+        <span class="c1"># Driver asynchronously calls an event handler method when SRQ occurs.  Program execution may continue.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing asynchronous SRQ event callback&quot;</span><span class="p">)</span>
+        <span class="k">global</span> <span class="n">handler_called</span>
+        <span class="n">handler_called</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Register (add) the SRQ event handler method to be called when the event occurs</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">service_request_event</span> <span class="c1"># Get event object</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">srq_event_handler</span><span class="p">)</span> <span class="c1"># Add handler</span>
+        <span class="c1">#event += srq_event_handler  # Alternate syntax</span>
+
+        <span class="c1"># Enable SRQ event callbacks</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span> <span class="c1"># Clear error queue and event registers for new events</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">enable_service_request_events</span><span class="p">()</span> <span class="c1"># Enable SRQ callbacks</span>
+
+        <span class="c1"># Do something that will cause the SRQ event to be fired</span>
+        <span class="c1"># Most but not all instruments support *OPC...</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">write_string</span><span class="p">(</span><span class="s2">&quot;*OPC&quot;</span><span class="p">)</span> <span class="c1"># Sets ESR Operation Complete bit 0 when all pending operations are complete</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">.500</span><span class="p">)</span> <span class="c1"># Wait up to 500ms for SRQ but your program can continue to perform other tasks</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">handler_called</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  ** SRQ did not occur in allotted time</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Unregister (remove) the SRQ event handler method if done using it</span>
+        <span class="n">event</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">srq_event_handler</span><span class="p">)</span>
+        <span class="c1">#event -= srq_event_handler # Alternate syntax</span>
+
+        <span class="c1"># End configure and test SRQs</span>
+
+
+        <span class="c1"># Check instrument for errors</span>
+        <span class="nb">print</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">outVal</span> <span class="o">=</span> <span class="p">()</span>
+            <span class="n">outVal</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">error_query</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  error_query: code:&quot;</span><span class="p">,</span> <span class="n">outVal</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot; message:&quot;</span><span class="p">,</span> <span class="n">outVal</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">outVal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span> <span class="c1"># 0 = No error, error queue empty</span>
+                <span class="k">break</span>
+
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">  Exception:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">driver</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># Skip close() if constructor failed</span>
+            <span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Done - Press Enter to Exit&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">srq_event_handler</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="c1"># SRQ event handler function to be called when the event occurs</span>
+    <span class="k">global</span> <span class="n">driver</span>
+    <span class="k">global</span> <span class="n">handler_called</span>
+    <span class="n">handler_called</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  srq_event_handler called&#39;</span><span class="p">)</span>
+
+    <span class="c1"># args.status_byte is the value of the StatusByte when the SRQ occurred including the ServiceRequest bit 6,</span>
+    <span class="c1"># value 64.  It can be tested, if multiple StatusByte bits are configured to source SRQs, without interfering</span>
+    <span class="c1"># with any other instrument IO.</span>
+    <span class="c1"># Note: When run in simulation, args.status_byte will be set to StatusByteFlags.REQUEST_SERVICE_SUMMARY (64) and</span>
+    <span class="c1"># and all other status event register queries will return StatusByteFlags.NONE (0).</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  args.status_byte: </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">status_byte</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">status_byte</span><span class="p">)))</span>
+
+    <span class="c1"># Code to query additional status registers to determine the specific source of the SRQ, if needed, and to</span>
+    <span class="c1"># take appropriate action to service the SRQ.  Because this method is called asynchronously, any instrument</span>
+    <span class="c1"># I/O done here may interfere with any I/O in progress from the main program execution.  Your code must</span>
+    <span class="c1"># manage this appropriately...</span>
+    <span class="n">driver</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">clear_io</span><span class="p">();</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  EventStatusRegister:&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">standard_event</span><span class="o">.</span><span class="n">read_event_register</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">();</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#"><span class="doc">Top</span></a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Example Code</a><ul>
+<li><a class="reference internal" href="#basic-measurement">Basic Measurement</a></li>
+<li><a class="reference internal" href="#status-service-request">Status Service Request</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="programming.html"
+                          title="previous chapter">Programming Basics</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="statusSystem.html"
+                          title="next chapter">Status System Overview</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="statusSystem.html" title="Status System Overview"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="programming.html" title="Programming Basics"
+             >previous</a> |</li>
+        <li><a href="index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="search.html">search</a>|&nbsp;</li>-->
+
+        <li class="nav-item nav-item-this"><a href="">Example Code</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022-23, Keysight Technologies.  v2.0.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

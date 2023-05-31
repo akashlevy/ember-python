@@ -1,0 +1,14 @@
+
+ThermocoupleType
+=================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: ThermocoupleType
+    :members:
+    :exclude-members: name
+
+
+
+

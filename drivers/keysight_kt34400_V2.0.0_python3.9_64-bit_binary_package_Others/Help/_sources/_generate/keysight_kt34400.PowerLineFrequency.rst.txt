@@ -1,0 +1,14 @@
+
+PowerLineFrequency
+===================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: PowerLineFrequency
+    :members:
+    :exclude-members: name
+
+
+
+

@@ -1,0 +1,14 @@
+
+SecondaryFunction
+==================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: SecondaryFunction
+    :members:
+    :exclude-members: name
+
+
+
+

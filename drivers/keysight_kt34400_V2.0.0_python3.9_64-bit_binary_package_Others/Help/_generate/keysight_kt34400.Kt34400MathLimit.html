@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Kt34400MathLimit &#8212; Kt34400 2.0.0 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kt34400MathScale" href="keysight_kt34400.Kt34400MathScale.html" />
+    <link rel="prev" title="Kt34400MathHistogram" href="keysight_kt34400.Kt34400MathHistogram.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<table width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td valign="top"><a href="../index.html"><h1 style="font-size: 2em;">Kt34400 Driver Python API</h1></a></td>
+        <td align="right"><a href="https://www.keysight.com" target="_blank"><img src="../_static\keysight.gif" alt="keysight.gif"></a></td>
+</tr></table>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400MathScale.html" title="Kt34400MathScale"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400MathHistogram.html" title="Kt34400MathHistogram"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" >Kt34400</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="keysight_kt34400.Kt34400Math.html" accesskey="U">Kt34400Math</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400MathLimit</a></li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="kt34400mathlimit">
+<h1>Kt34400MathLimit<a class="headerlink" href="#kt34400mathlimit" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Access interface members using: <code class="docutils literal notranslate"><span class="pre">driver.math.limit</span></code></div>
+<div class="line">Where <code class="docutils literal notranslate"><span class="pre">driver</span></code> is a reference to the driver’s root interface returned by the <a class="reference internal" href="../programming.html#creating-a-driver-instance"><span class="std std-ref">constructor</span></a>.</div>
+</div>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Kt34400MathLimit</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit" title="keysight_kt34400.Kt34400MathLimit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kt34400MathLimit</span></code></a> interface.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit" title="keysight_kt34400.keysight_kt34400.Kt34400MathLimit"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400MathLimit</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears bit 11 (“Lower Limit Failed”) and bit 12 (“Upper Limit Failed”) in the condition register of the Questionable Data Register event register group. The corresponding bits in the event register are unaffected.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li />This property does not clear measurements in the reading memory.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables or disables limit testing.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />Preset value is false.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.lower_limit">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lower_limit</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.lower_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets or gets the lower limit for the present measurement function (used in limit testing).</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>This property can take any value between -120% and +120% of the highest range for the present function (in the fundamental units for the function).</li>
+<li>The value of <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.upper_limit">Kt34400.upper_limit</a>.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.lower_limit_max">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lower_limit_max</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.lower_limit_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the maximum lower limit for the present measurement function (used in limit testing).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.lower_limit_min">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lower_limit_min</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.lower_limit_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the minimum lower limit for the present measurement function (used in limit testing).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.status">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property returns the status of the Limit test.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.LimitStatus.html#keysight_kt34400.LimitStatus" title="keysight_kt34400.LimitStatus">LimitStatus</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.upper_limit">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upper_limit</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.upper_limit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets or gets the upper limit for the present measurement function (used in limit testing).</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>This property can take any value between -120% and +120% of the highest range for the present function (in the fundamental units for the function).</li>
+<li>The value of <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.lower_limit">Kt34400.lower_limit</a>.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.upper_limit_max">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upper_limit_max</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.upper_limit_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the maximum upper limit for the present measurement function (used in limit testing).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400MathLimit.upper_limit_min">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upper_limit_min</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400MathLimit.upper_limit_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the minimum upper limit for the present measurement function (used in limit testing).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Kt34400MathLimit</a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit</span></code></a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.clear"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.clear()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.lower_limit"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.lower_limit</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.lower_limit_max"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.lower_limit_max</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.lower_limit_min"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.lower_limit_min</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.status"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.status</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.upper_limit"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.upper_limit</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.upper_limit_max"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.upper_limit_max</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400MathLimit.upper_limit_min"><code class="docutils literal notranslate"><span class="pre">Kt34400MathLimit.upper_limit_min</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400MathHistogram.html"
+                          title="previous chapter">Kt34400MathHistogram</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400MathScale.html"
+                          title="next chapter">Kt34400MathScale</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400MathScale.html" title="Kt34400MathScale"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400MathHistogram.html" title="Kt34400MathHistogram"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" >Kt34400</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="keysight_kt34400.Kt34400Math.html" >Kt34400Math</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400MathLimit</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022-23, Keysight Technologies.  v2.0.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+
+ACVoltageSecondaryFunction
+===========================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: ACVoltageSecondaryFunction
+    :members:
+    :exclude-members: name
+
+
+
+

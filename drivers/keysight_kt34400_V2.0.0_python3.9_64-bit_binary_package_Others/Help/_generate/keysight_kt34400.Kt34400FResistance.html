@@ -1,0 +1,576 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Kt34400FResistance &#8212; Kt34400 2.0.0 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kt34400Frequency" href="keysight_kt34400.Kt34400Frequency.html" />
+    <link rel="prev" title="Kt34400Display" href="keysight_kt34400.Kt34400Display.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<table width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td valign="top"><a href="../index.html"><h1 style="font-size: 2em;">Kt34400 Driver Python API</h1></a></td>
+        <td align="right"><a href="https://www.keysight.com" target="_blank"><img src="../_static\keysight.gif" alt="keysight.gif"></a></td>
+</tr></table>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400Frequency.html" title="Kt34400Frequency"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400Display.html" title="Kt34400Display"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" accesskey="U">Kt34400</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400FResistance</a></li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="kt34400fresistance">
+<h1>Kt34400FResistance<a class="headerlink" href="#kt34400fresistance" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Access interface members using: <code class="docutils literal notranslate"><span class="pre">driver.f_resistance</span></code></div>
+<div class="line">Where <code class="docutils literal notranslate"><span class="pre">driver</span></code> is a reference to the driver’s root interface returned by the <a class="reference internal" href="../programming.html#creating-a-driver-instance"><span class="std std-ref">constructor</span></a>.</div>
+</div>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Kt34400FResistance</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance" title="keysight_kt34400.Kt34400FResistance"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kt34400FResistance</span></code></a> interface.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.aperture">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aperture</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.aperture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies the integration time in seconds (called aperture time) for 4-wire resistance measurements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)">datetime.timedelta</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.aperture_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aperture_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.aperture_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables the setting of integration time (called aperture time) for 4-wire resistance measurements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.auto_range_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auto_range_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.auto_range_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables or disables auto ranging for 4-wire resistance measurements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.configure">
+<span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p>configure(self: keysight_kt34400.keysight_kt34400.Kt34400FResistance, range: float, resolution: keysight_kt34400.keysight_kt34400.Resolution) -&gt; None</p>
+<blockquote>
+<div><p>Configures the meter for 4-wire resistance measurements. Minimum Range is 100 ohms.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>range (float) - Desired range in Ohms.  Valid values are from 1 kOhm to 100MOhm. Positive values only.</p></li>
+<li><p>resolution (Resolution) - Measurement resolution.  Select from Least (4.5 digits), Default (5.5 digits) and Best (5.5 digits).  Higher resolutions (5.5 digits) result in slower measurement speeds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>This method resets all resistance measurement parameters and trigger parameters to their default values. Then, it configures the meter for 4-wire resistance measurements but does not initiate the measurement.</li>
+<li>Desired range is 100 &Omega;(MIN), 1 k&Omega;, 10 k&Omega;, 100 k&Omega;, 1 M&Omega;, 10 M&Omega;, 100 M&Omega;(MAX) or Auto range(AUTO).</li>
+<li>Instrument can automatically select the measurement range using <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.range">Kt34400.range</a>.</li>
+<li>If input value is greater than that can be measured on the selected range , "+9.9E+37" is returned.</li>
+
+</body>
+</html></dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p>configure(self: keysight_kt34400.keysight_kt34400.Kt34400FResistance) -&gt; None</p>
+<blockquote>
+<div><p>Configures the meter for 4-wire resistance measurements. Range is AUTO.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p>configure(self: keysight_kt34400.keysight_kt34400.Kt34400FResistance, range: float, resolution: float) -&gt; None</p>
+<blockquote>
+<div><p>Sets all measurement parameters and trigger parameters to their default values 4-wire resistance measurements.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>range (float) - Desired range in Ohms.  Valid values are from 100 Ohms to 1 GOhm. Positive values only.</p></li>
+<li><p>resolution (float) - Measurement resolution.  User can specify 4.5 digits, 5.5 digits (Default) and 6.5 digits.  6.5 digits result in slower measurement speeds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />Input range is 100 &Omega; or 1 k&Omega; or 10 k&Omega; or 100 k&Omega; or 1 M&Omega; or 10 M&Omega; or 100 M&Omega; or 1 G&Omega;.
+<li />The following table shows the relationship between integration time in power line cycles (PLC) and resolution.
+<table border= "1">
+<tr><td>Integration Time<br />(power line cycles)</td><td>Resolution<br />(without option RES)34460A</td><td>Resolution<br />(34461A or 34460A with option RES)</td></tr>
+<tr><td>0.02 PLC<br />(4.5 digits)</td><td>300 ppm x Range<br />(6.5 digits)</td><td>30 ppm x Range<br />(6.5 digits)</td></tr>
+<tr><td>0.2 PLC</td><td>70 ppm x Range</td><td>7 ppm x Range</td></tr>
+<tr><td>1 PLC</td><td>30 ppm x Range</td><td>3 ppm x Range</td></tr>
+<tr><td>10 PLC<br />(5.5 digits)</td><td>10 ppm x Range<br />(5.5 digits)</td><td>1 ppm x Range<br />(5.5 digits)</td></tr>
+<tr><td>100 PLC<br />(6.5 digits)</td><td>3 ppm x Range<br />(4.5 digits)</td><td>0.3 ppm x Range<br />(4.5 digits)</td></tr>
+</table>
+<li />If input value is greater than that can be measured on the selected range , "+9.9E+37" is returned.
+
+</body>
+</html></dd>
+</dl>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.low_power_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">low_power_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.low_power_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables or disables low-power 4-wire resistance measurements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.measure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p>measure(self: keysight_kt34400.keysight_kt34400.Kt34400FResistance, range: float, resolution: keysight_kt34400.keysight_kt34400.Resolution) -&gt; float</p>
+<blockquote>
+<div><p>Performs a single 4-wire resistance measurement. Minimum Range is 100 ohms.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>range (float) - Desired range in Ohms.  Valid values are from 1 kOhm to 100MOhm.  Positive values only.</p></li>
+<li><p>resolution (Resolution) - Measurement resolution.  Select from Least (4.5 digits), Default (5.5 digits) and Best (5.5 digits).  Higher resolutions (5.5 digits) result in slower measurement speeds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The measured value in ohms.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li>This method resets all resistance measurement parameters and trigger parameters to their default values. Then, it configures the meter for 4-wire resistance measurements but does not initiate the measurement.</li>
+<li>Instrument can automatically select the measurement range using <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.range">Kt34400.range</a>.</li>
+<li>If input value is greater than that can be measured on the selected range , "+9.9E+37" is returned.</li>
+<li>Desired range is 100 &Omega;(MIN), 1 k&Omega;, 10 k&Omega;, 100 k&Omega;, 1 M&Omega;, 10 M&Omega;, 100 M&Omega;(MAX) or Auto range(AUTO).</li>
+<li>Timeout may need to be adjusted using <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.io_timeout">Kt34400.io_timeout</a> for executing this method.</li>
+</body>
+</html></dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p>measure(self: keysight_kt34400.keysight_kt34400.Kt34400FResistance) -&gt; float</p>
+<blockquote>
+<div><p>Performs a single 4-wire resistance measurement.  Range is AUTO.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The measured value in ohms.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+    <li>Timeout may need to be adjusted using <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.io_timeout">Kt34400.io_timeout</a> for executing this method.</li>
+</body>
+</html></dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p>measure(self: keysight_kt34400.keysight_kt34400.Kt34400FResistance, range: float, resolution: float) -&gt; float</p>
+<blockquote>
+<div><p>Sets all measurement parameters and trigger parameters to their default values for 4-wire measurements, and immediately triggers a measurement.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>range (float) - Desired range in Ohms.  Valid values are from 100 Ohms to 1 GOhm. Positive values only.</p></li>
+<li><p>resolution (float) - Measurement resolution. User can specify 4.5 digits, 5.5 digits (Default) and 6.5 digits.  6.5 digits result in slower measurement speeds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The measured value in ohms.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li />Input range is 100 &Omega; or 1 k&Omega; or 10 k&Omega; or 100 k&Omega; or 1 M&Omega; or 10 M&Omega; or 100 M&Omega; or 1 G&Omega;.
+<li />The following table shows the relationship between integration time in power line cycles (PLC) and resolution.
+<table border= "1">
+<tr><td>Integration Time<br />(power line cycles)</td><td>Resolution<br />(without option RES)34460A</td><td>Resolution<br />(34461A or 34460A with option RES)</td></tr>
+<tr><td>0.02 PLC<br />(4.5 digits)</td><td>300 ppm x Range<br />(6.5 digits)</td><td>30 ppm x Range<br />(6.5 digits)</td></tr>
+<tr><td>0.2 PLC</td><td>70 ppm x Range</td><td>7 ppm x Range</td></tr>
+<tr><td>1 PLC</td><td>30 ppm x Range</td><td>3 ppm x Range</td></tr>
+<tr><td>10 PLC<br />(5.5 digits)</td><td>10 ppm x Range<br />(5.5 digits)</td><td>1 ppm x Range<br />(5.5 digits)</td></tr>
+<tr><td>100 PLC<br />(6.5 digits)</td><td>3 ppm x Range<br />(4.5 digits)</td><td>0.3 ppm x Range<br />(4.5 digits)</td></tr>
+</table>
+<li />If input value is greater than that can be measured on the selected range , "+9.9E+37" is returned.
+
+</body>
+</html></dd>
+</dl>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.nplc">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nplc</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.nplc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets or gets the integration time in number of power line cycles (PLC) for 4-wire resistance measurements.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+    <li>Setting the integration time also sets the resolution for the measurement.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.null_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">null_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.null_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables or disables the null function for 4-wire resistance measurements.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>When true, automatically sets the <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.null_value_auto_enabled">Kt34400.null_value_auto_enabled</a> to true.  </li>
+<li>Use <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.null_value">Kt34400.null_value</a> to set a fixed null value. </li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.null_value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">null_value</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.null_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores a null value for 4-wire resistance measurements.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Specifying this property sets the <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.null_value_auto_enabled">Kt34400.null_value_auto_enabled</a> to false.  </li>
+<li>This property will be enabled when <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.null_enabled">Kt34400.null_enabled</a> is set to true. </li>
+<li>Input range is 1.2 GΩ to +1.2 GΩ.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.null_value_auto_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">null_value_auto_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.null_value_auto_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables or disables automatic null value selection for 4-wire resistance measurements.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.offset_compensation_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">offset_compensation_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.offset_compensation_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables or disables offset compensation for 4-wire resistance measurements.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Applies only to resistance measurements on the 100 &Omega;, 1 k&Omega;, and 10 k&Omega; ranges. </li>
+<li>The instrument disables this property after a Factory Reset or an Instruments Preset. </li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.query_resolution">
+<span class="sig-name descname"><span class="pre">query_resolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance" title="keysight_kt34400.keysight_kt34400.Kt34400FResistance"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400FResistance</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.query_resolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the measurement resolution for 4-wire resistance measurements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The measurement resolution.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.range">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">range</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets or gets the measurement range for resistance measurements</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Desired range is 100 &Omega;(MIN), 1 k&Omega;, 10 k&Omega;, 100 k&Omega;, 1 M&Omega;, 10 M&Omega;, 100 M&Omega;(MAX) or Auto range(AUTO).</li>
+<li>Selecting this property sets the <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.auto_range_enabled">Kt34400.auto_range_enabled</a> to false.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.resolution">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resolution</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.resolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets or gets the measurement resolution for 4-wire resistance measurements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.Resolution.html#keysight_kt34400.Resolution" title="keysight_kt34400.Resolution">Resolution</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400FResistance.set_resolution">
+<span class="sig-name descname"><span class="pre">set_resolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance" title="keysight_kt34400.keysight_kt34400.Kt34400FResistance"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400FResistance</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400FResistance.set_resolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the measurement resolution for 4-wire resistance measurements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>resolution (float) - The measurement resolution.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Kt34400FResistance</a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance</span></code></a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.aperture"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.aperture</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.aperture_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.aperture_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.auto_range_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.auto_range_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.configure"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.configure()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.low_power_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.low_power_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.measure"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.measure()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.nplc"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.nplc</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.null_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.null_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.null_value"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.null_value</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.null_value_auto_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.null_value_auto_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.offset_compensation_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.offset_compensation_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.query_resolution"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.query_resolution()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.range"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.range</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.resolution"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.resolution</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400FResistance.set_resolution"><code class="docutils literal notranslate"><span class="pre">Kt34400FResistance.set_resolution()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400Display.html"
+                          title="previous chapter">Kt34400Display</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400Frequency.html"
+                          title="next chapter">Kt34400Frequency</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400Frequency.html" title="Kt34400Frequency"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400Display.html" title="Kt34400Display"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" >Kt34400</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400FResistance</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022-23, Keysight Technologies.  v2.0.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

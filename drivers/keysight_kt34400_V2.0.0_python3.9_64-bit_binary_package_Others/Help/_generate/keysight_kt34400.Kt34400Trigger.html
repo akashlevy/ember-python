@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Kt34400Trigger &#8212; Kt34400 2.0.0 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Enumerations" href="enumerations.html" />
+    <link rel="prev" title="Kt34400TemperatureThermocouple" href="keysight_kt34400.Kt34400TemperatureThermocouple.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<table width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td valign="top"><a href="../index.html"><h1 style="font-size: 2em;">Kt34400 Driver Python API</h1></a></td>
+        <td align="right"><a href="https://www.keysight.com" target="_blank"><img src="../_static\keysight.gif" alt="keysight.gif"></a></td>
+</tr></table>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="enumerations.html" title="Enumerations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400TemperatureThermocouple.html" title="Kt34400TemperatureThermocouple"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" accesskey="U">Kt34400</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400Trigger</a></li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="kt34400trigger">
+<h1>Kt34400Trigger<a class="headerlink" href="#kt34400trigger" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Access interface members using: <code class="docutils literal notranslate"><span class="pre">driver.trigger</span></code></div>
+<div class="line">Where <code class="docutils literal notranslate"><span class="pre">driver</span></code> is a reference to the driver’s root interface returned by the <a class="reference internal" href="../programming.html#creating-a-driver-instance"><span class="std std-ref">constructor</span></a>.</div>
+</div>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Kt34400Trigger</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger" title="keysight_kt34400.Kt34400Trigger"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kt34400Trigger</span></code></a> interface.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.configure">
+<span class="sig-name descname"><span class="pre">configure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger" title="keysight_kt34400.keysight_kt34400.Kt34400Trigger"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Trigger</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)"><span class="pre">datetime.timedelta</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.TriggerSource.html#keysight_kt34400.TriggerSource" title="keysight_kt34400.keysight_kt34400.TriggerSource"><span class="pre">keysight_kt34400.keysight_kt34400.TriggerSource</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)"><span class="pre">datetime.timedelta</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to configure for multiple triggers.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delay</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)"><em>datetime.timedelta</em></a>) – Sets the delay, in seconds, between the trigger signal and the first measurement.</p></li>
+<li><p><strong>source</strong> (<a class="reference internal" href="keysight_kt34400.TriggerSource.html#keysight_kt34400.TriggerSource" title="keysight_kt34400.TriggerSource"><em>TriggerSource</em></a>) – Sets the trigger source for measurements.</p></li>
+<li><p><strong>count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Sets the number of triggers that will be accepted by the meter before returning to the ‘idle’ trigger state.</p></li>
+<li><p><strong>sample_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Sets the number of readings (samples) the meter will take per trigger.</p></li>
+<li><p><strong>sample_interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)"><em>datetime.timedelta</em></a>) – Sets a sample interval, in seconds, for timed sampling when the sample count is greater than one.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+Make sure that measurement function should be set before configuring the trigger.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.configure_single">
+<span class="sig-name descname"><span class="pre">configure_single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger" title="keysight_kt34400.keysight_kt34400.Kt34400Trigger"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Trigger</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)"><span class="pre">datetime.timedelta</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.TriggerSource.html#keysight_kt34400.TriggerSource" title="keysight_kt34400.keysight_kt34400.TriggerSource"><span class="pre">keysight_kt34400.keysight_kt34400.TriggerSource</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.configure_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to configure single trigger.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delay</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)"><em>datetime.timedelta</em></a>) – Sets the delay, in seconds, between the trigger signal and the first measurement.</p></li>
+<li><p><strong>source</strong> (<a class="reference internal" href="keysight_kt34400.TriggerSource.html#keysight_kt34400.TriggerSource" title="keysight_kt34400.TriggerSource"><em>TriggerSource</em></a>) – Sets the trigger source for measurements.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Make sure that measurement function should be set before configuring the trigger.</li>
+<li>When single trigger is configured, <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.sample_count">Kt34400.sample_count</a> are set to 1.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">count</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the number of triggers that will be accepted by the meter before returning to the ‘idle’ trigger state.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>You can use this property in conjunction with a <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.sample_count">Kt34400.sample_count</a> which selects the number of readings (samples) the meter will take per trigger. </li>
+<li>In this case, the total number of reading returned will be the product of the sample count and trigger count.</li>
+<li>Input range is from 1 trigger to 50,000 triggers.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.delay">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delay</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.delay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the delay, in seconds, between the trigger signal and the first measurement.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)">datetime.timedelta</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>This may be useful in applications where you want to allow the input to settle before taking a reading or for pacing a burst of readings. The programmed trigger delay overrides the default trigger delay that the instrument automatically adds.</li>
+<li>Input range is from 0 to 3600s.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.delay_auto_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delay_auto_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.delay_auto_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables or enables the automatic trigger delay. If true, the instrument determines the delay based on function, range, and integration time or bandwidth.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />Selecting Delay property to specific trigger delay, sets this property to false.
+<li />Preset value is True.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.level">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">level</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the level on which a trigger occurs when level triggering is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.level_max">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">level_max</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.level_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Only - maximum trigger level</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.level_min">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">level_min</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.level_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Only - minimum trigger level</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.output_slope">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_slope</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.output_slope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects the slope of the voltmeter complete output signal on the source.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.Slope.html#keysight_kt34400.Slope" title="keysight_kt34400.Slope">Slope</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />Preset value is Slope.Negative.
+
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pre_trigger_sample_count</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows collection of the data being digitized before the trigger. Reserves memory for pretrigger samples up to the specified number of pretrigger samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count_max">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pre_trigger_sample_count_max</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Only - Maximum PreTrigger Sample Count</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count_min">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pre_trigger_sample_count_min</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Only - Minimum PreTrigger Sample Count</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.sample_count">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sample_count</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.sample_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the number of readings (samples) the meter will take per trigger.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Input range is from 1 trigger to 50,000 triggers.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.sample_interval">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sample_interval</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.sample_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets a sample interval, in seconds, for timed sampling when the sample count is greater than one.  To start the process of data logging, user has to set the trigger source to external.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)">datetime.timedelta</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Input range is from 50ms to 3600s.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.sample_interval_max">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sample_interval_max</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.sample_interval_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum value for sample interval given the multimeter’s current measurement configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)">datetime.timedelta</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.sample_interval_min">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sample_interval_min</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.sample_interval_min" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum value for sample interval given the multimeter’s current measurement configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)">datetime.timedelta</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.sample_source">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sample_source</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.sample_source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines sample timing, with Trigger.Delay and Trigger.SampleInterval properties to determine sample timing, when the sample count is greater than one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.SampleSource.html#keysight_kt34400.SampleSource" title="keysight_kt34400.SampleSource">SampleSource</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.set_count">
+<span class="sig-name descname"><span class="pre">set_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger" title="keysight_kt34400.keysight_kt34400.Kt34400Trigger"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Trigger</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.TriggerCount.html#keysight_kt34400.TriggerCount" title="keysight_kt34400.keysight_kt34400.TriggerCount"><span class="pre">keysight_kt34400.keysight_kt34400.TriggerCount</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.set_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the number of triggers that will be accepted by the meter before returning to the ‘idle’ trigger state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p>count (TriggerCount) - The trigger count</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.slope">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">slope</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.slope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies whether the instrument uses the rising edge or the falling edge of the trigger signal on the source.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.Slope.html#keysight_kt34400.Slope" title="keysight_kt34400.Slope">Slope</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The actual trigger event occurs on either the rising edge (if Slope.Positive is selected) or the falling edge (if Slope.Negative is selected) of the trigger signal.
+<li />Preset value is Slope.Negative.
+<li />Input range is Slope.Positive or Slope.Negative.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Trigger.source">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">source</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Trigger.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets or gets the trigger source for measurements.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.TriggerSource.html#keysight_kt34400.TriggerSource" title="keysight_kt34400.TriggerSource">TriggerSource</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>After setting this property, you must place the instrument in the "wait-for-trigger" state using the <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.initiate">Kt34400.initiate</a>. A trigger will not be accepted from the selected trigger source until the instrument is in the "wait-for-trigger" state. 
+The <a href="keysight_kt34400.Kt34400.html#keysight_kt34400.Kt34400.initiate">Kt34400.initiate</a> only initiates the measurement and needs a trigger (TriggerSource.Bus, TriggerSource.Immediate, or TriggerSource.External) to make the actual measurement.</li>
+<li>When this property is set as TriggerSource.Immediate, the trigger signal is always present. When you place the instrument in the "wait-for-trigger" state, the trigger is issued immediately.</li>
+<li>A Configure or Measure method overwrites the BUS trigger and sets this property to TriggerSource.Immediate.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Kt34400Trigger</a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger</span></code></a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.configure"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.configure()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.configure_single"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.configure_single()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.count"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.count</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.delay"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.delay</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.delay_auto_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.delay_auto_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.level"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.level</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.level_max"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.level_max</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.level_min"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.level_min</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.output_slope"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.output_slope</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.pre_trigger_sample_count</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count_max"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.pre_trigger_sample_count_max</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.pre_trigger_sample_count_min"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.pre_trigger_sample_count_min</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.sample_count"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.sample_count</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.sample_interval"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.sample_interval</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.sample_interval_max"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.sample_interval_max</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.sample_interval_min"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.sample_interval_min</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.sample_source"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.sample_source</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.set_count"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.set_count()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.slope"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.slope</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Trigger.source"><code class="docutils literal notranslate"><span class="pre">Kt34400Trigger.source</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400TemperatureThermocouple.html"
+                          title="previous chapter">Kt34400TemperatureThermocouple</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="enumerations.html"
+                          title="next chapter">Enumerations</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="enumerations.html" title="Enumerations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400TemperatureThermocouple.html" title="Kt34400TemperatureThermocouple"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" >Kt34400</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400Trigger</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022-23, Keysight Technologies.  v2.0.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

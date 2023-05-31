@@ -1,0 +1,14 @@
+
+TemperatureSecondaryFunction
+=============================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: TemperatureSecondaryFunction
+    :members:
+    :exclude-members: name
+
+
+
+

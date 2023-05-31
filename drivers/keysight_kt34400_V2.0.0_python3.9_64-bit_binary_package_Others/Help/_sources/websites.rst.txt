@@ -1,0 +1,29 @@
+.. _websites:
+
+********************
+Web Resources
+********************
+
+.. raw:: html
+
+    <ul>
+        <li><span sdata="link"><a href="https://www.keysight.com" target="_blank">Keysight Technologies Home Page</a></span></li>
+        <ul>
+        
+        <li><span sdata="link"><a href="https://www.keysight.com/find/34450A" target="_blank">34450A Digital Multimeter, 5.5 Digit, OLED Display</a></span></li>
+
+        <li><span sdata="link"><a href="https://www.keysight.com/find/support" target="_blank">Technical Support, Manuals, &amp; Downloads</a></span></li>
+
+        <!-- This link does not include Python drivers so for now, do not use.
+        <li><span sdata="link"><a href="https://www.keysight.com/find/drivers" target="_blank">Keysight Instrument Drivers</a></span></li>
+		-->
+        <li><span sdata="link"><a href="https://www.keysight.com/find/iosuite" target="_blank">Keysight I/O Libraries Suite</a></span></li>
+        <li>
+            <span sdata="link"><a href="https://www.keysight.com/find/commandexpert" target="_blank">Keysight Command Expert</a></span>,
+            <span sdata="link"><a href="https://www.keysight.com/find/vee" target="_blank">VEE Pro</a></span>
+        </li>
+        <li><span sdata="link"><a href="https://www.keysight.com/find/accessories" target="_blank">GPIB, USB, Instrument Control, Racks, &amp; Accessories</a></span></li>
+        <li><span sdata="link"><a href="https://www.keysight.com/find/contactus" target="_blank">Contact Keysight Test &amp; Measurement</a></span></li>
+        </ul>
+        <li><span sdata="link"><a href="https://www.python.org/" target="_blank">Python Home Page</a> - Downloads, Docs, Getting Started</span></li>
+    </ul>

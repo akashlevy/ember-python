@@ -1,0 +1,14 @@
+
+ThermoCoupleRefJunctionType
+============================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: ThermoCoupleRefJunctionType
+    :members:
+    :exclude-members: name
+
+
+
+

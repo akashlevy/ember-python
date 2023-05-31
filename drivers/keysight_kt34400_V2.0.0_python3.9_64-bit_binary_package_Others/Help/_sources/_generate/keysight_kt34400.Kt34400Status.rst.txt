@@ -1,0 +1,21 @@
+
+Kt34400Status
+==============
+    | Access interface members using: ``driver.status``
+    | Where ``driver`` is a reference to the driver's root interface returned by the :ref:`constructor <programming:Creating a Driver Instance>`.
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: Kt34400Status
+    :members:
+    :exclude-members: get_name_by_index, items
+
+
+
+**Child Interfaces**
+
+
+.. toctree::
+   keysight_kt34400.Kt34400StatusOperation
+   keysight_kt34400.Kt34400StatusQuestionable
+   keysight_kt34400.Kt34400StatusStandardEvent

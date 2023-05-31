@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Kt34400Memory &#8212; Kt34400 2.0.0 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kt34400Period" href="keysight_kt34400.Kt34400Period.html" />
+    <link rel="prev" title="Kt34400Measurement" href="keysight_kt34400.Kt34400Measurement.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<table width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td valign="top"><a href="../index.html"><h1 style="font-size: 2em;">Kt34400 Driver Python API</h1></a></td>
+        <td align="right"><a href="https://www.keysight.com" target="_blank"><img src="../_static\keysight.gif" alt="keysight.gif"></a></td>
+</tr></table>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400Period.html" title="Kt34400Period"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400Measurement.html" title="Kt34400Measurement"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" accesskey="U">Kt34400</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400Memory</a></li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="kt34400memory">
+<h1>Kt34400Memory<a class="headerlink" href="#kt34400memory" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Access interface members using: <code class="docutils literal notranslate"><span class="pre">driver.memory</span></code></div>
+<div class="line">Where <code class="docutils literal notranslate"><span class="pre">driver</span></code> is a reference to the driver’s root interface returned by the <a class="reference internal" href="../programming.html#creating-a-driver-instance"><span class="std std-ref">constructor</span></a>.</div>
+</div>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Kt34400Memory</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.Kt34400Memory"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kt34400Memory</span></code></a> interface.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.auto_recall_select">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">auto_recall_select</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.auto_recall_select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets or gets which instrument state will be used at power on if the automatic recall mode is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.MemoryLocation">MemoryLocation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.column_separator">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">column_separator</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.column_separator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies the character used to separate the columns in stored data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.ColumnSeparator.html#keysight_kt34400.ColumnSeparator" title="keysight_kt34400.ColumnSeparator">ColumnSeparator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method copies SourceFile to DestinationFile on the mass memory file system.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Source File name.  Extensions must be specified.  The format is ‘[drive:path]&lt;Filename&gt;&lt;/Filename&gt;</p></li>
+<li><p><strong>destination_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Destination File name.  Extensions must be specified. The format is ‘[drive:path]&lt;Filename&gt;&lt;/Filename&gt;</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>The format for &lt;SourceFile&gt; and &lt;DestinationFile&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;file_name&gt;", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path.</li>
+<li>Internal specifies the internal flash file system. USB specifies a USB storage device.</li>
+<li>If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.</li>
+<li>If &lt;drive&gt; is omitted, is relative to the folder specified by the CurrentDirectory property is used. Relative paths must not begin with "\" or "/".</li>
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+<li>The combination of folder and file name cannot exceed 240 characters.</li>
+<li>The source file and folder must exist and cannot be marked as hidden or system.</li>
+<li>The destination folder must exist and cannot be marked as hidden or system.</li>
+<li>If the destination file exists, it is overwritten, unless marked as a hidden or system file.</li>
+<li />To copy a file to a file of the same name in a different folder, you can specify just the &lt;drive&gt; and/or &lt;path&gt; for &lt;file2&gt;.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.current_dir">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_dir</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.current_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>This property is used to select a default folder which is used when folder or file names do not include a drive and folder name.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>The format for &lt;folder&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path.</li>
+<li>Internal specifies the internal flash file system. USB specifies a USB storage device.</li>
+<li>If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.</li>
+<li>If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/".</li>
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+<li>&lt;folder&gt; cannot exceed 240 characters.</li>
+<li>The specified folder must exist and cannot be marked as hidden or system.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.keysight_kt34400.MemoryLocation"><span class="pre">keysight_kt34400.keysight_kt34400.MemoryLocation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the contents of the specified storage location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>location_num</strong> (<a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.MemoryLocation"><em>MemoryLocation</em></a>) – Store location number to delete. Valid values are from 0 to 4.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.delete_all">
+<span class="sig-name descname"><span class="pre">delete_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.delete_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the contents of all storage locations (0 to 4).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads data from the host computer to a local file in the instrument.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – &lt;block&gt; can be an IEEE 488.2 definite- or indefinite-length block.&lt;/block&gt;</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The file name must have been previously specified by DownloadFile method. The data in &lt;block&gt; is written to the select file.
+<li />Any data previously stored in the file will be lost.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.format_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">format_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.format_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables/enables header line and the per-reading information in stored data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.get_catalog">
+<span class="sig-name descname"><span class="pre">get_catalog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.get_catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p>get_catalog(self: keysight_kt34400.keysight_kt34400.Kt34400Memory, folder_name: str) -&gt; Tuple[int, int, str]</p>
+<blockquote>
+<div><p>Returns a list of files in the specified folder.</p>
+<dl class="field-list">
+<dt class="field-odd">param str folder_name<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Folder Name.</p>
+</dd>
+<dt class="field-even">return<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing:</p>
+<ul class="simple">
+<li><p><strong>memoryUsed</strong> (int) : Number of bytes of storage currently used in the folder.</p></li>
+<li><p><strong>memoryFree</strong> (int) : The number of bytes of storage currently available.</p></li>
+<li><p><strong>fileList</strong> (str) : Each file list is in the format ‘&lt;file_name&gt;,&lt;file_type&gt;,&lt;file_size&gt;’.&lt;/file_size&gt;&lt;/file_type&gt;&lt;/file_name&gt;</p></li>
+</ul>
+</dd>
+<dt class="field-odd">type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int, str]</p>
+</dd>
+<dt class="field-even">remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li />The format for &lt;FolderName&gt; is "[[[&lt;drive&gt;:]&lt;path&gt;[&lt;filespec&gt;]]", where &lt;drive&gt; can be Internal or USB, &lt;path&gt; is a folder path, and &lt;filespec&gt; specifies a subset of files to catalog. 
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;. 
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/". 
+<li />Folder and file names cannot contain the following characters: \ / : \* ? " &gt; &lt; | 
+<li />If &lt;filespec&gt;omitted or is "\*.\*", all files in the folder are cataloged. If it is "\*.sta", "\*.prf" or "\*.csv", only state ("\*.sta), preference ("\*.prf") or data (".csv") files in the folder are cataloged. 
+<li />&lt;FolderName&gt; cannot exceed 240 characters. 
+<li />The specified folder must exist and cannot be marked as hidden or system.
+
+</body>
+</html></dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p>get_catalog(self: keysight_kt34400.keysight_kt34400.Kt34400Memory) -&gt; str</p>
+<blockquote>
+<div><p>Returns the names assigned to storage locations 0 through 4.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Assigned Name of the location</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.get_download_file_name">
+<span class="sig-name descname"><span class="pre">get_download_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.get_download_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns the local file name which is downloading from the host computer to the instrument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Name of the file.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.get_location_name">
+<span class="sig-name descname"><span class="pre">get_location_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.keysight_kt34400.MemoryLocation"><span class="pre">keysight_kt34400.keysight_kt34400.MemoryLocation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.get_location_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the name of the specified storage location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>location_num</strong> (<a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.MemoryLocation"><em>MemoryLocation</em></a>) – Store location number to delete. Valid values are from 0 to 4.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Storage location name.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.get_num_states">
+<span class="sig-name descname"><span class="pre">get_num_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.get_num_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the total number of memory locations available for state storage.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of memory locations.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd">For the 34410A/11A, this command always returns '+5' (memory location 0 is included).</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.get_recall_state">
+<span class="sig-name descname"><span class="pre">get_recall_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.get_recall_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the file name from which the instrument state can be recalled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Name of the file.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.is_valid_state">
+<span class="sig-name descname"><span class="pre">is_valid_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.is_valid_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an indication of whether a valid state is currently stored in the specified state file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if valid state is stored in the file.  False if no state has been stored in the file or if the file does not exist.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-even">Remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li />The format for &lt;file&gt; is "[[&lt;drive&gt;&lt;path&gt;]&lt;file_name&gt;", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path. 
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;. 
+<li />If &lt;drive&gt;:&lt;path&gt; is omitted, the folder specified by CurrentDirectory property is used. 
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li> 
+<li />The combination of folder and file name cannot exceed 240 characters 
+<li />The folder must exist and cannot be marked as hidden or system. as hidden or system. 
+<li />The specified file cannot be empty or marked as hidden or system.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.is_valid_state_enabled">
+<span class="sig-name descname"><span class="pre">is_valid_state_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.keysight_kt34400.MemoryLocation"><span class="pre">keysight_kt34400.keysight_kt34400.MemoryLocation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.is_valid_state_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the specified storage location to determine if a valid state is currently stored in this location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>location_num</strong> (<a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.MemoryLocation"><em>MemoryLocation</em></a>) – Store location number to delete. Valid values are from 0 to 4.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns true if the specified storage state is valid.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.load_state">
+<span class="sig-name descname"><span class="pre">load_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.load_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method loads the instrument state from a state file. The file name optionally includes the .sta file extension.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – File name on current directory of mass storage device.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The format for &lt;FolderName&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;FileName&gt;", where &lt;drive&gt; can be Internal or USB, &lt;path&gt; is a folder path, and &lt;filespec&gt; specifies a subset of files to catalog. 
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;. 
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/". 
+<li />Folder and file names cannot contain the following characters: \ / : \* ? " &gt; &lt; | 
+<li />If &lt;filespec&gt;omitted or is "\*.\*", all files in the folder are cataloged. If it is "\*.sta", "\*.prf" or "\*.csv", only state ("\*.sta), preference ("\*.prf") or data (".csv") files in the folder are cataloged. 
+<li />&lt;FolderName&gt; cannot exceed 240 characters. 
+<li />The specified folder must exist and cannot be marked as hidden or system.
+<li />The specified file cannot be empty or marked as hidden or system.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.make_dir">
+<span class="sig-name descname"><span class="pre">make_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.make_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates a new folder.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>folder_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the folder to be made.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The format for &lt;folder&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path.
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/".
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+<li />&lt;folder&gt; cannot exceed 240 characters.
+<li />Any intermediate folders must exist and cannot be marked as hidden or system.
+<li />This property will only create the last folder in &lt;path&gt;, it will not create intermediate folders.
+<li />To remove a folder, the folder must be empty (no files stored in the folder). You cannot delete the folder selected by CurrentDirectory property.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.move_files">
+<span class="sig-name descname"><span class="pre">move_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">destination_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.move_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves and/or renames source file to destination file. The file names must include any file extension.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Any valid filename.  The format is [&lt;drive&gt;:&lt;path&gt;]&lt;file_name&gt;, where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; must be an absolute path.&lt;/path&gt;&lt;/drive&gt;&lt;/file_name&gt;&lt;/path&gt;&lt;/drive&gt;</p></li>
+<li><p><strong>destination_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Any valid filename.  The format is [&lt;drive&gt;:&lt;path&gt;]&lt;file_name&gt;, where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; must be an absolute path.&lt;/path&gt;&lt;/drive&gt;&lt;/file_name&gt;&lt;/path&gt;&lt;/drive&gt;</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The format for &lt;file1&gt; and &lt;file2&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;file_name&gt;", where &lt;drive> can be Internal or USB, and &lt;path&gt; is a folder path.
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/".
+<li />Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |
+<li />The combination of folder and file name cannot exceed 240 characters.
+<li />The source file and folder must exist and cannot be marked as hidden or system.
+<li />The destination folder must exist and cannot be marked as hidden or system.
+<li />If the destination file exists, it will be overwritten, unless marked as a hidden or system file
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.recall_auto_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">recall_auto_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.recall_auto_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables or enables the automatic recall of a specific stored instrument state when instrument is turned on.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />If set to true, it automatically recall the power-down state (state file STATE_0 in the root folder of the internal flash file system) or a state file (using Recall property) when instrument is turned on.
+<li />If set to false, to issue a Factory Reset when instrument is turned on.
+<li />When shipped from the factory, the instrument is configured to automatically recall the power-down state (state file STATE_0 in the root folder of the internal flash file system) when power is restored.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.remove_dir">
+<span class="sig-name descname"><span class="pre">remove_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.remove_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method removes a folder.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>folder_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the folder to be removed.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The format for &lt;folder&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path.
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/".
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+<li />&lt;folder&gt; cannot exceed 240 characters.
+<li />Any intermediate folders must exist and cannot be marked as hidden or system.
+<li />To remove a folder, the folder must be empty (no files stored in the folder). You cannot delete the folder selected by CurrentDirectory property.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.remove_file">
+<span class="sig-name descname"><span class="pre">remove_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.remove_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the specified file(s). The file name must include any file extension.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – File Name.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The format for &lt;file&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;filespec&gt;", where &lt;drive&gt; can be Internal or USB, &lt;path&gt; is a folder path, and &lt;filespec&gt; is a file name or one of "\*.\*", "\*.sta", "\*.prf" or "\*.csv".
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.
+
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/".
+
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+
+<li />If &lt;filespec&gt; is a file name, only that file is deleted. If it is "\*.\*", all files in the folder are deleted. If it is "\*.sta", "\*.prf" or "\*.csv", all state ("\*.sta), preference ("\*.prf") or data (".csv") files in the folder are deleted.
+
+<li />The combination of folder and file name cannot exceed 240 characters.
+
+The folder must exist and cannot be marked as hidden or system.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.row_limit_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">row_limit_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.row_limit_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>When enabled, limits the maximum number rows per stored .csv data file to one million, including any header row, if enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.set_download_file_name">
+<span class="sig-name descname"><span class="pre">set_download_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.set_download_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method downloads the local file for downloading a file from the host computer (Source) to the instrument (Destination).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Destination File name.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The format for &lt;file&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;file_name&gt;", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path. 
+where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; must be an absolute folder path.
+<li>Internal specifies the internal flash file system. USB specifies a USB storage device.</li>
+<li>If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path.Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.</li>
+<li>If &lt;drive&gt; is omitted, the folder specified by the CurrentDirectory property is used. Relative paths must not begin with "\" or "/".</li>
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+<li>The combination of folder and file name cannot exceed 240 characters.</li>
+<li>The specified folder must exist and cannot be marked as hidden or system.</li>
+<li>If the file exists, it will be overwritten, unless marked as a hidden or system file.</li>
+<li />The file will be created if it does not already exist.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.set_location_name">
+<span class="sig-name descname"><span class="pre">set_location_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.keysight_kt34400.MemoryLocation"><span class="pre">keysight_kt34400.keysight_kt34400.MemoryLocation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.set_location_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the name for a specified storage location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>location_num</strong> (<a class="reference internal" href="keysight_kt34400.MemoryLocation.html#keysight_kt34400.MemoryLocation" title="keysight_kt34400.MemoryLocation"><em>MemoryLocation</em></a>) – Storage location (0 to 4) to which the specified name should be applied.</p></li>
+<li><p><strong>location_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – A string of up to 12 characters. The first character must be a letter (A-Z), but the remaining 11 characters can be letters, numbers (0-9), or the underscore character. Blank spaces are not allowed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.set_recall_state">
+<span class="sig-name descname"><span class="pre">set_recall_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.set_recall_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies which instrument state will be used at power on if RecallAutoEnabled is true. If the RecallAutoEnabled property is false, then a Factory Reset is issued when power is turned on.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Filename as "STATE_0" is associated with the Power-ON Last state.  Also is the same as System.SaveState(0) and System.RecallState(0)</li>
+<li>Filename as "STATE_1" to "STATE_4" are associated with System.SaveState(1-4) and System.RecallState(1-4)</li>
+<li>Memory.StoreState("STATE_1") is the same as System.SaveState(1)</li>
+<li>Memory.SetRecallState("STATE_0") refers to System.SaveState(0) state and is the power-ON state</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.storage_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">storage_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.storage_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables or enables instrument state storage.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>When shipped from the factory, storage locations 1 through 5 are empty and the instrument is configured to NOT automatically recall the power-down state (location 0) when power is restored. </li>
+
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.store_data">
+<span class="sig-name descname"><span class="pre">store_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.store_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores all measurements in the reading memory to the specified data file. The file name optionally includes the folder name and the .csv file extension.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – File Name.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The data is stored in comma-separated value (CSV) format, with one measurement per line in ASCII format.
+<li />The format for &lt;file&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;file_name&gt;", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path. 
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/".
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+<li />The combination of folder and file name cannot exceed 240 characters. 
+<li />The destination folder must exist and cannot be marked as hidden or system. as hidden or system. 
+<li />If the destination file exists, it will be overwritten, unless marked as a hidden or system file.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.store_preferences">
+<span class="sig-name descname"><span class="pre">store_preferences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.store_preferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores nonvolatile I/O settings and user preferences to a file. The file name optionally includes the folder name and the .prf file extension.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – File Name.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The format for &lt;file&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;file_name&gt;", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path. 
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/".
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+<li />The combination of folder and file name cannot exceed 240 characters. 
+<li />The destination folder must exist and cannot be marked as hidden or system. as hidden or system. 
+<li />If the destination file exists, it will be overwritten, unless marked as a hidden or system file.<li />The format for &lt;file&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;file_name&gt;", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; is a folder path. 
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;.
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/".
+<li>Folder and file names cannot contain the following characters: \ / : \* ? " &lt; &gt; |</li>
+<li />The combination of folder and file name cannot exceed 240 characters. 
+<li />The destination folder must exist and cannot be marked as hidden or system. as hidden or system. 
+<li />If the destination file exists, it will be overwritten, unless marked as a hidden or system file.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.store_state">
+<span class="sig-name descname"><span class="pre">store_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.store_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the current instrument state to a state file. The file name optionally includes the folder name and the .sta file extension.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – File name on current directory of mass storage device.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />The format for &lt;FolderName&gt; is "[[&lt;drive&gt;:]&lt;path&gt;]&lt;FileName&gt;", where &lt;drive&gt; can be Internal or USB, &lt;path&gt; is a folder path, and &lt;filespec&gt; specifies a subset of files to catalog. 
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;. 
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/". 
+<li />Folder and file names cannot contain the following characters: \ / : \* ? " &gt; &lt; | 
+<li />If &lt;filespec&gt;omitted or is "\*.\*", all files in the folder are cataloged. If it is "\*.sta", "\*.prf" or "\*.csv", only state ("\*.sta), preference ("\*.prf") or data (".csv") files in the folder are cataloged. 
+<li />&lt;FolderName&gt; cannot exceed 240 characters. 
+<li />The specified folder must exist and cannot be marked as hidden or system.
+<li />The specified file cannot be empty or marked as hidden or system.
+<li>Filename as "STATE_0" is associated with the Power-ON Last state.  Also is the same as System.SaveState(0) and System.RecallState(0)</li>
+<li>Filename as "STATE_1" to "STATE_4" are associated with System.SaveState(1-4) and System.RecallState(1-4)</li>
+<li>Memory.StoreState("STATE_1") is the same as System.SaveState(1)</li>
+<li>Memory.SetRecallState("STATE_0") refers to System.SaveState(0) state and is the power-ON state</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400Memory.upload_file">
+<span class="sig-name descname"><span class="pre">upload_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400Memory" title="keysight_kt34400.keysight_kt34400.Kt34400Memory"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400Memory</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">[</span></span><span class="pre">numpy.uint8</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400Memory.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads the contents of a file from the instrument to the host computer.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Name of the file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A definite length binary block containing the file content.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray&lt;with dtype:uint8&gt;</p>
+</dd>
+<dt class="field-even">Remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li />The format for &lt;file&gt; is "[&lt;drive&gt;:&lt;path&gt;]&lt;file_name&gt;", where &lt;drive&gt; can be Internal or USB, and &lt;path&gt; must be an absolute folder path. 
+<li />Internal specifies the internal flash file system. USB specifies a USB storage device.
+<li />If &lt;drive&gt; is specified, &lt;path&gt; is interpreted as an absolute folder path. Absolute paths begin with a "\" or "/" and start at the root folder of &lt;drive&gt;. 
+<li />If &lt;drive&gt; is omitted, &lt;path&gt; is relative to the folder specified by the CurrentDirectory property. Relative paths must not begin with "\" or "/". 
+<li />Folder and file names cannot contain the following characters: \ / : \* ? " &gt; &lt; | 
+<li />If &lt;filespec&gt;omitted or is "\*.\*", all files in the folder are cataloged. If it is "\*.sta", "\*.prf" or "\*.csv", only state ("\*.sta), preference ("\*.prf") or data (".csv") files in the folder are cataloged. 
+<li />&lt;FolderName&gt; cannot exceed 240 characters. 
+<li />The specified folder must exist and cannot be marked as hidden or system.
+<li />The specified file cannot be empty or marked as hidden or system.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Kt34400Memory</a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory</span></code></a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.auto_recall_select"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.auto_recall_select</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.column_separator"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.column_separator</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.copy"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.copy()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.current_dir"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.current_dir</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.delete"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.delete()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.delete_all"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.delete_all()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.download"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.download()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.format_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.format_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.get_catalog"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.get_catalog()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.get_download_file_name"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.get_download_file_name()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.get_location_name"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.get_location_name()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.get_num_states"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.get_num_states()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.get_recall_state"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.get_recall_state()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.is_valid_state"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.is_valid_state()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.is_valid_state_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.is_valid_state_enabled()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.load_state"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.load_state()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.make_dir"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.make_dir()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.move_files"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.move_files()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.recall_auto_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.recall_auto_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.remove_dir"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.remove_dir()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.remove_file"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.remove_file()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.row_limit_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.row_limit_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.set_download_file_name"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.set_download_file_name()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.set_location_name"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.set_location_name()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.set_recall_state"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.set_recall_state()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.storage_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.storage_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.store_data"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.store_data()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.store_preferences"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.store_preferences()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.store_state"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.store_state()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400Memory.upload_file"><code class="docutils literal notranslate"><span class="pre">Kt34400Memory.upload_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400Measurement.html"
+                          title="previous chapter">Kt34400Measurement</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400Period.html"
+                          title="next chapter">Kt34400Period</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400Period.html" title="Kt34400Period"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400Measurement.html" title="Kt34400Measurement"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" >Kt34400</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400Memory</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022-23, Keysight Technologies.  v2.0.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

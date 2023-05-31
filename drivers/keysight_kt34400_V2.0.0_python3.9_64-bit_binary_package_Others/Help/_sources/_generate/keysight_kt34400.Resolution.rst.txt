@@ -1,0 +1,14 @@
+
+Resolution
+===========
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: Resolution
+    :members:
+    :exclude-members: name
+
+
+
+

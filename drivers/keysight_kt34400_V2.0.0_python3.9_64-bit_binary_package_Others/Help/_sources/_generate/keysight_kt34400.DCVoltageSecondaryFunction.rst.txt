@@ -1,0 +1,14 @@
+
+DCVoltageSecondaryFunction
+===========================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: DCVoltageSecondaryFunction
+    :members:
+    :exclude-members: name
+
+
+
+

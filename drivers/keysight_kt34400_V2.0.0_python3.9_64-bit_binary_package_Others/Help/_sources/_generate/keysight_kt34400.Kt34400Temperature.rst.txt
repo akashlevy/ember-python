@@ -1,0 +1,23 @@
+
+Kt34400Temperature
+===================
+    | Access interface members using: ``driver.temperature``
+    | Where ``driver`` is a reference to the driver's root interface returned by the :ref:`constructor <programming:Creating a Driver Instance>`.
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: Kt34400Temperature
+    :members:
+    :exclude-members: get_name_by_index, items
+
+
+
+**Child Interfaces**
+
+
+.. toctree::
+   keysight_kt34400.Kt34400TemperatureFRTD
+   keysight_kt34400.Kt34400TemperatureFThermistor
+   keysight_kt34400.Kt34400TemperatureRTD
+   keysight_kt34400.Kt34400TemperatureThermistor
+   keysight_kt34400.Kt34400TemperatureThermocouple

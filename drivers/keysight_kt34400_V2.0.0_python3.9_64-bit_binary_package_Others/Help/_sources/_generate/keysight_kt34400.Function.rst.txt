@@ -1,0 +1,14 @@
+
+Function
+=========
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: Function
+    :members:
+    :exclude-members: name
+
+
+
+

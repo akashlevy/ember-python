@@ -1,0 +1,15 @@
+
+DriverUtility
+==============
+    | Access interface members using: ``driver.utility``
+    | Where ``driver`` is a reference to the driver's root interface returned by the :ref:`constructor <programming:Creating a Driver Instance>`.
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: DriverUtility
+    :members:
+    :exclude-members: get_name_by_index, items
+
+
+
+

@@ -1,0 +1,14 @@
+
+CurrentSwitchMode
+==================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: CurrentSwitchMode
+    :members:
+    :exclude-members: name
+
+
+
+

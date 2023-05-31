@@ -1,0 +1,14 @@
+
+CurrentTerminal
+================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: CurrentTerminal
+    :members:
+    :exclude-members: name
+
+
+
+

@@ -1,0 +1,14 @@
+
+SmoothingResponse
+==================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: SmoothingResponse
+    :members:
+    :exclude-members: name
+
+
+
+

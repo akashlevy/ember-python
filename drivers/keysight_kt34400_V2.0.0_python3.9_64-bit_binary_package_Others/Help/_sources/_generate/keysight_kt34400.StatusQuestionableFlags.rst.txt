@@ -1,0 +1,14 @@
+
+StatusQuestionableFlags
+========================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: StatusQuestionableFlags
+    :members:
+    :exclude-members: name
+
+
+
+

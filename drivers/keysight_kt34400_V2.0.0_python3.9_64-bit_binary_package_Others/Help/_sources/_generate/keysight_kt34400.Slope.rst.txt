@@ -1,0 +1,14 @@
+
+Slope
+======
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: Slope
+    :members:
+    :exclude-members: name
+
+
+
+

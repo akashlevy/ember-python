@@ -1,0 +1,24 @@
+
+Kt34400SecondaryDisplay
+========================
+    | Access interface members using: ``driver.secondary_display``
+    | Where ``driver`` is a reference to the driver's root interface returned by the :ref:`constructor <programming:Creating a Driver Instance>`.
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: Kt34400SecondaryDisplay
+    :members:
+    :exclude-members: get_name_by_index, items
+
+
+
+**Child Interfaces**
+
+
+.. toctree::
+   keysight_kt34400.Kt34400SecondaryDisplayACCurrent
+   keysight_kt34400.Kt34400SecondaryDisplayACVoltage
+   keysight_kt34400.Kt34400SecondaryDisplayDCCurrent
+   keysight_kt34400.Kt34400SecondaryDisplayDCVoltage
+   keysight_kt34400.Kt34400SecondaryDisplayFrequency
+   keysight_kt34400.Kt34400SecondaryDisplayMeasurement

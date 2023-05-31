@@ -1,0 +1,14 @@
+
+MathFunction
+=============
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: MathFunction
+    :members:
+    :exclude-members: name
+
+
+
+

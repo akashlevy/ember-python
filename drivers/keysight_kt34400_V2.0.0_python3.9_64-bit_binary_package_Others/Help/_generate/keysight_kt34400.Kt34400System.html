@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Kt34400System &#8212; Kt34400 2.0.0 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kt34400SystemTracing" href="keysight_kt34400.Kt34400SystemTracing.html" />
+    <link rel="prev" title="Kt34400StatusStandardEvent" href="keysight_kt34400.Kt34400StatusStandardEvent.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<table width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td valign="top"><a href="../index.html"><h1 style="font-size: 2em;">Kt34400 Driver Python API</h1></a></td>
+        <td align="right"><a href="https://www.keysight.com" target="_blank"><img src="../_static\keysight.gif" alt="keysight.gif"></a></td>
+</tr></table>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400SystemTracing.html" title="Kt34400SystemTracing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400StatusStandardEvent.html" title="Kt34400StatusStandardEvent"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" accesskey="U">Kt34400</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400System</a></li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="kt34400system">
+<h1>Kt34400System<a class="headerlink" href="#kt34400system" title="Permalink to this heading">¶</a></h1>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Access interface members using: <code class="docutils literal notranslate"><span class="pre">driver.system</span></code></div>
+<div class="line">Where <code class="docutils literal notranslate"><span class="pre">driver</span></code> is a reference to the driver’s root interface returned by the <a class="reference internal" href="../programming.html#creating-a-driver-instance"><span class="std std-ref">constructor</span></a>.</div>
+</div>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Kt34400System</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.Kt34400System"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kt34400System</span></code></a> interface.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.beep">
+<span class="sig-name descname"><span class="pre">beep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.beep" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method issues a single beep immediately from the instrument.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li>Selecting this method overrides the current beeper state. This means that you can issue a single beep even if BeepEnabled is False.</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.beep_enabled">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">beep_enabled</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.beep_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method enables or disables the beeper tone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.clear_io">
+<span class="sig-name descname"><span class="pre">clear_io</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.clear_io" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs an IEEE 488.1-style clear of the device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.io_timeout">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">io_timeout</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.io_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets or sets the I/O timeout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)">datetime.timedelta</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.license_catalog">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">license_catalog</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.license_catalog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a comma separated list of installed, licensed options.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Only those installed options that require a license are returned. </li>
+<li>Options vary by model.</li>
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.lock_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lock_name</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.lock_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Only - Returns the current I/O interface.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />Return values are "USB", "VXI11", "GPIB", or "LAN &lt;IP Address&gt;" indicating the I/O interface being used by the querying computer.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.lock_owner">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lock_owner</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.lock_owner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Only - Returns the I/O interface that currently has a lock.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />Returns "USB", "VXI11", "GPIB", or "LAN &lt;IP Address&gt;" indicating the I/O interface that currently has a lock. If no interfaces have a lock, "NONE" is returned.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.lock_release">
+<span class="sig-name descname"><span class="pre">lock_release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.lock_release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrements the lock count by 1 and may release the I/O interface from which the command is executed.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li />When a lock is active, Bit 10 in the Standard Operation Register will be set. When the lock is released on all I/O interfaces, this bit will be cleared.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.lock_request">
+<span class="sig-name descname"><span class="pre">lock_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.lock_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Requests a lock of the current I/O interface.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns true if the lock request is granted or false if denied.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />This provides a mechanism by which you can lock the instrument's configuration or cooperatively share the instrument with other computers.
+<li />Lock requests can be nested; each request increases lock count by 1. For every request, you will need a release (LockRelease()) from the same I/O interface. 
+<li />Locks are handled at the I/O interface level (USB, LAN, etc.) and you are responsible for all coordination between threads and/or programs on that interface. 
+<li />When a request is granted, only I/O sessions from the present interface will be allowed to change the state of the instrument.
+<li />LAN sessions locks are automatically released when a LAN disconnect is detected.
+<li />Granting a lock sets Bit 10 in the Standard Operation Register.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.power_line_frequency">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">power_line_frequency</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.power_line_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the line frequency with a 20 ms delay.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.PowerLineFrequency.html#keysight_kt34400.PowerLineFrequency" title="keysight_kt34400.PowerLineFrequency">PowerLineFrequency</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>Default value is PowerLineFrequency.Freq50</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.preset">
+<span class="sig-name descname"><span class="pre">preset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.preset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the multimeter to the Factory configuration.</p>
+<dl class="field-list">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Remarks<span class="colon">:</span></dt>
+<dd class="field-even"><html>
+<body>
+
+<li>This method does not affect any previously-stored instrument states </li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.query_communication_interface">
+<span class="sig-name descname"><span class="pre">query_communication_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm_interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.CommunicationInterface.html#keysight_kt34400.CommunicationInterface" title="keysight_kt34400.keysight_kt34400.CommunicationInterface"><span class="pre">keysight_kt34400.keysight_kt34400.CommunicationInterface</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.query_communication_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the state of the specified remote interface or remote service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>comm_interface</strong> (<a class="reference internal" href="keysight_kt34400.CommunicationInterface.html#keysight_kt34400.CommunicationInterface" title="keysight_kt34400.CommunicationInterface"><em>CommunicationInterface</em></a>) – The remote interface or remote service.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The state of the specified remote interface or remote service.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.read_bytes">
+<span class="sig-name descname"><span class="pre">read_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">[</span></span><span class="pre">numpy.uint8</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.read_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a complete response from the instrument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An array of bytes returned by the device.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy.ndarray&lt;with dtype:uint8&gt;</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.read_string">
+<span class="sig-name descname"><span class="pre">read_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.read_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a complete response from the instrument and returns it as a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string returned by the device.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.reading_threshold">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reading_threshold</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.reading_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets or gets the number of readings that will cause a bit to be set in the Standard Operation Register group event register.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadWrite</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.recall_state">
+<span class="sig-name descname"><span class="pre">recall_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.recall_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore the instrument to a state previously stored in the instrument’s internal memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The instrument state identifier.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.save_state">
+<span class="sig-name descname"><span class="pre">save_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.save_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current instrument state to the instrument’s internal memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The instrument state identifier.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.scpi_version">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scpi_version</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.scpi_version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Only - This method returns the version of the SCPI (Standard Commands for Programmable Instruments) standard with which the instrument is in compliance. Instrument complies with rules and conventions of indicated version of the SCPI standard.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)">float</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>It returns a string in the form "YYYY.V", where "YYYY" represents the year of the version and "V" represents a version for that year (e.g., 1994.0).</li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.serial_number">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">serial_number</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.serial_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>The instrument serial number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.set_communication_interface">
+<span class="sig-name descname"><span class="pre">set_communication_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">enabled</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm_interface</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="keysight_kt34400.CommunicationInterface.html#keysight_kt34400.CommunicationInterface" title="keysight_kt34400.keysight_kt34400.CommunicationInterface"><span class="pre">keysight_kt34400.keysight_kt34400.CommunicationInterface</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.set_communication_interface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disables or enables the GPIB, USB, or LAN remote interface and available remote services such as Sockets, HiSLIP, Telnet, VXI11, and the built-in Web Interface.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Disables or enables the remote interface or remote service.</p></li>
+<li><p><strong>comm_interface</strong> (<a class="reference internal" href="keysight_kt34400.CommunicationInterface.html#keysight_kt34400.CommunicationInterface" title="keysight_kt34400.CommunicationInterface"><em>CommunicationInterface</em></a>) – The remote interface or remote service.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li>After making changes, you must cycle instrument power for the changes to take effect.</li>
+<li>Enabling USBMtp allows you to transfer files, using media transfer protocol (MTP), from the instrument to a PC via the rear-panel USB port.</li>
+<li>The USBHost parameter refers to the instrument's front panel USB port. </li>
+<li>If you disable the LAN interface, none of the associated LAN services will be started when you power on the instrument. </li>
+<li>For HiSLIP, LAN, SOCKets, TELNet, VXI11, or WEB on the 34460A, you must have option 34460A-LAN or option 3446LANU. </li>
+<li>The interface enable settings are stored in nonvolatile memory. They do not change when power has been off, after a Factory Reset or after an Instrument Preset. </li>
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.terminal">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">terminal</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.terminal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Only - Returns whether the front or rear input terminals are selected.</p>
+<dl class="field-list">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ReadOnly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+<dt class="field-odd">Remarks<span class="colon">:</span></dt>
+<dd class="field-odd"><html>
+<body>
+
+<li />On the Keysight 34461A, this property returns the state of the front or rear switch: FRONT or REAR, indicating which set of terminals are in use.
+<li />On the Keysight 34460A, this property always returns FRONT.
+
+</body>
+</html></dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.tracing">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tracing</span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.tracing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reference to the <a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html#keysight_kt34400.Kt34400SystemTracing" title="keysight_kt34400.Kt34400SystemTracing"><code class="xref py py-class docutils literal notranslate"><span class="pre">Kt34400SystemTracing</span></code></a> interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Access<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Readonly</p>
+</dd>
+<dt class="field-even">Type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html#keysight_kt34400.Kt34400SystemTracing" title="keysight_kt34400.Kt34400SystemTracing">Kt34400SystemTracing</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.wait_for_operation_complete">
+<span class="sig-name descname"><span class="pre">wait_for_operation_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)"><span class="pre">datetime.timedelta</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.wait_for_operation_complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does not return until all previously started instrument operations complete or throws exception if maxTime has expired.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>max_time</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.timedelta" title="(in Python v3.11)"><em>datetime.timedelta</em></a>) – The maximum time to wait for the operation to complete. If exceeded, throws: MaxTimeExceededException</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.write_bytes">
+<span class="sig-name descname"><span class="pre">write_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.write_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write an array of bytes to the device.  Must end with TerminationCharacter (n) for SOCKET or ASRL connections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>buffer</strong> (<em>numpy.ndarray&lt;dtype:uint8&gt;</em>) – The array of bytes to be written to the device.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="keysight_kt34400.Kt34400System.write_string">
+<span class="sig-name descname"><span class="pre">write_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#keysight_kt34400.Kt34400System" title="keysight_kt34400.keysight_kt34400.Kt34400System"><span class="pre">keysight_kt34400.keysight_kt34400.Kt34400System</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="headerlink" href="#keysight_kt34400.Kt34400System.write_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a string to the device.    Must end with TerminationCharacter (n) for SOCKET or ASRL connections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The string to be written to the device.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p><strong>Child Interfaces</strong></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html">Kt34400SystemTracing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html#keysight_kt34400.Kt34400SystemTracing"><code class="docutils literal notranslate"><span class="pre">Kt34400SystemTracing</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html#keysight_kt34400.Kt34400SystemTracing.enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400SystemTracing.enabled</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html#keysight_kt34400.Kt34400SystemTracing.file_name"><code class="docutils literal notranslate"><span class="pre">Kt34400SystemTracing.file_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html#keysight_kt34400.Kt34400SystemTracing.flush"><code class="docutils literal notranslate"><span class="pre">Kt34400SystemTracing.flush()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html#keysight_kt34400.Kt34400SystemTracing.level"><code class="docutils literal notranslate"><span class="pre">Kt34400SystemTracing.level</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="keysight_kt34400.Kt34400SystemTracing.html#keysight_kt34400.Kt34400SystemTracing.write"><code class="docutils literal notranslate"><span class="pre">Kt34400SystemTracing.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Kt34400System</a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System"><code class="docutils literal notranslate"><span class="pre">Kt34400System</span></code></a><ul>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.beep"><code class="docutils literal notranslate"><span class="pre">Kt34400System.beep()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.beep_enabled"><code class="docutils literal notranslate"><span class="pre">Kt34400System.beep_enabled</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.clear_io"><code class="docutils literal notranslate"><span class="pre">Kt34400System.clear_io()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.io_timeout"><code class="docutils literal notranslate"><span class="pre">Kt34400System.io_timeout</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.license_catalog"><code class="docutils literal notranslate"><span class="pre">Kt34400System.license_catalog</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.lock_name"><code class="docutils literal notranslate"><span class="pre">Kt34400System.lock_name</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.lock_owner"><code class="docutils literal notranslate"><span class="pre">Kt34400System.lock_owner</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.lock_release"><code class="docutils literal notranslate"><span class="pre">Kt34400System.lock_release()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.lock_request"><code class="docutils literal notranslate"><span class="pre">Kt34400System.lock_request()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.power_line_frequency"><code class="docutils literal notranslate"><span class="pre">Kt34400System.power_line_frequency</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.preset"><code class="docutils literal notranslate"><span class="pre">Kt34400System.preset()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.query_communication_interface"><code class="docutils literal notranslate"><span class="pre">Kt34400System.query_communication_interface()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.read_bytes"><code class="docutils literal notranslate"><span class="pre">Kt34400System.read_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.read_string"><code class="docutils literal notranslate"><span class="pre">Kt34400System.read_string()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.reading_threshold"><code class="docutils literal notranslate"><span class="pre">Kt34400System.reading_threshold</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.recall_state"><code class="docutils literal notranslate"><span class="pre">Kt34400System.recall_state()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.save_state"><code class="docutils literal notranslate"><span class="pre">Kt34400System.save_state()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.scpi_version"><code class="docutils literal notranslate"><span class="pre">Kt34400System.scpi_version</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.serial_number"><code class="docutils literal notranslate"><span class="pre">Kt34400System.serial_number</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.set_communication_interface"><code class="docutils literal notranslate"><span class="pre">Kt34400System.set_communication_interface()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.terminal"><code class="docutils literal notranslate"><span class="pre">Kt34400System.terminal</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.tracing"><code class="docutils literal notranslate"><span class="pre">Kt34400System.tracing</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.wait_for_operation_complete"><code class="docutils literal notranslate"><span class="pre">Kt34400System.wait_for_operation_complete()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.write_bytes"><code class="docutils literal notranslate"><span class="pre">Kt34400System.write_bytes()</span></code></a></li>
+<li><a class="reference internal" href="#keysight_kt34400.Kt34400System.write_string"><code class="docutils literal notranslate"><span class="pre">Kt34400System.write_string()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400StatusStandardEvent.html"
+                          title="previous chapter">Kt34400StatusStandardEvent</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="keysight_kt34400.Kt34400SystemTracing.html"
+                          title="next chapter">Kt34400SystemTracing</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400SystemTracing.html" title="Kt34400SystemTracing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="keysight_kt34400.Kt34400StatusStandardEvent.html" title="Kt34400StatusStandardEvent"
+             >previous</a> |</li>
+        <li><a href="../index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="../search.html">search</a>|&nbsp;</li>-->
+
+          <li class="nav-item nav-item-1"><a href="../reference.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="hierarchy.html" >API Interfaces Hierarchy</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="keysight_kt34400.Kt34400.html" >Kt34400</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Kt34400System</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022-23, Keysight Technologies.  v2.0.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

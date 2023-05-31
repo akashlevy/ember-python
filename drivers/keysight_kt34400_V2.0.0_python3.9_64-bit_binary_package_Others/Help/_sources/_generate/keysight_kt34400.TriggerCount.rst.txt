@@ -1,0 +1,14 @@
+
+TriggerCount
+=============
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: TriggerCount
+    :members:
+    :exclude-members: name
+
+
+
+

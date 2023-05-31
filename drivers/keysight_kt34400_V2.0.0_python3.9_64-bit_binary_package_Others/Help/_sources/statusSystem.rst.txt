@@ -1,0 +1,67 @@
+.. _status:
+
+**********************
+Status System Overview
+**********************
+
+.. container:: introduction
+
+   The topics in this section provide an overview of the instrument SCPI status register structure 
+   accessed by the methods and properties found in the :doc:`Kt34400Status interface <_generate/keysight_kt34400.Kt34400Status>`
+   and its child interfaces.
+   
+   - `Kt34400 Status System Diagram`_
+   - How to setup and use `Service Requests`_
+
+
+Kt34400 Status System Diagram
+===================================================================
+
+.. container:: section
+   :name: section1Section
+
+   Each status register group shown corresponds to a Kt34400 driver status interface.  Status register 'Flags' enumerations
+   have members with binary weighted integer values corresponding to the bit values shown and may be used for bitwise operations.
+
+   |image1|
+
+Service Requests
+================
+
+.. container:: section
+   :name: section2Section
+
+       This section describes how to configure the instrument status system
+       to request service when a supported condition occurs and how to detect
+       the Service Request (SRQ) using 2 techniques:
+
+       #. Polling the Instrument - Program polls the status byte in a wait
+          loop until SRQ detected.
+       #. SRQ Event Callbacks - Driver asynchronously calls a user specified
+          SRQ event handler method.
+
+       To configure the status system:
+
+       -  Set the appropriate status register EnableRegister bits to set the
+          corresponding Status Byte summary bits when the desired condition
+          or conditions occur.
+       -  Set the appropriate Status.ServiceRequestEnable register bits to
+          enable the desired StatusByte bits to issue an SRQ.
+          
+
+       To detect the SRQ:
+
+       -  Poll the status byte
+                Or
+       -  Configure and enable SRQ event callbacks.  Event callback functions are registered with the driver
+          with the driver using the :doc:`KtEvent <_generate/ktevent>` class.
+
+       .. container:: subsection
+
+          See the :ref:`Status Service Request <exampleCode:Status Service Request>` programming example
+          which demonstrates configuring the status system and both SRQ detection techniques.  
+          It can be copied and run in simulation mode without an instrument.
+
+
+.. |image1| image:: _static/StatusSystem.png
+

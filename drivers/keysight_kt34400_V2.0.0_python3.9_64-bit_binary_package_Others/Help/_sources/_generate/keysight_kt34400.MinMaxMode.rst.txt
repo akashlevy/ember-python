@@ -1,0 +1,14 @@
+
+MinMaxMode
+===========
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: MinMaxMode
+    :members:
+    :exclude-members: name
+
+
+
+

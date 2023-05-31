@@ -1,0 +1,50 @@
+.. _ktevent-label:
+
+********************
+KtEvent
+********************
+
+
+In Keysight Python drivers, *KtEvent* is a common class
+with the same concept as the event class in other languages, such as `events <https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/classes#events>`_ in C#.
+KtEvent object are a special kind of multicast delegate that can only be invoked from within the class or struct where
+they are declared (the publisher class). If other classes or structs subscribe to the event,
+their event handler methods will be called when the publisher class raises the event.
+
+According to different event argument types, different type KtEvent classes are defined in the driver API. For example,
+the IviWarningEvent defines the KtEvent class whose event argument type is a tuple of code (str) and text (str).
+
+KtEvent supports a set of common operations.
+
+Register a callback
+*****************************
+Register a callback (a function, method or lambda expression) to the event. When the event is fired, the registered method will be invoked.
+KtEvent provide the *add* method and the *+=* operator for registering a method.
+
+
+Unregister a callback
+**************************
+KtEvent provides the *remove* or the *-=* operator for Unregistering the callback (a function, method or lambda expression) from the event.
+Once the callback is unregistered the callback will not be invoked anymore.
+
+Example Code
+*************************
+
+
+.. code-block:: python
+
+    # - defines a call back function
+    def ivi_warning_callback(self, args):
+        print(f'Got IviWarning, code = {args[0]}, text = {args[1]})
+
+    # - get the event object using driver API
+    event = driver.driver_operation.warning
+
+    # - register the callback to the event, use the add method or += operator
+    event.add(ivi_warning_callback)
+    # event += ivi_warning_callback
+
+    # - unregister the callback from the event, use the remove method or -= operator
+    event.remove(ivi_warning_callback)
+    # event -= ivi_warning_callback
+

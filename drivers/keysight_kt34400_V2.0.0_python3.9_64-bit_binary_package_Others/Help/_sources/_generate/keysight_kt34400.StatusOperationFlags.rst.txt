@@ -1,0 +1,14 @@
+
+StatusOperationFlags
+=====================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: StatusOperationFlags
+    :members:
+    :exclude-members: name
+
+
+
+

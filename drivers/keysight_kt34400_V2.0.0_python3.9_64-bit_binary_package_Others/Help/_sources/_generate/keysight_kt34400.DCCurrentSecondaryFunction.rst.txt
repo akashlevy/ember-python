@@ -1,0 +1,14 @@
+
+DCCurrentSecondaryFunction
+===========================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: DCCurrentSecondaryFunction
+    :members:
+    :exclude-members: name
+
+
+
+

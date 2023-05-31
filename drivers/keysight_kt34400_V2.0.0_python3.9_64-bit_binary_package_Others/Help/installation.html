@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Installing the Driver Module &#8212; Kt34400 2.0.0 Documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinxdoc.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Programming Basics" href="programming.html" />
+    <link rel="prev" title="Kt34400 Driver Documentation" href="index.html" /> 
+  </head><body>
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<table width="100%" cellpadding="0" cellspacing="0"><tr>
+        <td valign="top"><a href="index.html"><h1 style="font-size: 2em;">Kt34400 Driver Python API</h1></a></td>
+        <td align="right"><a href="https://www.keysight.com" target="_blank"><img src="_static\keysight.gif" alt="keysight.gif"></a></td>
+</tr></table>
+</div>
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="programming.html" title="Programming Basics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Kt34400 Driver Documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="search.html">search</a>|&nbsp;</li>-->
+
+        <li class="nav-item nav-item-this"><a href="">Installing the Driver Module</a></li> 
+      </ul>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="installation"></span><section id="installing-the-driver-module">
+<h1>Installing the Driver Module<a class="headerlink" href="#installing-the-driver-module" title="Permalink to this heading">¶</a></h1>
+<dl>
+<dt><strong>Prerequisites</strong></dt><dd><p>The keysight_kt34400 driver Python module requires the following prerequisites:</p>
+<p><strong>Operating System</strong></p>
+<ul>
+<li><p>Windows - Windows 7 SP1, Windows 8.1, Windows 10 (32 or 64-bit)</p></li>
+<li><dl>
+<dt>Linux (64-bit)</dt><dd><ul class="simple">
+<li><p>CentOS 7.1, 7.2, 7.3, 7.4, 7.5, 7.6</p></li>
+<li><p>Red Hat 7.1,7.2, 7.3, 7.4, 7.5, 7.6</p></li>
+<li><p>Ubuntu 16.04, 18.04</p></li>
+</ul>
+<p>Note: Newer Linux versions may be used but may not support connecting via USBTMC or USB-to-GPIB converter per Keysight IO Libraries Suite kernel driver availability.</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p><strong>Python 3.6</strong> or newer</p>
+<ul><li>
+Windows - <a href="https://www.python.org/downloads/windows/" target="_blank">Python for Windows</a> installer comes in 32-bit (x86) or 64-bit (x86-64) versions.</br>
+&nbsp; &nbsp; Note: When installing Python, enable the "Add Python <version> to PATH" option which is NOT checked by default.
+Multiple versions of Python can be installed.  If multiple versions are installed,
+whichever one is listed first in your system <i>Path</i> environment variable will be used by the driver.
+</li>
+<li>
+Linux - Almost all Linux distributions come with Python installed.
+To check, open a terminal and enter: &nbsp; <code style="font-size: 100%;">python3&nbsp;--version</code> &nbsp; &nbsp;
+If not found or version < 3.6 install per your Linux distribution. &nbsp; Also required:</br>
+&nbsp; &nbsp; pip3 - Check with: &nbsp; <code style="font-size: 100%;">pip3&nbsp;--version</code></br>
+&nbsp; &nbsp; python3-devel (CentOs) - Check with: &nbsp; <code style="font-size: 100%;">yum list installed python3*devel*</code></br>
+&nbsp; &nbsp; python3.6-dev (RH/Ubuntu) - Check with: &nbsp; <code style="font-size: 100%;">apt list --installed | grep python3.6-dev</code>
+</li></ul><p><strong>C++ Compiler</strong></p>
+A C++ compiler is required to build and install the driver Python module.  If needed, install one of the following:
+<ul>
+<li>Windows - MSVC compiler.  Install <a href="https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2019+rc" target="_blank">Visual Studio</a>
+(any edition) with "Desktop development with C++" workload selected &nbsp;OR&nbsp; if full VS ADE not needed,
+<a href="https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019" target="_blank">Build Tools for Visual Studio</a>
+(command line interface) with "C++ build tools" workload selected.</li>
+
+<li>Linux - GCC 9, the GNU compiler collection.  Almost all Linux distributions come with GCC installed.
+To check, open a terminal and enter: &nbsp; <code style="font-size: 100%;">gcc&nbsp;--version</code> &nbsp; &nbsp;
+If not found or version < 9.0 install per your Linux distribution.</li>
+</ul><p><strong>CMake 3.16</strong> or newer</p>
+CMake tools are used to build and install the driver Python module.  If needed, install the latest stable binary
+distribution for Windows or Linux from <a href="https://cmake.org/download/" target="_blank">CMake.org</a>. &nbsp;
+To check, from a Windows command prompt or Linux terminal, enter: &nbsp; <code style="font-size: 100%;">cmake&nbsp;--version</code><p><strong>VISA</strong></p>
+The driver module uses VISA to communicate with the instrument. Any compliant implementation is acceptable.
+The latest version of <a href="https://www.keysight.com/find/iosuite" target="_blank">Keysight IO Libraries Suite</a>
+is recommended, includes VISA, and supports Windows or Linux.</br>&nbsp;</dd>
+</dl>
+<p><strong>Installing the Driver Module Package</strong></p>
+<blockquote>
+<div><p>The Python module source archive, keysight_kt34400-2.0.0.tar.gz, is available in the same folder as this HTML Help archive.
+Package Installer for Python (pip), which is included with Python, uses this file to build and install the driver module for
+the OS and Python version in use on your machine in a single operation.</p>
+<p>To build and install the keysight_kt34400 module execute the following command, from a Windows command prompt or Linux
+terminal in the same folder as the module source archive file:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">keysight_kt34400-2.0.0.tar.gz</span></code></p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Note<span class="colon">:</span></dt>
+<dd class="field-odd"><p>On Linux use: <code class="docutils literal notranslate"><span class="pre">pip3</span></code>    
+pip only installs the module for the currently in use version of Python (first in your env <em>Path</em>).  If you install a new
+version of Python or edit your <em>Path</em> order, you must run pip again (from a new command prompt) to install the module for
+the new, in use version of Python.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Installing on Multiple Systems</strong></p>
+<blockquote>
+<div><p>Optionally, you can create a binary ‘wheel’ file distribution from the source module archive that can be easily installed on
+multiple machines.  The additional machines do not need the C++ compiler or CMake requirements to install the pre-built binary
+wheel file distribution.  Other than Python and pip, the only requirement is that the target machines must use the same
+operating system and version of Python as the machine used to create the wheel file.</p>
+<dl class="simple">
+<dt>To create a wheel file in the current directory use:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">wheel</span> <span class="pre">--no-deps</span> <span class="pre">keysight_kt34400-2.0.0.tar.gz</span></code></p>
+</dd>
+<dt>To install the new wheel file use:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">keysight_kt34400-2.0.0-cp&lt;ver&gt;-cp&lt;ver&gt;-&lt;OS&gt;.whl</span></code></p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Uninstalling the Driver Module Package</strong></p>
+<blockquote>
+<div><dl class="simple">
+<dt>To uninstall the driver module use the ‘uninstall’ option with the module name as in:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">keysight_kt34400</span></code></p>
+</dd>
+</dl>
+</div></blockquote>
+<p><strong>Viewing Installed Module Information</strong></p>
+<blockquote>
+<div><dl class="simple">
+<dt>To view a list of all installed modules use the ‘list’ option as in:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">list</span></code></p>
+</dd>
+<dt>To view detailed module information use the ‘show’ option with the module name as in:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">show</span> <span class="pre">keysight_kt34400</span></code></p>
+</dd>
+</dl>
+</div></blockquote>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Kt34400 Driver Documentation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="programming.html"
+                          title="next chapter">Programming Basics</a></p>
+  </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="programming.html" title="Programming Basics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Kt34400 Driver Documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">home</a> |&nbsp;</li>
+        <!-- DP- Not using 'search' link on header and footer as it does not work in the 
+                 htmlHelp .chm file and is available from the sidebar in html help. -->
+        <!--<li><a href="search.html">search</a>|&nbsp;</li>-->
+
+        <li class="nav-item nav-item-this"><a href="">Installing the Driver Module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022-23, Keysight Technologies.  v2.0.0.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.1.3.
+    </div>
+  </body>
+</html>

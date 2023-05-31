@@ -1,0 +1,15 @@
+
+Kt34400MathStatistics
+======================
+    | Access interface members using: ``driver.math.statistics``
+    | Where ``driver`` is a reference to the driver's root interface returned by the :ref:`constructor <programming:Creating a Driver Instance>`.
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: Kt34400MathStatistics
+    :members:
+    :exclude-members: get_name_by_index, items
+
+
+
+

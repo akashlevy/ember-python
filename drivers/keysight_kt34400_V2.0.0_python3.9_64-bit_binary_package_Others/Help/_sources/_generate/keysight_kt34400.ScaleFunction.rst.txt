@@ -1,0 +1,14 @@
+
+ScaleFunction
+==============
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: ScaleFunction
+    :members:
+    :exclude-members: name
+
+
+
+

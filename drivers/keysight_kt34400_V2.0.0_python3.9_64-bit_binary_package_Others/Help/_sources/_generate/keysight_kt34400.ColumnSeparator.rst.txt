@@ -1,0 +1,14 @@
+
+ColumnSeparator
+================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: ColumnSeparator
+    :members:
+    :exclude-members: name
+
+
+
+

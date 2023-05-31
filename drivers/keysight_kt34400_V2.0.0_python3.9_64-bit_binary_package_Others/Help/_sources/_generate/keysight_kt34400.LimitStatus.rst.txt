@@ -1,0 +1,14 @@
+
+LimitStatus
+============
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: LimitStatus
+    :members:
+    :exclude-members: name
+
+
+
+

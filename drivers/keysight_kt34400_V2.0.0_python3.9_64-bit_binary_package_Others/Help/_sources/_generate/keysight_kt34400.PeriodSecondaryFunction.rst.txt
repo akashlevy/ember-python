@@ -1,0 +1,14 @@
+
+PeriodSecondaryFunction
+========================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: PeriodSecondaryFunction
+    :members:
+    :exclude-members: name
+
+
+
+

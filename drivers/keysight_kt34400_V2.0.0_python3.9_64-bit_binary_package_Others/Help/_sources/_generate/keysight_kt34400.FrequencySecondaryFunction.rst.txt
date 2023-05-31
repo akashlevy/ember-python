@@ -1,0 +1,14 @@
+
+FrequencySecondaryFunction
+===========================
+
+
+.. currentmodule:: keysight_kt34400
+
+.. autoclass:: FrequencySecondaryFunction
+    :members:
+    :exclude-members: name
+
+
+
+
