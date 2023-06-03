@@ -7,16 +7,17 @@ class Fluke8808AException(Exception):
 
 class Fluke8808A(serial.Serial):
   """Fluke8808A driver class"""
-  def __init__(self, port="/dev/tty.usbserial-A700CLX4", reset=False, debug=True):
+  def __init__(self, port="/dev/tty.usbserial-A700CLX4", init=False, debug=True):
     """Initialize and configure serial communications"""
     super().__init__(port)
 
-    # Reset device
-    if reset:
+    # Configure device
+    if init:
+      # Reset device
       self.reset()
 
-    # Identify device
-    self.id = self.identify(debug=debug)
+      # Identify device
+      self.id = self.identify(debug=debug)
 
     # Switch to DC current measurement mode
     self.mode("ADC")
@@ -35,7 +36,7 @@ class Fluke8808A(serial.Serial):
       if debug:
         print(make, model, id, version)
     except ValueError as e:
-      raise Fluke8808AException(f"Couldn't unpack line: {line}")
+      raise Fluke8808AException(f"Couldn't unpack line: {repr(line)}")
     
     # Check device make, model, version
     if make != "FLUKE":
@@ -50,22 +51,13 @@ class Fluke8808A(serial.Serial):
   
   def mode(self, mode="ADC"):
     """Set measurement mode"""
-    self._cmd(mode, check_success=True)
+    self._cmd(mode)
 
-  def measure(self):
-    # Send command and decode response
-    line = self._cmd("MEAS?")
-    try:
-      value, mode = line.strip().split()
-    except ValueError as e:
-      raise Fluke8808AException(f"Couldn't unpack line: {line}")
-    
-    # Make sure in DC current measurement mode
-    if mode != "ADC":
-      raise Fluke8808AException(f"Not in ADC mode: {mode}")
-    
-    # Return measured value
-    return float(value)
+  def measure_current(self):
+    """Measure current"""
+    measurements = [float(line.decode().strip().split()[0]) for line in fluke.readlines(50) if line.decode()[0] in ['+', '-']]
+    assert(fluke.readline().decode().strip().split()[1] == "ADC")
+    return sum(measurements)/len(measurements)
 
   def _cmd(self, cmd, check_success=False):
     """Send command (with buffer flushes) and return response"""
@@ -84,5 +76,9 @@ class Fluke8808A(serial.Serial):
 
 # Simple measurement test
 if __name__ == "__main__":
-  with Fluke8808A() as fluke:
-    print(fluke.measure())
+  with Fluke8808A("/dev/ttyUSB0") as fluke:
+    print(fluke.measure_current())
+    print(fluke.measure_current())
+    print(fluke.measure_current())
+    print(fluke.measure_current())
+    print(fluke.measure_current())
