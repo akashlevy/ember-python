@@ -8,6 +8,7 @@ warnings.filterwarnings("error")
 # Raspberry Pi GPIO pin mappings
 RRAM_BUSY_PIN = 7
 MCLK_PAUSE_PIN = 25
+CLKSEL_PIN = None
 
 # FTDI device locator
 FTDI_URL = "ftdi://ftdi:2232h/1"
@@ -152,9 +153,9 @@ class EMBERDriver(object):
       spi.configure(FTDI_URL)
       self.spi = spi.get_port(cs=0, freq=self.settings["spi_freq"], mode=1)
 
-      # Get GPIO port to manage extra pins, use pin 4 as GPO, pin 5 as GPI (pins 0-3 are SPI)
+      # Get GPIO port to manage extra pins, use pin 4 as GPO, pin 5 as GPI, pin 6 as GPO (pins 0-3 are SPI)
       self.gpio = spi.get_gpio()
-      self.gpio.set_direction(0x30, 0x10)
+      self.gpio.set_direction(0x70, 0x50)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 
@@ -178,6 +179,7 @@ class EMBERDriver(object):
     
     # Initialize GPIO pin states
     self.unpause_mclk() # unpause the mclk by default
+    self.slow_mode() # start in slow mode (SPI)
       
   def __enter__(self):
     """Enter to use "with" construct in python"""
@@ -421,7 +423,8 @@ class EMBERDriver(object):
     # Commit settings and pulse run test pulse (pulses VWL)
     self.commit_settings()
     self.write_reg(REG_CMD, OP_TEST_PULSE + 8*use_multi_addrs)
-    self.wait_for_idle()
+    if not use_multi_addrs:
+      self.wait_for_idle()
 
     # Log the pulse
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
@@ -451,7 +454,8 @@ class EMBERDriver(object):
     # Commit settings and pulse run test pulse (pulses VWL)
     self.commit_settings()
     self.write_reg(REG_CMD, OP_TEST_PULSE + 8*use_multi_addrs)
-    self.wait_for_idle()
+    if not use_multi_addrs:
+      self.wait_for_idle()
 
     # Log the pulse
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
@@ -652,6 +656,24 @@ class EMBERDriver(object):
     """Unpause main clock"""
     if self.settings["spi_mode"] == "spidev":
       GPIO.output(MCLK_PAUSE_PIN, False)
+    elif self.settings["spi_mode"] == "ftdi":
+      self.gpio.write(0x00)
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    
+  def fast_mode(self):
+    """Select fast clock"""
+    if self.settings["spi_mode"] == "spidev":
+      GPIO.output(CLKSEL_PIN, False)
+    elif self.settings["spi_mode"] == "ftdi":
+      self.gpio.write(0x50)
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+
+  def slow_mode(self):
+    """Select slow clock"""
+    if self.settings["spi_mode"] == "spidev":
+      GPIO.output(CLKSEL_PIN, False)
     elif self.settings["spi_mode"] == "ftdi":
       self.gpio.write(0x00)
     else:
