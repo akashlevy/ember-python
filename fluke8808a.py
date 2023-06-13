@@ -17,6 +17,9 @@ class Fluke8808A(serial.Serial):
     # Switch to DC current measurement mode
     self.cmd("ADC")
 
+    # Switch to fast measurement mode
+    self.cmd("RATE F")
+
   def reset(self):
     """Power-up reset device"""
     # Send command and decode response
