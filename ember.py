@@ -167,9 +167,6 @@ class EMBERDriver(object):
       else:
         raise EMBERException("No SPI connection detected: %s" % val)
 
-    # Commit settings
-    self.commit_settings()
-
     # Initialize profiling
     self.prof = {"READs": 0, "SETs": 0, "RESETs": 0, "CELL_READs": 0, "CELL_SETs": 0, "CELL_RESETs": 0}
 
@@ -180,6 +177,9 @@ class EMBERDriver(object):
     # Initialize GPIO pin states
     self.unpause_mclk() # unpause the mclk by default
     self.slow_mode() # start in slow mode (SPI)
+
+    # Commit settings
+    self.commit_settings()
       
   def __enter__(self):
     """Enter to use "with" construct in python"""
@@ -259,7 +259,7 @@ class EMBERDriver(object):
     # Return data
     return data[:self.settings["bitwidth"]]
 
-  def write(self, data, ignore_minmax=True, debug=False):
+  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, debug=False):
     """Perform write-verify"""
     # Commit
     self.commit_settings()
@@ -276,27 +276,50 @@ class EMBERDriver(object):
     if debug:
       print("WRITING DATA:", data)
     
-    # NOTE: set_first, loop_order, and PW looping are not implemented in this function though they are in spec
-    # Write levels one by one
-    for i in range(num_levels):
-      # Maximum number of SET/RESET loops to attempt
-      for attempts in range(self.settings["max_attempts"]):
-        # SET loop: returns True if done with attempt
-        if debug:
-          print("SET LOOP", i, "ATTEMPT", attempts)
-        if self._write_set_loop(data, i, attempts, ignore_minmax, debug):
-          break
-        
-        # RESET loop: returns True if done with attempt
-        if debug:
-          print("RESET LOOP", i, "ATTEMPT", attempts)
-        if self._write_reset_loop(data, i, attempts, ignore_minmax, debug):
-          pass
-          # break # END ON SET!!!
+    # Native mode
+    if native:
+      # Rotate array
+      data = ["{0:04b}".format(d)[::-1] for d in data][::-1] # convert to binary strings
+      data = zip(*data)
+      data = [int(''.join(d), base=2) for d in data] # convert from binary to array of ints
+      assert(len(data) == 4)
+      print(data)
 
-        # If loop completes, write failed
-        if attempts == (self.settings["max_attempts"] - 1) and not self.settings["ignore_failures"]:
-          raise EMBERWriteFailure("Write failed on address %s" % self.addr)
+      # Write data to be written
+      for i, d in enumerate(data):
+        self.write_reg(REG_WRITE + i, d)
+      
+      # Execute WRITE command
+      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs)
+      if not use_multi_addrs:
+        self.wait_for_idle()
+
+      # Log the WRITE
+      self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
+      self.mlogfile.write("WRITE,%s,%s\n" % (self.settings["di_init_mask"], self.settings["max_attempts"]))
+    # Non-native mode: implement write-verify using other commands
+    else:
+      # NOTE: set_first, loop_order, and PW looping are not implemented in this function though they are in spec
+      # Write levels one by one
+      for i in range(num_levels):
+        # Maximum number of SET/RESET loops to attempt
+        for attempts in range(self.settings["max_attempts"]):
+          # SET loop: returns True if done with attempt
+          if debug:
+            print("SET LOOP", i, "ATTEMPT", attempts)
+          if self._write_set_loop(data, i, attempts, ignore_minmax, debug):
+            break
+          
+          # RESET loop: returns True if done with attempt
+          if debug:
+            print("RESET LOOP", i, "ATTEMPT", attempts)
+          if self._write_reset_loop(data, i, attempts, ignore_minmax, debug):
+            pass
+            # break # END ON SET!!!
+
+          # If loop completes, write failed
+          if attempts == (self.settings["max_attempts"] - 1) and not self.settings["ignore_failures"]:
+            raise EMBERWriteFailure("Write failed on address %s" % self.addr)
 
   def _write_set_loop(self, data, i, attempts, ignore_minmax=True, debug=False):
     """Do SET loop for write-verify and return True if done with entire set process"""
@@ -431,7 +454,8 @@ class EMBERDriver(object):
     self.mlogfile.write("SET,%s,%s,%s,0,%s\n" % (mask, vwl, vbl, pw))
 
     # Reset settings
-    self.settings = settings_bak
+    if not use_multi_addrs:
+      self.settings = settings_bak
 
   def reset_pulse(self, vwl=None, vsl=None, pw_exp=None, pw_mantissa=None, mask=None, use_multi_addrs=False):
     """Perform a RESET operation."""
@@ -462,7 +486,8 @@ class EMBERDriver(object):
     self.mlogfile.write("RESET,%s,%s,0,%s,%s\n" % (mask, vwl, vsl, pw))
 
     # Reset settings
-    self.settings = settings_bak
+    if not use_multi_addrs:
+      self.settings = settings_bak
 
   def commit_settings(self):
     """Write all settings"""
@@ -486,7 +511,7 @@ class EMBERDriver(object):
       self.write_reg(REG_MISC, misc)
     
     # Remember last miscellaneous register value
-    self.last_misc = misc
+    self.last_misc = copy.deepcopy(misc)
 
     # Write to level setting registers
     num_levels = (self.settings["num_levels"] + 15) % 16 + 1 # when num_levels=0, interpret as num_levels=16
@@ -629,17 +654,21 @@ class EMBERDriver(object):
 
     # Transfer message to write register using appropriate driver
     xfer = self.spi.xfer if self.settings["spi_mode"] == "spidev" else lambda m: self.spi.exchange(m, duplex=True)
-    xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0]*100)
+    xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0]*2)
 
-  def wait_for_idle(self):
+  def wait_for_idle(self, debug=False):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
     # Write to dummy register to keep sclk going
     if self.settings["spi_mode"] == "spidev":
       while GPIO.input(RRAM_BUSY_PIN):
-        self.write_reg(REG_NONE, 0)
+        val = self.read_reg(REG_STATE)
+        if debug:
+          print("At address:", (val >> (5 + 5 + 1 + 1 + 1 + 5 + 1 + 6 + 48 + 4 + 1 + 6)) & ((1 << 16) - 1))
     elif self.settings["spi_mode"] == "ftdi":
       while self.gpio.read() & 0x20:
-        self.write_reg(REG_NONE, 0)
+        val = self.read_reg(REG_STATE)
+        if debug:
+          print("At address:", (val >> (5 + 5 + 1 + 1 + 1 + 5 + 1 + 6 + 48 + 4 + 1 + 6)) & ((1 << 16) - 1))
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 
@@ -666,7 +695,7 @@ class EMBERDriver(object):
     if self.settings["spi_mode"] == "spidev":
       GPIO.output(CLKSEL_PIN, False)
     elif self.settings["spi_mode"] == "ftdi":
-      self.gpio.write(0x50)
+      self.gpio.write(0x40)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 
