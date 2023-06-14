@@ -10,8 +10,8 @@ parser.add_argument("--config", type=str, default="settings/form.json", help="co
 parser.add_argument("--start-addr", type=int, default=0, help="start address")
 parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
-parser.add_argument("--print-at-end", type=bool, default=False, help="print as array at end")
-parser.add_argument("--plot-at-end", type=bool, default=True, help="plot as image at end")
+parser.add_argument("--print-at-end", action="store_true", help="print as array at end")
+parser.add_argument("--no-plot", action="store_true", help="plot as image at end")
 parser.add_argument("--continuous", action="store_true", help="run READ continuously")
 parser.add_argument("--super", action="store_true", help="run super READ")
 args = parser.parse_args()
@@ -47,8 +47,8 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
       for read in reads:
         print(" ".join([str(r) for r in read]))
 
-    # Plot at end if requested
-    if args.plot_at_end:
+    # Plot at end by default
+    if not args.no_plot:
       import numpy as np, matplotlib.pyplot as plt
       plt.imshow(np.array(reads))
       plt.colorbar()
