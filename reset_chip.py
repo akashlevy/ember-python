@@ -35,11 +35,10 @@ with EMBERDriver(args.chipname, args.config) as ember:
   # Fast mode
   elif args.fast or args.superfast:
     ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-    for i in range(8,30):
-      ember.reset_pulse(use_multi_addrs=True, mask=1<<i)
-      if args.superfast:
-        ember.fast_mode()
-      ember.wait_for_idle(debug=args.debug)
+    ember.reset_pulse(use_multi_addrs=True)
+    if args.superfast:
+      ember.fast_mode()
+    ember.wait_for_idle(debug=args.debug)
   # Slow mode
   else:
     # Reduce max attempts, ignore failures, reduce SET PW
