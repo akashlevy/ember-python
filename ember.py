@@ -158,6 +158,10 @@ class EMBERDriver(object):
       self.gpio.set_direction(0x70, 0x50)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    
+    # Initialize GPIO pin states
+    self.unpause_mclk() # unpause the mclk by default
+    self.slow_mode() # start in slow mode (SPI)
 
     # Test connection
     if test_conn:
@@ -166,6 +170,9 @@ class EMBERDriver(object):
         print("SPI connection detected!")
       else:
         raise EMBERException("No SPI connection detected: %s" % val)
+    
+    # Commit settings
+    self.commit_settings()  
 
     # Initialize profiling
     self.prof = {"READs": 0, "SETs": 0, "RESETs": 0, "CELL_READs": 0, "CELL_SETs": 0, "CELL_RESETs": 0}
@@ -173,14 +180,7 @@ class EMBERDriver(object):
     # Initialize RRAM logging
     self.mlogfile = open(self.settings["master_log_file"].replace(".log", "." + str(int(time.time())) + ".log"), "a")
     self.plogfile = open(self.settings["prog_log_file"].replace(".log", "." + str(int(time.time())) + ".log"), "a")
-    
-    # Initialize GPIO pin states
-    self.unpause_mclk() # unpause the mclk by default
-    self.slow_mode() # start in slow mode (SPI)
 
-    # Commit settings
-    self.commit_settings()
-      
   def __enter__(self):
     """Enter to use "with" construct in python"""
     return self
