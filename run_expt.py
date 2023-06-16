@@ -39,7 +39,7 @@ for config in glob.glob("opt/configs/*.json"):
         vddio_dac_voltage = vddio_dac.measure.v()
 
         # Increment maximum attempts
-        for att in range(10, 255, 20):
+        for att in range(10, 255, 40):
             # Set maximum attempts
             ember.settings["max_attempts"] = att
             ember.commit_settings()
@@ -79,6 +79,20 @@ for config in glob.glob("opt/configs/*.json"):
             dt = tf - t0
             print("m =", m, "dt =", dt)
             np.savetxt(f"opt/data/dt_{config.split('/')[-1][:-5]}_{att}.csv", np.array([dt]), delimiter=',')
+
+            # Post-read (for BER)
+            print("Post-read...")
+            reads = []
+            for addr in range(args.start_addr, args.end_addr, args.step_addr):
+                # Set address and read
+                ember.set_addr(addr)
+                read = ember.read()
+                reads.append(read)
+                if addr % 1000 == 0:
+                    # Print address and read value
+                    print("Address", addr)
+                    print("READ", read)
+            np.savetxt(f"opt/data/postread_{config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), delimiter=',')
 
             # Energy measurement
             for vname, vdev in zip(["vdd", "vdd_dac", "vsa", "vddio", "vddio_dac"], [vdd, vdd_dac, vsa, vddio, vddio_dac]):
