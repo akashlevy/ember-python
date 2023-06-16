@@ -16,12 +16,12 @@ parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
 args = parser.parse_args()
 
-# Initialize EMBER system
+# Open config files
 for config in glob.glob("opt/configs/*.json"):
-    _, bpc, lvl, i = config[:-5].split('_')
-    bpc, lvl, i = int(bpc[0]), int(lvl[3:]), int(i)
+    _, bpc, lvl, expti = config[:-5].split('_')
+    bpc, lvl, expti = int(bpc[0]), int(lvl[3:]), int(expti)
 
-    # Initialize EMBER system and open outfile
+    # Initialize EMBER system and drivers
     with EMBERDriver(args.chipname, config) as ember, \
         Fluke8808A("/dev/ttyUSB0") as vdd, \
         Fluke8808A("/dev/ttyUSB1") as vdd_dac, \
@@ -44,31 +44,23 @@ for config in glob.glob("opt/configs/*.json"):
             ember.settings["max_attempts"] = att
             ember.commit_settings()
 
-            # Write 0's
-            ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-            ember.write([0]*48, use_multi_addrs=True)
-            ember.fast_mode()
-            while ember.gpio.read() & 0x20:
-                pass
-            ember.slow_mode()
+            # Program alternating init
+            for i in range(len(ember.level_settings)):
+                for j in range(2):
+                    # Set addresses to scroll across
+                    ember.set_addr(args.start_addr + i*2 + j, args.end_addr-len(ember.level_settings)*2 + i*2 + j, len(ember.level_settings)*2)
 
-            # Pre-read
-            print("Pre-read...")
-            reads = []
-            for addr in range(args.start_addr, args.end_addr, args.step_addr):
-                # Set address and read
-                ember.set_addr(addr)
-                read = ember.read()
-                reads.append(read)
-                if addr % 1000 == 0:
-                    # Print address and read value
-                    print("Address", addr)
-                    print("READ", read)
-            np.savetxt(f"opt/data/preread_{config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), delimiter=',')
-
-            # Measure latency when writing
+                    # Start from level i
+                    print(f"Setting level {i}")
+                    ember.write([i]*48, use_multi_addrs=True)
+                    ember.fast_mode()
+                    while ember.gpio.read() & 0x20:
+                        pass
+                    ember.slow_mode()
+            
+            # Measure latency when writing target level
             ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-            ember.write([1]*48, use_multi_addrs=True)
+            ember.write([lvl]*48, use_multi_addrs=True)
             ember.fast_mode()
             t0 = time.time()
             m = 0
@@ -96,17 +88,23 @@ for config in glob.glob("opt/configs/*.json"):
 
             # Energy measurement
             for vname, vdev in zip(["vdd", "vdd_dac", "vsa", "vddio", "vddio_dac"], [vdd, vdd_dac, vsa, vddio, vddio_dac]):
-                # Write 0's
-                ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-                ember.write([0]*48, use_multi_addrs=True)
-                ember.fast_mode()
-                while ember.gpio.read() & 0x20:
-                    pass
-                ember.slow_mode()
+                # Program alternating init
+                for i in range(len(ember.level_settings)):
+                    for j in range(2):
+                        # Set addresses to scroll across
+                        ember.set_addr(args.start_addr + i*2 + j, args.end_addr-len(ember.level_settings)*2 + i*2 + j, len(ember.level_settings)*2)
 
-                # Measure energy when writing 1's
+                        # Start from level i
+                        print(f"Setting level {i}")
+                        ember.write([i]*48, use_multi_addrs=True)
+                        ember.fast_mode()
+                        while ember.gpio.read() & 0x20:
+                            pass
+                        ember.slow_mode()
+
+                # Measure energy when writing target level
                 ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr*2)
-                ember.write([1]*48, use_multi_addrs=True)
+                ember.write([lvl]*48, use_multi_addrs=True)
                 ember.fast_mode()
 
                 # Try to measure
