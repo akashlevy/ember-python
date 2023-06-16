@@ -33,99 +33,102 @@ with EMBERDriver(args.chipname, args.config) as ember, \
     vddio_voltage = vddio.measure.v()
     vddio_dac_voltage = vddio_dac.measure.v()
 
-    # Iterate through levels
-    for i in range(len(ember.level_settings)):
-        for j in range(len(ember.level_settings)):
-            print(f"LEVEL {i}->{j}")
+    # Increment maximum attempts
+    for att in range(10, 255, 20):
+        # Set maximum attempts
+        ember.settings["max_attempts"] = att
+        ember.commit_settings()
 
-            # Set addresses to scroll across
-            ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
+        # Program alternating init
+        for i in range(len(ember.level_settings)):
+            for j in range(2):
+                # Set addresses to scroll across
+                ember.set_addr(args.start_addr + i*2 + j, args.end_addr-len(ember.level_settings)*2 + i*2 + j, len(ember.level_settings)*2)
 
-            # Start from level i
-            print(f"Setting to level {i}")
-            ember.write([i]*48, use_multi_addrs=True)
-            ember.fast_mode()
-            while ember.gpio.read() & 0x20:
-                pass
-            ember.slow_mode()
-
-            # Pre-read
-            print("Pre-read preview...")
-            reads = []
-            for addr in range(1024):
-                # Set address and read
-                ember.set_addr(addr)
-                read = ember.read()
-                reads.append(read)
-                if addr % 1000 == 0:
-                    # Print address and read value
-                    print("Address", addr)
-                    print("READ", read)
-
-            # Set addresses to scroll across
-            ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-
-            # Set to level j
-            print(f"Setting to level {j}")
-            ember.write([j]*48, use_multi_addrs=True)
-
-            # Measure latency
-            ember.fast_mode()
-            t0 = time.time()
-            m = 0
-            while ember.gpio.read() & 0x20:
-                m = m + 1
-            tf = time.time()
-            ember.slow_mode()
-            dt = tf - t0
-            print("m =", m, "dt =", dt)
-            np.savetxt(f"opt/data/dt_{args.config.split('/')[-1][:-5]}_{i}_{j}.csv", np.array([dt]), delimiter=',')
-
-            # Post-read (for BER)
-            print("Post-read...")
-            reads = []
-            for addr in range(args.start_addr, args.end_addr, args.step_addr):
-                # Set address and read
-                ember.set_addr(addr)
-                read = ember.read()
-                reads.append(read)
-                if addr % 1000 == 0:
-                    # Print address and read value
-                    print("Address", addr)
-                    print("READ", read)
-            np.savetxt(f"opt/data/postread_{args.config.split('/')[-1][:-5]}_{i}_{j}.csv", np.array(reads), delimiter=',')
-
-            # Set addresses to scroll across
-            ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-
-            # Energy measurement
-            for vname, vdev in zip(["vdd", "vdd_dac", "vsa", "vddio", "vddio_dac"], [vdd, vdd_dac, vsa, vddio, vddio_dac]):
                 # Start from level i
-                print(f"Setting to level {i}")
+                print(f"Setting level {i}")
                 ember.write([i]*48, use_multi_addrs=True)
                 ember.fast_mode()
                 while ember.gpio.read() & 0x20:
                     pass
                 ember.slow_mode()
 
-                # Set to level j
-                print(f"Setting to level {j}")
-                ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr*2)
-                ember.write([j]*48, use_multi_addrs=True)
-                ember.fast_mode()
+        # Pre-read
+        print("Pre-read...")
+        reads = []
+        for addr in range(args.start_addr, args.end_addr, args.step_addr):
+            # Set address and read
+            ember.set_addr(addr)
+            read = ember.read()
+            reads.append(read)
+            if addr % 1000 == 0:
+                # Print address and read value
+                print("Address", addr)
+                print("READ", read)
+        np.savetxt(f"opt/data/preread_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), delimiter=',')
 
-                # Try to measure
-                if "vddio" in vname:
-                    measurement = vdev.measure.i()
-                else:
-                    measurement = vdev.measure()
-                if ember.gpio.read() & 0x20:
-                    print(f"{vname}: {measurement}")
-                    np.savetxt(f"opt/data/{vname}_power_{args.config.split('/')[-1][:-5]}_{i}_{j}.csv", np.array([measurement]), delimiter=',')
-                else:
-                    print(f"FAILED TO CAPTURE ON {vname}")
-                ember.slow_mode()
-                ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-                ember.fast_mode()
-                ember.wait_for_idle()
-                ember.slow_mode()
+        # Measure latency when writing checkerboard
+        ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
+        ember.write([i % len(ember.level_settings) for i in range(48)], use_multi_addrs=True)
+        ember.fast_mode()
+        t0 = time.time()
+        m = 0
+        while ember.gpio.read() & 0x20:
+            m = m + 1
+        tf = time.time()
+        ember.slow_mode()
+        dt = tf - t0
+        print("m =", m, "dt =", dt)
+        np.savetxt(f"opt/data/dt_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array([dt]), delimiter=',')
+
+        # Post-read (for BER)
+        print("Post-read...")
+        reads = []
+        for addr in range(args.start_addr, args.end_addr, args.step_addr):
+            # Set address and read
+            ember.set_addr(addr)
+            read = ember.read()
+            reads.append(read)
+            if addr % 1000 == 0:
+                # Print address and read value
+                print("Address", addr)
+                print("READ", read)
+        np.savetxt(f"opt/data/postread_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), delimiter=',')
+
+        # Energy measurement
+        for vname, vdev in zip(["vdd", "vdd_dac", "vsa", "vddio", "vddio_dac"], [vdd, vdd_dac, vsa, vddio, vddio_dac]):
+            # Program alternating init
+            for i in range(len(ember.level_settings)):
+                for j in range(2):
+                    # Set addresses to scroll across
+                    ember.set_addr(args.start_addr + i*2 + j, args.end_addr-len(ember.level_settings)*2 + i*2 + j, len(ember.level_settings)*2)
+
+                    # Start from level i
+                    print(f"Setting level {i}")
+                    ember.write([i]*48, use_multi_addrs=True)
+                    ember.fast_mode()
+                    while ember.gpio.read() & 0x20:
+                        pass
+                    ember.slow_mode()
+
+            # Measure energy when writing checkerboard
+            ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr*2)
+            ember.write([i % len(ember.level_settings) for i in range(48)], use_multi_addrs=True)
+            ember.fast_mode()
+
+            # Try to measure
+            if "vddio" in vname:
+                measurement = vdev.measure.i()
+            else:
+                measurement = vdev.measure()
+            if ember.gpio.read() & 0x20:
+                print(f"{vname}: {measurement}")
+                np.savetxt(f"opt/data/{vname}_power_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array([measurement]), delimiter=',')
+            else:
+                print(f"FAILED TO CAPTURE ON {vname}")
+            ember.slow_mode()
+            ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
+            ember.fast_mode()
+            while ember.gpio.read() & 0x20:
+                pass
+            ember.slow_mode()
