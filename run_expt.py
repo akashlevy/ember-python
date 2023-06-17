@@ -70,7 +70,7 @@ for config in glob.glob("opt/configs/*.json"):
             ember.slow_mode()
             dt = tf - t0
             print("m =", m, "dt =", dt)
-            np.savetxt(f"opt/data/dt_{config.split('/')[-1][:-5]}_{att}.csv", np.array([dt]), delimiter=',')
+            np.savetxt(f"opt/data/dt_{config.split('/')[-1][:-5]}_{att}.csv", np.array([dt]), fmt='%s', delimiter=',')
 
             # Post-read (for BER)
             print("Post-read...")
@@ -84,7 +84,7 @@ for config in glob.glob("opt/configs/*.json"):
                     # Print address and read value
                     print("Address", addr)
                     print("READ", read)
-            np.savetxt(f"opt/data/postread_{config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), delimiter=',')
+            np.savetxt(f"opt/data/postread_{config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
             # Energy measurement
             for vname, vdev in zip(["vdd", "vdd_dac", "vsa", "vddio", "vddio_dac"], [vdd, vdd_dac, vsa, vddio, vddio_dac]):
@@ -114,7 +114,7 @@ for config in glob.glob("opt/configs/*.json"):
                     measurement = vdev.measure()
                 if ember.gpio.read() & 0x20:
                     print(f"{vname}: {measurement}")
-                    np.savetxt(f"opt/data/{vname}_power_{config.split('/')[-1][:-5]}_{att}.csv", np.array([measurement]), delimiter=',')
+                    np.savetxt(f"opt/data/{vname}_power_{config.split('/')[-1][:-5]}_{att}.csv", np.array([measurement]), fmt='%s', delimiter=',')
                 else:
                     print(f"FAILED TO CAPTURE ON {vname}")
                 ember.slow_mode()

@@ -65,7 +65,7 @@ with EMBERDriver(args.chipname, args.config) as ember, \
                 # Print address and read value
                 print("Address", addr)
                 print("READ", read)
-        np.savetxt(f"opt/data/preread_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), delimiter=',')
+        np.savetxt(f"opt/data/preread_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
         # Measure latency when writing checkerboard
         ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
@@ -79,7 +79,7 @@ with EMBERDriver(args.chipname, args.config) as ember, \
         ember.slow_mode()
         dt = tf - t0
         print("m =", m, "dt =", dt)
-        np.savetxt(f"opt/data/dt_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array([dt]), delimiter=',')
+        np.savetxt(f"opt/data/dt_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array([dt]), fmt='%s', delimiter=',')
 
         # Post-read (for BER)
         print("Post-read...")
@@ -93,7 +93,7 @@ with EMBERDriver(args.chipname, args.config) as ember, \
                 # Print address and read value
                 print("Address", addr)
                 print("READ", read)
-        np.savetxt(f"opt/data/postread_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), delimiter=',')
+        np.savetxt(f"opt/data/postread_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
         # Energy measurement
         for vname, vdev in zip(["vdd", "vdd_dac", "vsa", "vddio", "vddio_dac"], [vdd, vdd_dac, vsa, vddio, vddio_dac]):
@@ -123,7 +123,7 @@ with EMBERDriver(args.chipname, args.config) as ember, \
                 measurement = vdev.measure()
             if ember.gpio.read() & 0x20:
                 print(f"{vname}: {measurement}")
-                np.savetxt(f"opt/data/{vname}_power_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array([measurement]), delimiter=',')
+                np.savetxt(f"opt/data/{vname}_power_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array([measurement]), fmt='%s', delimiter=',')
             else:
                 print(f"FAILED TO CAPTURE ON {vname}")
             ember.slow_mode()
