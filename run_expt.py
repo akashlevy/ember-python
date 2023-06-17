@@ -75,7 +75,7 @@ for config in glob.glob("opt/configs/*.json"):
             # Post-read (for BER)
             print("Post-read...")
             reads = []
-            for addr in range(args.end_addr//8 * 7, args.end_addr, args.step_addr): # using 1/8 sampling
+            for addr in range(args.end_addr//16 * 15, args.end_addr, args.step_addr): # using 1/16 sampling
                 # Set address and read
                 ember.set_addr(addr)
                 read = ember.read()

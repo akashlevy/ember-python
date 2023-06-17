@@ -87,7 +87,7 @@
    "wl_dac_set_lvl_start": 0,
    "bl_dac_set_lvl_step": 4,
    "bl_dac_set_lvl_stop": 31,
-   "bl_dac_set_lvl_start": 11,
+   "bl_dac_set_lvl_start": 7,
    "adc_upper_write_ref_lvl": 44,
    "adc_lower_write_ref_lvl": 41,
    "adc_upper_read_ref_lvl": 46,
