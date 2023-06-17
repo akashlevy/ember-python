@@ -5,7 +5,7 @@
   "spi_mode" : "ftdi",
   "spi_freq" : 20000000,
   "hispeed" : false,
-  "bitwidth" : 16,
+  "bitwidth" : 48,
 
   "post_read_setup_cycles" : 2,
   "step_write_setup_cycles" : 0,
@@ -17,7 +17,7 @@
 
   "all_dacs_on" : 1,
   "ignore_failures" : 1,
-  "di_init_mask" : 65535,
+  "di_init_mask" : 272403468386303,
 
   "set_first" : 0,
 
