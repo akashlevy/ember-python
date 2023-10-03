@@ -3,34 +3,24 @@ EMBER Python scripts for post-silicon validation and testing via SPI
 
 ## Procedures
 
-[x] FORM
-[x] ENDURANCE
-[x] RETENTION
-[ ] CHECKERBOARD
-[ ] SET/RESET POWER
-
-### FORM
-- Switch voltage to 3.3V
-- FORM
-- DYNAMIC RESET
-<!-- - Switch voltage to 2.5V -->
-
-### ENDURANCE
-- CYCLE 256 times
-- Manual cycle with full range read in between
-- Repeat
-
-### RETENTION
-- CYCLE 10000
-- Run retention script
-
-### CHECKERBOARD
-- CYCLE 100x
-
-### SET/RESET POWER
-- CYCLE with only one of SET/RESET enabled on maximum PW (other on minimum PW, no VWL)
-- Operate at minimum clock frequency (4kHz)
-- Operate at endurance-measurement VWL and VBL/VSL
+- Set up board
+    - Ensure `vdd_fsm`, `vdd`, `vdd_dac`, `vsa` are all at 0.9V
+    - Ensure `vddio` and `vddio_dac` are at 3.3V
+    - Ensure 2.5V <= `vddio_fsm` <= 3.3V
+    - Ensure `wl_source_pin` is connected to `vadj`
+    - Ensure `byp` switch is ON and `man` switch is OFF
+- FORM chip
+    - `python form_chip.py CHIP_N --native --superfast`
+    - Should take about 20 minutes
+- (Optional) READ chip
+    - `python read_chip.py CHIP_N form.csv`
+    - Should take about 30 minutes
+- RESET chip
+    - `python reset_chip.py CHIP_N --native --superfast`
+    - Should take about 10 minutes
+- (Optional) READ chip
+    - `python read_chip.py CHIP_N reset.csv`
+    - Should take about 30 minutes
 
 ## EMBER Sister Repositories
 
