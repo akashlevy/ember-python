@@ -1,5 +1,6 @@
 """Script to perform write energy measurement on a chip"""
 import argparse
+import json
 import time
 import numpy as np
 from ember import EMBERDriver
@@ -66,7 +67,7 @@ with EMBERDriver(args.chipname, args.config) as ember, \
                 print("READ", read)
         np.savetxt(f"opt2/data/preread_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
-        # Measure latency when writing checkerboard
+        # Measure latency and get diagnostics when writing checkerboard
         ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
         ember.write([i % len(ember.level_settings) for i in range(48)], use_multi_addrs=True)
         ember.fast_mode()
@@ -79,6 +80,8 @@ with EMBERDriver(args.chipname, args.config) as ember, \
         dt = tf - t0
         print("m =", m, "dt =", dt)
         np.savetxt(f"opt2/data/dt_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array([dt]), fmt='%s', delimiter=',')
+        with open(f"opt2/data/diag_{args.config.split('/')[-1][:-5]}_{real_att}.json", "w") as diagjsonfile:
+            json.dump(ember.get_diagnostics(), diagjsonfile)
 
         # Post-read (for BER)
         print("Post-read...")
