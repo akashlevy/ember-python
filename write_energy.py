@@ -5,7 +5,6 @@ import numpy as np
 from ember import EMBERDriver
 from fluke8808a import Fluke8808A
 from keithley2600 import Keithley2600
-from keithley2420 import Keithley2420
 
 # Get arguments
 parser = argparse.ArgumentParser(description="Write energy measurement.")
@@ -18,24 +17,24 @@ args = parser.parse_args()
 
 # Initialize EMBER system and open outfile
 with EMBERDriver(args.chipname, args.config) as ember, \
-    Fluke8808A("/dev/ttyUSB0") as vdd, \
-    Fluke8808A("/dev/ttyUSB1") as vdd_dac, \
-    Keithley2420("/dev/ttyUSB2") as vsa:
+    Fluke8808A("/dev/ttyUSB3") as vdd_and_dac, \
+    Fluke8808A("/dev/ttyUSB0") as vsa:
     # Set up Keithley SMUs
-    k = Keithley2600("ASRL/dev/ttyUSB3::INSTR")
+    k = Keithley2600("ASRL/dev/ttyUSB2::INSTR")
     vddio = k.smua
     vddio_dac = k.smub
 
     # Test measurement
     print("Test measurements...")
-    print([vdd.measure(), vdd_dac.measure(), vsa.measure(), vddio.measure.i(), vddio_dac.measure.i(), vddio.measure.v(), vddio_dac.measure.v()])
-    print([vdd.measure(), vdd_dac.measure(), vsa.measure(), vddio.measure.i(), vddio_dac.measure.i(), vddio.measure.v(), vddio_dac.measure.v()])
+    print([vdd_and_dac.measure(), vsa.measure(), vddio.measure.i(), vddio_dac.measure.i(), vddio.measure.v(), vddio_dac.measure.v()])
+    print([vdd_and_dac.measure(), vsa.measure(), vddio.measure.i(), vddio_dac.measure.i(), vddio.measure.v(), vddio_dac.measure.v()])
     vddio_voltage = vddio.measure.v()
     vddio_dac_voltage = vddio_dac.measure.v()
 
     # Increment maximum attempts
-    for att in range(10, 255, 20):
+    for att in range(16, 256, 32):
         # Set maximum attempts
+        real_att = (att & 31) << (att >> 5)
         ember.settings["max_attempts"] = att
         ember.commit_settings()
 
@@ -65,7 +64,7 @@ with EMBERDriver(args.chipname, args.config) as ember, \
                 # Print address and read value
                 print("Address", addr)
                 print("READ", read)
-        np.savetxt(f"opt/data/preread_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), fmt='%s', delimiter=',')
+        np.savetxt(f"opt2/data/preread_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
         # Measure latency when writing checkerboard
         ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
@@ -79,7 +78,7 @@ with EMBERDriver(args.chipname, args.config) as ember, \
         ember.slow_mode()
         dt = tf - t0
         print("m =", m, "dt =", dt)
-        np.savetxt(f"opt/data/dt_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array([dt]), fmt='%s', delimiter=',')
+        np.savetxt(f"opt2/data/dt_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array([dt]), fmt='%s', delimiter=',')
 
         # Post-read (for BER)
         print("Post-read...")
@@ -93,10 +92,10 @@ with EMBERDriver(args.chipname, args.config) as ember, \
                 # Print address and read value
                 print("Address", addr)
                 print("READ", read)
-        np.savetxt(f"opt/data/postread_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array(reads), fmt='%s', delimiter=',')
+        np.savetxt(f"opt2/data/postread_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
         # Energy measurement
-        for vname, vdev in zip(["vdd", "vdd_dac", "vsa", "vddio", "vddio_dac"], [vdd, vdd_dac, vsa, vddio, vddio_dac]):
+        for vname, vdev in zip(["vdd_and_dac", "vsa", "vddio", "vddio_dac"], [vdd_and_dac, vsa, vddio, vddio_dac]):
             # Program alternating init
             for i in range(len(ember.level_settings)):
                 for j in range(2):
@@ -123,7 +122,7 @@ with EMBERDriver(args.chipname, args.config) as ember, \
                 measurement = vdev.measure()
             if ember.gpio.read() & 0x20:
                 print(f"{vname}: {measurement}")
-                np.savetxt(f"opt/data/{vname}_power_{args.config.split('/')[-1][:-5]}_{att}.csv", np.array([measurement]), fmt='%s', delimiter=',')
+                np.savetxt(f"opt2/data/{vname}_power_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array([measurement]), fmt='%s', delimiter=',')
             else:
                 print(f"FAILED TO CAPTURE ON {vname}")
             ember.slow_mode()

@@ -21,6 +21,7 @@ REG_CMD = 22
 REG_STATE = 23
 REG_DIAG = 24
 REG_READ = 25
+REG_DIAG2 = 29
 REG_NONE = 30
 REG_RAM = 31
 
@@ -232,7 +233,7 @@ class EMBERDriver(object):
     # Return superread value
     return superread
     
-  def read(self, mask=None):
+  def read(self, mask=None, diag=False):
     """READ operation"""
     # Commit
     self.commit_settings()
@@ -256,10 +257,15 @@ class EMBERDriver(object):
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
     self.mlogfile.write("MLCREAD,%s,%s\n" % (mask, ",".join([str(d) for d in data])))
 
+    # Get diagnostics if requested 
+    if diag:
+      d = self.get_diagnostics()
+      print("Post-READ diagnostics:", d)
+
     # Return data
     return data[:self.settings["bitwidth"]]
 
-  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, debug=False):
+  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, debug=False, diag=False):
     """Perform write-verify"""
     # Commit
     self.commit_settings()
@@ -320,6 +326,12 @@ class EMBERDriver(object):
           # If loop completes, write failed
           if attempts == (self.settings["max_attempts"] - 1) and not self.settings["ignore_failures"]:
             raise EMBERWriteFailure("Write failed on address %s" % self.addr)
+
+    # Get diagnostics if requested 
+    if diag:
+      d = self.get_diagnostics()
+      print("Post-WRITE diagnostics:", d)
+      return d
 
   def _write_set_loop(self, data, i, attempts, ignore_minmax=True, debug=False):
     """Do SET loop for write-verify and return True if done with entire set process"""
@@ -421,6 +433,38 @@ class EMBERDriver(object):
 
     # Send "read energy" command (which will loop forever, but make non-blocking)
     self.write_reg(REG_CMD, OP_READ_ENERGY)
+
+  def get_diagnostics(self):
+    """Get diagnostics from registers"""
+    # Get diagnostics from two diagnostic registers
+    diag = self.read_reg(REG_DIAG)
+    diag2 = self.read_reg(REG_DIAG2)
+
+    # Diagnostics dictionary
+    d = {}
+
+    # Extract diagnostics 1
+    d["successes"] = diag & ((1 << 32) - 1)
+    diag >>= 32
+    d["failures"] = diag & ((1 << 32) - 1)
+    diag >>= 32
+    d["reads"] = diag & ((1 << 32) - 1)
+    diag >>= 32
+    d["sets"] = diag & ((1 << 32) - 1)
+    diag >>= 32
+    d["resets"] = diag & ((1 << 32) - 1)
+
+    # Extract diagnostics 2
+    d["cycles"] = diag2 & ((1 << 64) - 1)
+    diag2 >>= 64
+    d["read_bits"] = diag2 & ((1 << 32) - 1)
+    diag2 >>= 32
+    d["set_bits"] = diag2 & ((1 << 32) - 1)
+    diag2 >>= 32
+    d["reset_bits"] = diag2 & ((1 << 32) - 1)
+
+    # Return diagnostics dictionary
+    return d
 
   #
   # MEDIUM LEVEL OPERATIONS
