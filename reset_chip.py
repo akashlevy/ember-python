@@ -12,6 +12,7 @@ parser.add_argument("--step-addr", type=int, default=1, help="address stride")
 parser.add_argument("--native", action="store_true", help="use native RESET-verify")
 parser.add_argument("--fast", action="store_true", help="no RESET-verify")
 parser.add_argument("--superfast", action="store_true", help="no RESET-verify at full clock speed")
+parser.add_argument("--lfsr", action="store_true", help="use LFSR data")
 parser.add_argument("--debug", action="store_true", help="enable debugging")
 args = parser.parse_args()
 
@@ -21,7 +22,7 @@ with EMBERDriver(args.chipname, args.config) as ember:
   if args.native:
     ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
     if args.fast or args.superfast:
-      ember.write(0, use_multi_addrs=True, debug=args.debug)
+      ember.write(0, use_multi_addrs=True, lfsr=args.lfsr, debug=args.debug)
       if args.superfast:
         ember.fast_mode()
       ember.wait_for_idle(debug=args.debug)
@@ -29,7 +30,7 @@ with EMBERDriver(args.chipname, args.config) as ember:
       # Do operation across cells
       for addr in range(args.start_addr, args.end_addr, args.step_addr):
         ember.set_addr(addr)
-        ember.write(0, debug=args.debug)
+        ember.write(0, lfsr=args.lfsr, debug=args.debug)
         print("Address", addr, "DONE:", ember.read())
 
   # Fast mode
@@ -51,5 +52,5 @@ with EMBERDriver(args.chipname, args.config) as ember:
     # Do operation across cells
     for addr in range(args.start_addr, args.end_addr, args.step_addr):
       ember.set_addr(addr)
-      ember.write(0, native=False, debug=args.debug)
+      ember.write(0, native=False, lfsr=args.lfsr, debug=args.debug)
       print("Address", addr, "DONE:", ember.read())

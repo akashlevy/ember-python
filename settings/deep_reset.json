@@ -7,17 +7,17 @@
   "hispeed" : false,
   "bitwidth" : 48,
 
-  "post_read_setup_cycles" : 2,
+  "post_read_setup_cycles" : 63,
   "step_write_setup_cycles" : 0,
   "step_read_setup_cycles" : 0,
   "write_to_init_read_setup_cycles" : 0,
   "read_to_init_write_setup_cycles" : 8,
-  "idle_to_init_read_setup_cycles" : 0,
-  "idle_to_init_write_setup_cycles" : 0,
+  "idle_to_init_read_setup_cycles" : 16,
+  "idle_to_init_write_setup_cycles" : 16,
 
   "all_dacs_on" : 1,
   "ignore_failures" : 1,
-  "di_init_mask" : 272403451609087,
+  "di_init_mask" : 271853687340927,
 
   "set_first" : 0,
 

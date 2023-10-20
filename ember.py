@@ -166,7 +166,7 @@ class EMBERDriver(object):
 
     # Test connection
     if test_conn:
-      val = self.read_reg(31)
+      val = self.read_reg(REG_RAM)
       if val == 0x52414D:
         print("SPI connection detected!")
       else:
@@ -265,7 +265,7 @@ class EMBERDriver(object):
     # Return data
     return data[:self.settings["bitwidth"]]
 
-  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, debug=False, diag=False):
+  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, lfsr=False, cb=False, check63=False, debug=False, diag=False):
     """Perform write-verify"""
     # Commit
     self.commit_settings()
@@ -296,7 +296,7 @@ class EMBERDriver(object):
         self.write_reg(REG_WRITE + i, d)
       
       # Execute WRITE command
-      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs)
+      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs + 16*lfsr + 32*cb + 64*check63)
       if not use_multi_addrs:
         self.wait_for_idle()
 
@@ -708,11 +708,15 @@ class EMBERDriver(object):
         val = self.read_reg(REG_STATE)
         if debug:
           print("At address:", (val >> (5 + 5 + 1 + 1 + 1 + 5 + 1 + 6 + 48 + 4 + 1 + 6)) & ((1 << 16) - 1))
+      while self.read_reg(REG_RAM) != 0x52414D:
+        continue
     elif self.settings["spi_mode"] == "ftdi":
       while self.gpio.read() & 0x20:
         val = self.read_reg(REG_STATE)
         if debug:
           print("At address:", (val >> (5 + 5 + 1 + 1 + 1 + 5 + 1 + 6 + 48 + 4 + 1 + 6)) & ((1 << 16) - 1))
+      while self.read_reg(REG_RAM) != 0x52414D:
+        continue
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 

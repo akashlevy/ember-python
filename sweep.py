@@ -4,7 +4,7 @@ from random import shuffle
 from ember import EMBERDriver
 
 # Get arguments
-parser = argparse.ArgumentParser(description="FORM a chip.")
+parser = argparse.ArgumentParser(description="Sweep a chip.")
 parser.add_argument("chipname", help="chip name for logging")
 parser.add_argument("outfile", help="file to output to")
 parser.add_argument("--config", type=str, default="settings/form.json", help="config file")
@@ -23,11 +23,12 @@ shuffled_addrs = {a : b for a, b in zip(addrs, shuffled_addrs)}
 
 # Initialize EMBER system
 with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") as outfile:
+  ember.fast_mode()
   addr = args.start_addr
   while addr < args.end_addr:
-    for pw_exp, pw_mantissa in [(0,1),(0,2),(0,4),(0,8),(0,16),(1,16),(2,16),(3,16),(4,16),(5,16),(6,16),(7,16),(7,31)]:
-      for vwl in list(range(0, 256, 2)):
-        for vbsl in list(range(0, 32, 4)) + [31]:
+    for pw_exp, pw_mantissa in [(0,1)] if not args.reset else [(0,1),(0,2),(0,4),(0,8),(0,16),(1,16),(2,16),(3,16),(4,16),(5,16),(6,16),(7,16)]:
+      for vwl in list(range(0, 256, 2)) if not args.reset else [255]:
+        for vbsl in list(range(0, 32, 1)) if not args.reset else [31]:
           # Run experiment
           ember.set_addr(addr if not args.shuffle else shuffled_addrs[addr])
           preread = ember.superread()
@@ -35,6 +36,7 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
             ember.reset_pulse(vwl, vbsl, pw_exp, pw_mantissa)
           else:
             ember.set_pulse(vwl, vbsl, pw_exp, pw_mantissa)
+          ember.wait_for_idle()
           postread = ember.superread()
 
           # Write to outfile
