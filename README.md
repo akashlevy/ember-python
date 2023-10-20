@@ -1,4 +1,5 @@
 # EMBER Python
+
 EMBER Python scripts for post-silicon validation and testing via SPI
 
 ## Procedures

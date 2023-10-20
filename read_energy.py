@@ -13,5 +13,3 @@ args = parser.parse_args()
 with EMBERDriver(args.chipname, args.config) as ember:
   # Send read energy command for specified number of bits per cell
   ember.read_energy(args.bpc)
-
-  # TODO: collect and report read power measurements here!

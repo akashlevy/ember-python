@@ -1,11 +1,11 @@
-"""Script to READ a chip"""
+"""Script to set address register"""
 import argparse
 from ember import EMBERDriver
 
 # Get arguments
-parser = argparse.ArgumentParser(description="READ a chip (16 levels across dynamic range).")
+parser = argparse.ArgumentParser(description="Set address register.")
 parser.add_argument("chipname", help="chip name for logging")
-parser.add_argument("--config", type=str, default="settings/4bpc.json", help="config file")
+parser.add_argument("--config", type=str, default="settings/form.json", help="config file")
 parser.add_argument("--start-addr", type=int, default=0, help="start address")
 parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
