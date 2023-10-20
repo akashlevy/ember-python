@@ -22,9 +22,9 @@ with EMBERDriver(args.chipname, args.config) as ember:
   if args.native:
     ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
     if args.fast or args.superfast:
-      ember.write(0, use_multi_addrs=True, lfsr=args.lfsr, debug=args.debug)
       if args.superfast:
         ember.fast_mode()
+      ember.write(0, use_multi_addrs=True, lfsr=args.lfsr, debug=args.debug)
       ember.wait_for_idle(debug=args.debug)
     else:
       # Do operation across cells
@@ -40,6 +40,7 @@ with EMBERDriver(args.chipname, args.config) as ember:
     if args.superfast:
       ember.fast_mode()
     ember.wait_for_idle(debug=args.debug)
+  
   # Slow mode
   else:
     # Reduce max attempts, ignore failures, reduce SET PW

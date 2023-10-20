@@ -265,7 +265,7 @@ class EMBERDriver(object):
     # Return data
     return data[:self.settings["bitwidth"]]
 
-  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, lfsr=False, cb=False, check63=False, debug=False, diag=False):
+  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, lfsr=False, cb=False, check63=False, loop_mode=False, debug=False, diag=False):
     """Perform write-verify"""
     # Commit
     self.commit_settings()
@@ -296,7 +296,7 @@ class EMBERDriver(object):
         self.write_reg(REG_WRITE + i, d)
       
       # Execute WRITE command
-      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs + 16*lfsr + 32*cb + 64*check63)
+      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs + 16*lfsr + 32*cb + 64*check63 + 128*loop_mode)
       if not use_multi_addrs:
         self.wait_for_idle()
 
@@ -755,6 +755,13 @@ class EMBERDriver(object):
       self.gpio.write(0x00)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+
+  def abort(self):
+    """Abort current operation and reset to slow mode"""
+    self.slow_mode()
+    self.write_reg(REG_CMD, 0)
+    self.set_addr(0,0,1)
+    self.wait_for_idle()
 
 #
 # TOP-LEVEL EXAMPLE

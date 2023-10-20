@@ -7,7 +7,7 @@
   "hispeed" : false,
   "bitwidth" : 48,
 
-  "post_read_setup_cycles" : 63,
+  "post_read_setup_cycles" : 8,
   "step_write_setup_cycles" : 0,
   "step_read_setup_cycles" : 0,
   "write_to_init_read_setup_cycles" : 0,
