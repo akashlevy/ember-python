@@ -1,4 +1,4 @@
-"""Test read energy measurement"""
+"""Test energy measurement"""
 import time
 from fluke8808a import Fluke8808A
 from keithley2600 import Keithley2600
