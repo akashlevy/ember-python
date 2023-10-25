@@ -759,9 +759,10 @@ class EMBERDriver(object):
   def abort(self):
     """Abort current operation and reset to slow mode"""
     self.slow_mode()
-    self.write_reg(REG_CMD, 0)
+    time.sleep(0.1)
     self.set_addr(0,0,1)
-    self.wait_for_idle()
+    self.write_reg(REG_CMD, 64)
+    self.wait_for_idle(debug=True)
 
 #
 # TOP-LEVEL EXAMPLE
