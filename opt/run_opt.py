@@ -5,8 +5,6 @@ import time
 import numpy as np
 from ember import EMBERDriver
 from fluke8808a import Fluke8808A
-from keithley2600 import Keithley2600
-from keithley2420 import Keithley2420
 
 # Get arguments
 parser = argparse.ArgumentParser(description="Write energy experiment.")
