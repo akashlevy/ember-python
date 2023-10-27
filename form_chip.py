@@ -21,9 +21,9 @@ with EMBERDriver(args.chipname, args.config) as ember:
   if args.native:
     ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
     if args.fast or args.superfast:
-      ember.write(0xFFFFFFFFFFFF, use_multi_addrs=True, debug=args.debug)
       if args.superfast:
         ember.fast_mode()
+      ember.write(0xFFFFFFFFFFFF, use_multi_addrs=True, debug=args.debug)
       ember.wait_for_idle(debug=args.debug)
       ember.slow_mode()
     else:
@@ -45,5 +45,5 @@ with EMBERDriver(args.chipname, args.config) as ember:
     # Do operation across cells
     for addr in range(args.start_addr, args.end_addr, args.step_addr):
       ember.set_addr(addr)
-      ember.write(0xFFFFFFFFFFFF, native=False, debug=args.debug)
+      ember.write(0xFFFFFFFFFFFF, native=args.native, debug=args.debug)
       print("Address", addr, "DONE:", ember.read())
