@@ -17,7 +17,7 @@
 
   "all_dacs_on" : 1,
   "ignore_failures" : 1,
-  "di_init_mask" : 272403451609087,
+  "di_init_mask" : 271845097406331,
 
   "set_first" : 0,
 

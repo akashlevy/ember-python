@@ -1,1 +1,1 @@
-{"successes": 65536, "failures": 262108, "reads": 595202, "sets": 70914, "resets": 191194, "cycles": 54856859, "read_bits": 3235672, "set_bits": 583839, "reset_bits": 977210}
+{"successes": 65536, "failures": 262106, "reads": 595512, "sets": 71224, "resets": 190882, "cycles": 29561675, "read_bits": 3238330, "set_bits": 527547, "reset_bits": 960292}
