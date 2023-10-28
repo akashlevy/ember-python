@@ -25,50 +25,53 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
   addr = args.start_addr
 
   # Do operation across cells
-  for width in [0,1,2,3,4,5,6,7,8,10,12,14,16,20,24,32]:
-    for lower in range(0, 64-width):
-      # Do width 0 only for 63
-      if width == 0 and lower != 63:
-        continue
+  while True:
+    for lower in range(0, 64):
+      for upper in range(lower, 64):
+        # Do width 0 only for 63
+        if upper == lower and lower != 63:
+          continue
 
-      # Update write level
-      ember.level_settings[1]["adc_lower_write_ref_lvl"] = ember.settings["level_settings"][1]["adc_lower_write_ref_lvl"] = lower
-      ember.level_settings[1]["adc_upper_write_ref_lvl"] = ember.settings["level_settings"][1]["adc_upper_write_ref_lvl"] = upper = lower + width
+        # Update write level
+        ember.level_settings[1]["adc_lower_write_ref_lvl"] = ember.settings["level_settings"][1]["adc_lower_write_ref_lvl"] = lower
+        ember.level_settings[1]["adc_upper_write_ref_lvl"] = ember.settings["level_settings"][1]["adc_upper_write_ref_lvl"] = upper
 
-      # Set address
-      ember.set_addr(addr)
-      print("ADDR", addr, "between", addr % 64, "and", min(addr % 64 + 1, 63))
+        # Set address
+        ember.set_addr(addr)
+        print("ADDR", addr, "between", lower, "and", upper)
 
-      # Write and get diagnostics
-      if args.fast:
-        ember.fast_mode()
-      ember.write([1]*48, check63=True, native=True)
-      ember.wait_for_idle()
-      ember.slow_mode()
-      diag = ember.get_diagnostics()
+        # Write and get diagnostics
+        if args.fast:
+          ember.fast_mode()
+        ember.write([1]*48, check63=True, native=True)
+        ember.wait_for_idle()
+        ember.slow_mode()
+        diag = ember.get_diagnostics()
 
-      # Read
-      print("Done programming! Now reading...")
-      # Short-term reads (0, 0.1, 1 seconds)
-      first_read_times[addr] = time.time()
-      for j in range(args.ret_reads):
-        read = ember.superread()
-        readfile.write(f"{addr}\t{time.time()}\t")
-        readfile.write(f"{lower}\t{upper}\t{width}\t")
-        readfile.write(f"{diag['successes']}\t{diag['failures']}\t{diag['reads']}\t{diag['sets']}\t{diag['resets']}\t{diag['cycles']}\t{diag['read_bits']}\t{diag['set_bits']}\t{diag['reset_bits']}\t")
-        readfile.write(f"{read}\n")
+        # Read
+        print("Done programming! Now reading...")
+        # Short-term reads (0, 0.1, 1 seconds)
+        first_read_times[addr] = time.time()
+        for j in range(args.ret_reads):
+          read = ember.superread()
+          readfile.write(f"{addr}\t{time.time()}\t")
+          readfile.write(f"{lower}\t{upper}\t{upper-lower}\t")
+          readfile.write(f"{diag['successes']}\t{diag['failures']}\t{diag['reads']}\t{diag['sets']}\t{diag['resets']}\t{diag['cycles']}\t{diag['read_bits']}\t{diag['set_bits']}\t{diag['reset_bits']}\t")
+          readfile.write(f"{read}\n")
 
-        # # Long-term reads
-        # for j, raddr in enumerate(range(args.start_addr, addr, args.step_addr)):
-        #   dt = time.time() - first_read_times[raddr]
-        #   for st in [10, 100, 1000, 10000, 100000]:
-        #     if (dt >= 0.8 * st) and (dt <= 1.2 * st):
-        #       ember.set_addr(raddr)
-        #       read = ember.superread()
-        #       readfile.write(f"{raddr}\t{time.time()}\t{read}\n")
+          # # Long-term reads
+          # for j, raddr in enumerate(range(args.start_addr, addr, args.step_addr)):
+          #   dt = time.time() - first_read_times[raddr]
+          #   for st in [10, 100, 1000, 10000, 100000]:
+          #     if (dt >= 0.8 * st) and (dt <= 1.2 * st):
+          #       ember.set_addr(raddr)
+          #       read = ember.superread()
+          #       readfile.write(f"{raddr}\t{time.time()}\t{read}\n")
 
-      # Update address and break if necessary
-      addr = addr + args.step_addr
+        # Update address and break if necessary
+        addr = addr + args.step_addr
+        if addr >= args.end_addr:
+          break
       if addr >= args.end_addr:
         break
     if addr >= args.end_addr:

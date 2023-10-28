@@ -265,7 +265,7 @@ class EMBERDriver(object):
     # Return data
     return data[:self.settings["bitwidth"]]
 
-  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, lfsr=False, cb=False, check63=False, loop_mode=False, debug=False, diag=False):
+  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, lfsr=False, cb=False, check63=True, force_end_on_set=True, loop_mode=False, debug=False, diag=False):
     """Perform write-verify"""
     # Commit
     self.commit_settings()
@@ -296,7 +296,7 @@ class EMBERDriver(object):
         self.write_reg(REG_WRITE + i, d)
       
       # Execute WRITE command
-      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs + 16*lfsr + 32*cb + 64*check63 + 128*loop_mode)
+      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs + 16*lfsr + 32*cb + 64*check63 + 128*loop_mode + 256*force_end_on_set)
       if not use_multi_addrs:
         self.wait_for_idle()
 
