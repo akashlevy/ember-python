@@ -17,7 +17,7 @@ parser.add_argument("--fast", action="store_true", help="use full clock speed")
 args = parser.parse_args()
 
 # Load SET sweep data
-setdata = pd.read_csv(f"../data/sweep/setsweep33.csv.gz", delimiter="\t", names=["addr", "t", "vwl", "vbl", "pw"] + [f"gi[{i}]" for i in range(48)] + [f"gf[{i}]" for i in range(48)])
+setdata = pd.read_csv(f"data/sweep/setsweep33.csv.gz", delimiter="\t", names=["addr", "t", "vwl", "vbl", "pw"] + [f"gi[{i}]" for i in range(48)] + [f"gf[{i}]" for i in range(48)])
 setdata = pd.concat([setdata[["addr","t","vwl","vbl","pw",f"gi[{i}]",f"gf[{i}]"]].rename(columns={f"gi[{i}]" : "gi", f"gf[{i}]" : "gf"}) for i in range(48)])
 
 # Process SET sweep
