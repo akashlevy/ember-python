@@ -1,7 +1,7 @@
 """Collect data on retention across chip"""
 import argparse
 import time
-import numpy as np
+import pandas as pd
 from ember import EMBERDriver
 
 # Get arguments
@@ -15,6 +15,21 @@ parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
 parser.add_argument("--fast", action="store_true", help="use full clock speed")
 args = parser.parse_args()
+
+# Load SET sweep data
+setdata = pd.read_csv(f"../data/sweep/setsweep33.csv.gz", delimiter="\t", names=["addr", "t", "vwl", "vbl", "pw"] + [f"gi[{i}]" for i in range(48)] + [f"gf[{i}]" for i in range(48)])
+setdata = pd.concat([setdata[["addr","t","vwl","vbl","pw",f"gi[{i}]",f"gf[{i}]"]].rename(columns={f"gi[{i}]" : "gi", f"gf[{i}]" : "gf"}) for i in range(48)])
+
+# Process SET sweep
+gf2vblstart = {}
+gmax = 0
+d = setdata[(setdata["gi"].isin(range(1,20))) & (setdata["pw"] == 1) & (setdata["vwl"] == 0)][["vwl","vbl","pw","gi","gf"]]
+for vbl, data in d.groupby("vbl"):
+    gf = int(data.quantile(0.999)["gf"])
+    for g in range(gmax, gf):
+        gf2vblstart[g] = vbl
+    gmax = gf
+gf2vblstart[63] = 30
 
 # Initialize EMBER system and output file
 with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") as readfile:
@@ -35,6 +50,7 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
         # Update write level
         ember.level_settings[1]["adc_lower_write_ref_lvl"] = ember.settings["level_settings"][1]["adc_lower_write_ref_lvl"] = lower
         ember.level_settings[1]["adc_upper_write_ref_lvl"] = ember.settings["level_settings"][1]["adc_upper_write_ref_lvl"] = upper
+        ember.level_settings[1]["bl_dac_set_lvl_start"] = ember.settings["level_settings"][1]["bl_dac_set_lvl_start"] = gf2vblstart[upper]
 
         # Set address
         ember.set_addr(addr)
