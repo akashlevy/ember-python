@@ -36,7 +36,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
 
             # Initialize with LFSR offset by 1
             ember.set_addr(args.start_addr+args.step_addr, args.end_addr-1, args.step_addr)
-            ember.write(0, use_multi_addrs=True, lfsr=True, check63=True)
+            ember.write(0, use_multi_addrs=True, lfsr=True)
             ember.wait_for_idle()
 
             # Pre-read
@@ -59,7 +59,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
 
             # Measure latency and get diagnostics when writing checkerboard
             ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-            ember.write(0, use_multi_addrs=True, lfsr=True, check63=True)
+            ember.write(0, use_multi_addrs=True, lfsr=True)
             t0 = time.time()
             ember.wait_for_idle()
             tf = time.time()
@@ -85,7 +85,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
 
             # Measure energy when writing from LFSR
             ember.set_addr(args.start_addr+args.step_addr, args.end_addr-1, args.step_addr)
-            ember.write(0, use_multi_addrs=True, lfsr=True, loop_mode=True, check63=True)
+            ember.write(0, use_multi_addrs=True, lfsr=True, loop_mode=True)
             time.sleep(1)
                 
             # Energy measurement for LFSR

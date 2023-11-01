@@ -265,7 +265,7 @@ class EMBERDriver(object):
     # Return data
     return data[:self.settings["bitwidth"]]
 
-  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, lfsr=False, cb=False, check63=True, force_end_on_set=True, loop_mode=False, debug=False, diag=False):
+  def write(self, data, ignore_minmax=True, native=True, use_multi_addrs=False, lfsr=False, cb=False, check63=True, loop_mode=False, debug=False, diag=False):
     """Perform write-verify"""
     # Commit
     self.commit_settings()
@@ -296,7 +296,7 @@ class EMBERDriver(object):
         self.write_reg(REG_WRITE + i, d)
       
       # Execute WRITE command
-      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs + 16*lfsr + 32*cb + 64*check63 + 128*loop_mode + 256*force_end_on_set)
+      self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs + 16*lfsr + 32*cb + 64*check63 + 128*loop_mode)
       if not use_multi_addrs:
         self.wait_for_idle()
 
@@ -728,6 +728,7 @@ class EMBERDriver(object):
       self.gpio.write(0x10)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    time.sleep(0.1)
 
   def unpause_mclk(self):
     """Unpause main clock"""
@@ -737,6 +738,7 @@ class EMBERDriver(object):
       self.gpio.write(0x00)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    time.sleep(0.1)
     
   def fast_mode(self):
     """Select fast clock"""
@@ -746,6 +748,7 @@ class EMBERDriver(object):
       self.gpio.write(0x40)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    time.sleep(0.1)
 
   def slow_mode(self):
     """Select slow clock"""
@@ -755,11 +758,11 @@ class EMBERDriver(object):
       self.gpio.write(0x00)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    time.sleep(0.1)
 
   def abort(self):
     """Abort current operation and reset to slow mode"""
     self.slow_mode()
-    time.sleep(0.1)
     self.set_addr(0,0,1)
     self.write_reg(REG_CMD, 64)
     self.wait_for_idle(debug=True)
