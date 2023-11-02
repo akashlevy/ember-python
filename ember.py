@@ -188,6 +188,7 @@ class EMBERDriver(object):
   
   def __exit__(self, *args, **kwargs):
     """Exit to use "with" construct in python"""
+    self.abort()
     self.close()
   
   def close(self):
@@ -292,8 +293,9 @@ class EMBERDriver(object):
       print(data)
 
       # Write data to be written
-      for i, d in enumerate(data):
-        self.write_reg(REG_WRITE + i, d)
+      if not (lfsr or cb):
+        for i, d in enumerate(data):
+          self.write_reg(REG_WRITE + i, d)
       
       # Execute WRITE command
       self.write_reg(REG_CMD, OP_WRITE + 8*use_multi_addrs + 16*lfsr + 32*cb + 64*check63 + 128*loop_mode)
@@ -704,6 +706,9 @@ class EMBERDriver(object):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
     # Write to dummy register to keep sclk going
     if self.settings["spi_mode"] == "spidev":
+      # while not GPIO.input(RRAM_BUSY_PIN):
+      #   print("Waiting to start...")
+      #   print(self.get_diagnostics())
       while GPIO.input(RRAM_BUSY_PIN):
         val = self.read_reg(REG_STATE)
         if debug:
@@ -711,6 +716,9 @@ class EMBERDriver(object):
       while self.read_reg(REG_RAM) != 0x52414D:
         continue
     elif self.settings["spi_mode"] == "ftdi":
+      # while not (self.gpio.read() & 0x20):
+      #   print("Waiting to start...")
+      #   print(self.get_diagnostics())
       while self.gpio.read() & 0x20:
         val = self.read_reg(REG_STATE)
         if debug:

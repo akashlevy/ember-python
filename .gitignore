@@ -133,3 +133,6 @@ RPi/*
 spidev.py
 log/
 bak/
+
+# Large files
+retention.csv.gz

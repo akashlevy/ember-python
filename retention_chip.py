@@ -31,7 +31,7 @@ for vbl, data in d.groupby("vbl"):
     for g in range(gmax, gf):
         gf2vblstart[g] = vbl
     gmax = gf
-gf2vblstart[63] = 28
+gf2vblstart[63] = 20 # 28 # 30
 
 # Shuffled addressing
 addrs = range(args.start_addr, args.end_addr, args.step_addr)
