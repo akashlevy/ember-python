@@ -27,7 +27,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
     print([vddio.measure(), vdd.measure()])
 
     # Increment maximum attempts
-    for att in [1, 2, 4, 8, 16]: # + list(range(16, 256, 32)):
+    for att in [1, 2, 4, 8] + list(range(16, 256, 32)):
         with EMBERDriver(args.chipname, args.config) as ember:
             # Put into fast mode
             ember.fast_mode()
@@ -38,7 +38,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
 
             # Initialize with LFSR offset by 1
             ember.set_addr(args.start_addr+args.step_addr, args.end_addr-1, args.step_addr)
-            ember.write(0, use_multi_addrs=True, lfsr=True)
+            ember.write(0, use_multi_addrs=True, cb=args.cb, lfsr=args.lfsr)
             t0 = time.time()
             ember.wait_for_idle()
             tf = time.time()
@@ -47,19 +47,19 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
             print("SETUP DIAG", ember.get_diagnostics())
             assert(ember.get_diagnostics()["successes"] >= 65535)
 
-            # # Pre-read
-            # print("Pre-read...")
-            # reads = []
-            # for addr in range(args.start_addr, args.end_addr, args.step_addr):
-            #     # Set address and read
-            #     ember.set_addr(addr)
-            #     read = ember.read()
-            #     reads.append(read)
-            #     if addr % 1000 == 0:
-            #         # Print address and read value
-            #         print("Address", addr)
-            #         print("READ", read)
-            # np.savetxt(f"opt/data/preread/preread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
+            # Pre-read
+            print("Pre-read...")
+            reads = []
+            for addr in range(args.start_addr, args.end_addr, args.step_addr):
+                # Set address and read
+                ember.set_addr(addr)
+                read = ember.read()
+                reads.append(read)
+                if addr % 1000 == 0:
+                    # Print address and read value
+                    print("Address", addr)
+                    print("READ", read)
+            np.savetxt(f"opt/data/preread/preread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
             # Set maximum attempts
             real_att = (att & 31) << (att >> 5)
@@ -67,7 +67,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
 
             # Measure latency and get diagnostics when writing checkerboard
             ember.set_addr(args.start_addr, args.end_addr-1, args.step_addr)
-            ember.write(0, use_multi_addrs=True, lfsr=True)
+            ember.write(0, use_multi_addrs=True, cb=args.cb, lfsr=args.lfsr)
             t0 = time.time()
             ember.wait_for_idle()
             tf = time.time()
