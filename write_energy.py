@@ -47,19 +47,19 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
             print("SETUP DIAG", ember.get_diagnostics())
             assert(ember.get_diagnostics()["successes"] >= 65535)
 
-            # Pre-read
-            print("Pre-read...")
-            reads = []
-            for addr in range(args.start_addr, args.end_addr, args.step_addr):
-                # Set address and read
-                ember.set_addr(addr)
-                read = ember.read()
-                reads.append(read)
-                if addr % 1000 == 0:
-                    # Print address and read value
-                    print("Address", addr)
-                    print("READ", read)
-            np.savetxt(f"opt/data/preread/preread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
+            # # Pre-read
+            # print("Pre-read...")
+            # reads = []
+            # for addr in range(args.start_addr, args.end_addr, args.step_addr):
+            #     # Set address and read
+            #     ember.set_addr(addr)
+            #     read = ember.read()
+            #     reads.append(read)
+            #     if addr % 1000 == 0:
+            #         # Print address and read value
+            #         print("Address", addr)
+            #         print("READ", read)
+            # np.savetxt(f"opt/data/preread/preread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
             # Set maximum attempts
             real_att = (att & 31) << (att >> 5)

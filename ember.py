@@ -704,11 +704,7 @@ class EMBERDriver(object):
 
   def wait_for_idle(self, debug=False):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
-    # Write to dummy register to keep sclk going
     if self.settings["spi_mode"] == "spidev":
-      # while not GPIO.input(RRAM_BUSY_PIN):
-      #   print("Waiting to start...")
-      #   print(self.get_diagnostics())
       while GPIO.input(RRAM_BUSY_PIN):
         val = self.read_reg(REG_STATE)
         if debug:
@@ -716,9 +712,6 @@ class EMBERDriver(object):
       while self.read_reg(REG_RAM) != 0x52414D:
         continue
     elif self.settings["spi_mode"] == "ftdi":
-      # while not (self.gpio.read() & 0x20):
-      #   print("Waiting to start...")
-      #   print(self.get_diagnostics())
       while self.gpio.read() & 0x20:
         val = self.read_reg(REG_STATE)
         if debug:
@@ -772,8 +765,18 @@ class EMBERDriver(object):
     """Abort current operation and reset to slow mode"""
     self.slow_mode()
     self.set_addr(0,0,1)
-    self.write_reg(REG_CMD, 64)
-    self.wait_for_idle(debug=True)
+    if self.settings["spi_mode"] == "spidev":
+      while GPIO.input(RRAM_BUSY_PIN):
+        self.write_reg(REG_CMD, 64)
+      while self.read_reg(REG_RAM) != 0x52414D:
+        continue
+    elif self.settings["spi_mode"] == "ftdi":
+      while self.gpio.read() & 0x20:
+        self.write_reg(REG_CMD, 64)
+      while self.read_reg(REG_RAM) != 0x52414D:
+        continue
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
 
 #
 # TOP-LEVEL EXAMPLE
