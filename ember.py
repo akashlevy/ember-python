@@ -163,6 +163,7 @@ class EMBERDriver(object):
     # Initialize GPIO pin states
     self.unpause_mclk() # unpause the mclk by default
     self.slow_mode() # start in slow mode (SPI)
+    self.reset() # reset the chip
 
     # Test connection
     if test_conn:
@@ -188,7 +189,6 @@ class EMBERDriver(object):
   
   def __exit__(self, *args, **kwargs):
     """Exit to use "with" construct in python"""
-    self.abort()
     self.close()
   
   def close(self):

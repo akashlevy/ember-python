@@ -63,9 +63,6 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
             print("READ", read)
         np.savetxt(f"opt/data/preread/preread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
-      # Reset
-      ember.reset()
-
     with EMBERDriver(args.chipname, args.config) as ember:
       # Put into fast mode
       ember.fast_mode()
@@ -108,7 +105,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
       time.sleep(1)
         
       # Energy measurement
-      for i, (vname, vdev) in enumerate(zip(["vdd", "vddio"], [vdd, vddio])):
+      for vname, vdev in zip(["vdd", "vddio"], [vdd, vddio]):
         # Try to measure
         measurements = []
         for i in range(1):
@@ -118,6 +115,3 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
         # Measurements
         print("Measurements:", measurements)
         np.savetxt(f"opt/data/power/{vname}_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_power_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(measurements), fmt='%s', delimiter=',')
-        
-      # Reset
-      ember.reset()
