@@ -156,7 +156,7 @@ class EMBERDriver(object):
 
       # Get GPIO port to manage extra pins, use pin 4 as GPO, pin 5 as GPI, pin 6 as GPO (pins 0-3 are SPI)
       self.gpio = spi.get_gpio()
-      self.gpio.set_direction(0x70, 0x50)
+      self.gpio.set_direction(0xF0, 0xD0)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
     
@@ -236,6 +236,9 @@ class EMBERDriver(object):
     
   def read(self, mask=None, diag=False):
     """READ operation"""
+    # Set mask
+    self.settings["di_init_mask"], old_mask = self.di_init_mask if mask is None else mask, self.settings["di_init_mask"]
+
     # Commit
     self.commit_settings()
 
@@ -262,6 +265,9 @@ class EMBERDriver(object):
     if diag:
       d = self.get_diagnostics()
       print("Post-READ diagnostics:", d)
+
+    # Reset mask
+    self.settings["di_init_mask"] = old_mask
 
     # Return data
     return data[:self.settings["bitwidth"]]
@@ -673,8 +679,9 @@ class EMBERDriver(object):
     msg = reg << 162
 
     # Transfer message and collect miso values to read register using appropriate driver
-    xfer = lambda m: int.from_bytes(self.spi.xfer(m)[1:-1], "big") if self.settings["spi_mode"] == "spidev" else int.from_bytes(self.spi.exchange(m, duplex=True)[1:], "big") >> 7
-    val = xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0])
+    xfer = lambda m: int.from_bytes(self.spi.xfer(m)[1:-1], "big") if self.settings["spi_mode"] == "spidev" else int.from_bytes(self.spi.exchange(m, duplex=True)[1:], "big") >> (7 + 16)
+    data = list(bytearray(msg.to_bytes(21, "big"))) + [0]*3 # 24 bytes
+    val = xfer(data)
 
     # Debug print out
     if self.debug:
@@ -700,7 +707,11 @@ class EMBERDriver(object):
 
     # Transfer message to write register using appropriate driver
     xfer = self.spi.xfer if self.settings["spi_mode"] == "spidev" else lambda m: self.spi.exchange(m, duplex=True)
-    xfer(list(bytearray(msg.to_bytes(21, "big"))) + [0]*2)
+    data = list(bytearray(msg.to_bytes(21, "big"))) + [0]*3 # 24 bytes
+    val = xfer(data)
+
+    # Return value (nothing)
+    return val
 
   def wait_for_idle(self, debug=False):
     """Wait until rram_busy signal is low, indicating that EMBER is idle"""
@@ -777,6 +788,23 @@ class EMBERDriver(object):
         continue
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+
+  def reset(self):
+    """Reset the chip"""
+    if self.settings["spi_mode"] == "spidev":
+      GPIO.output(CLKSEL_PIN, False)
+    elif self.settings["spi_mode"] == "ftdi":
+      self.gpio.write(0x80)
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    time.sleep(0.1)
+    if self.settings["spi_mode"] == "spidev":
+      GPIO.output(CLKSEL_PIN, False)
+    elif self.settings["spi_mode"] == "ftdi":
+      self.gpio.write(0x00)
+    else:
+      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    time.sleep(0.1)
 
 #
 # TOP-LEVEL EXAMPLE

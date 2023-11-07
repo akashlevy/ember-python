@@ -39,9 +39,9 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
       ember.mclk_pause()
       ember.slow_mode()
       diag = ember.get_diagnostics()
-      ember.fast_mode()
       outfile.write(f"{t}\t{diag['successes']}\t{diag['failures']}\t{diag['reads']}\t{diag['sets']}\t{diag['resets']}\t{diag['cycles']}\t{diag['read_bits']}\t{diag['set_bits']}\t{diag['reset_bits']}\n")
       ember.mclk_unpause()
+      ember.fast_mode()
     except KeyboardInterrupt:
       ember.abort()
       break
