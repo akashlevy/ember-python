@@ -12,7 +12,7 @@
   "step_read_setup_cycles" : 63,
   "write_to_init_read_setup_cycles" : 6,
   "read_to_init_write_setup_cycles" : 6,
-  "idle_to_init_read_setup_cycles" : 6,
+  "idle_to_init_read_setup_cycles" : 63,
   "idle_to_init_write_setup_cycles" : 0,
 
   "all_dacs_on" : 1,

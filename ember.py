@@ -189,6 +189,7 @@ class EMBERDriver(object):
   
   def __exit__(self, *args, **kwargs):
     """Exit to use "with" construct in python"""
+    self.reset()
     self.close()
   
   def close(self):
@@ -442,8 +443,8 @@ class EMBERDriver(object):
     # Send "read energy" command (which will loop forever, but make non-blocking)
     self.write_reg(REG_CMD, OP_READ_ENERGY)
 
-  def get_diagnostics(self):
-    """Get diagnostics from registers"""
+  def get_diagnostics(self, test_conn=True):
+    """Get diagnostics from registers"""    
     # Get diagnostics from two diagnostic registers
     diag = self.read_reg(REG_DIAG)
     diag2 = self.read_reg(REG_DIAG2)
@@ -740,7 +741,7 @@ class EMBERDriver(object):
       self.gpio.write(0x10)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
-    time.sleep(0.1)
+    self.read_reg(REG_RAM)
 
   def unpause_mclk(self):
     """Unpause main clock"""
@@ -750,7 +751,7 @@ class EMBERDriver(object):
       self.gpio.write(0x00)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
-    time.sleep(0.1)
+    self.read_reg(REG_RAM)
     
   def fast_mode(self):
     """Select fast clock"""
@@ -760,7 +761,7 @@ class EMBERDriver(object):
       self.gpio.write(0x40)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
-    time.sleep(0.1)
+    self.read_reg(REG_RAM)
 
   def slow_mode(self):
     """Select slow clock"""
@@ -770,24 +771,7 @@ class EMBERDriver(object):
       self.gpio.write(0x00)
     else:
       raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
-    time.sleep(0.1)
-
-  def abort(self):
-    """Abort current operation and reset to slow mode"""
-    self.slow_mode()
-    self.set_addr(0,0,1)
-    if self.settings["spi_mode"] == "spidev":
-      while GPIO.input(RRAM_BUSY_PIN):
-        self.write_reg(REG_CMD, 64)
-      while self.read_reg(REG_RAM) != 0x52414D:
-        continue
-    elif self.settings["spi_mode"] == "ftdi":
-      while self.gpio.read() & 0x20:
-        self.write_reg(REG_CMD, 64)
-      while self.read_reg(REG_RAM) != 0x52414D:
-        continue
-    else:
-      raise EMBERException("Invalid SPI backend driver: %s" % self.settings["spi_mode"])
+    self.read_reg(REG_RAM)
 
   def reset(self):
     """Reset the chip"""
