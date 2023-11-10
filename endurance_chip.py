@@ -17,7 +17,7 @@ parser.add_argument("--step-addr", type=int, default=1, help="address stride")
 parser.add_argument("--max-attempts", type=int, default=16, help="address stride")
 parser.add_argument("--cb", action="store_true", help="use checkerboard data pattern")
 parser.add_argument("--lfsr", action="store_true", help="use LFSR data pattern")
-parser.add_argument("--checktime", type=float, default=3, help="time interval to check")
+parser.add_argument("--checktime", type=float, default=0, help="time interval to check")
 args = parser.parse_args()
 
 # Initialize EMBER system and output file
