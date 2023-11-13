@@ -28,7 +28,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
   print([vddio.measure(), vdd.measure()])
 
   # Increment maximum attempts
-  for att in [1, 2, 4, 8] + list(range(16, 256, 32)):
+  for att in [240]: #[1, 2, 4, 8] + list(range(16, 256, 32)):
     with EMBERDriver(args.chipname, args.config) as ember:
       # Put into fast mode
       ember.fast_mode()
@@ -61,7 +61,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
             # Print address and read value
             print("Address", addr)
             print("READ", read)
-        np.savetxt(f"opt/data/preread/preread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_go_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
+        np.savetxt(f"opt/data/preread/preread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
     with EMBERDriver(args.chipname, args.config) as ember:
       # Put into fast mode
@@ -81,8 +81,8 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
       print("ACTUAL dt =", dt)
       print("ACTUAL DIAG", ember.get_diagnostics())
       assert(ember.get_diagnostics()["successes"] >= 65535)
-      np.savetxt(f"opt/data/dt/dt_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_go_{real_att}.csv", np.array([dt]), fmt='%s', delimiter=',')
-      with open(f"opt/data/diag/diag_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_go_{real_att}.json", "w") as diagjsonfile:
+      np.savetxt(f"opt/data/dt/dt_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array([dt]), fmt='%s', delimiter=',')
+      with open(f"opt/data/diag/diag_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.json", "w") as diagjsonfile:
         json.dump(ember.get_diagnostics(), diagjsonfile)
 
       # Post-read (for BER)
@@ -97,7 +97,21 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
           # Print address and read value
           print("Address", addr)
           print("READ", read)
-      np.savetxt(f"opt/data/postread/postread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_go_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
+      np.savetxt(f"opt/data/postread/postread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
+
+      # Post-superread (for BER)
+      print("Post-superread...")
+      reads = []
+      for addr in range(args.start_addr, args.end_addr, args.step_addr):
+        # Set address and read
+        ember.set_addr(addr)
+        read = ember.superread()
+        reads.append(read)
+        if addr % 1000 == 0:
+          # Print address and read value
+          print("Address", addr)
+          print("READ", read)
+      np.savetxt(f"opt/data/postread/postsuperread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
       # Measure energy when writing (only if it won't hurt the endurance by more than 5 cycles)
       if dt >= 0.2:
@@ -115,4 +129,4 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
           
           # Measurements
           print("Measurements:", measurements)
-          np.savetxt(f"opt/data/power/{vname}_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_power_{args.config.split('/')[-1][:-5]}_go_{real_att}.csv", np.array(measurements), fmt='%s', delimiter=',')
+          np.savetxt(f"opt/data/power/{vname}_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_power_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(measurements), fmt='%s', delimiter=',')
