@@ -52,7 +52,7 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
         # Update write settings
         ember.level_settings[1]["adc_lower_write_ref_lvl"] = ember.settings["level_settings"][1]["adc_lower_write_ref_lvl"] = lower
         ember.level_settings[1]["adc_upper_write_ref_lvl"] = ember.settings["level_settings"][1]["adc_upper_write_ref_lvl"] = upper
-        ember.level_settings[1]["bl_dac_set_lvl_start"] = ember.settings["level_settings"][1]["bl_dac_set_lvl_start"] = (16 if upper == 63 else 0)
+        # ember.level_settings[1]["bl_dac_set_lvl_start"] = ember.settings["level_settings"][1]["bl_dac_set_lvl_start"] = (16 if upper == 63 else 0)
         ember.commit_settings()
 
         # Write and get diagnostics
