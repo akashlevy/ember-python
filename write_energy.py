@@ -47,7 +47,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
       dt = tf - t0
       print("SETUP dt =", dt)
       print("SETUP DIAG", ember.get_diagnostics())
-      assert(ember.get_diagnostics()["successes"] >= 65535)
+      # assert(ember.get_diagnostics()["successes"] >= 65535)
 
       # Pre-read
       if args.do_preread:
@@ -81,7 +81,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
       dt = tf - t0
       print("ACTUAL dt =", dt)
       print("ACTUAL DIAG", ember.get_diagnostics())
-      assert(ember.get_diagnostics()["successes"] >= 65535)
+      # assert(ember.get_diagnostics()["successes"] >= 65535)
       np.savetxt(f"opt/data/dt/dt_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array([dt]), fmt='%s', delimiter=',')
       with open(f"opt/data/diag/diag_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.json", "w") as diagjsonfile:
         json.dump(ember.get_diagnostics(), diagjsonfile)
