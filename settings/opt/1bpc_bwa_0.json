@@ -55,9 +55,9 @@
             "bl_dac_set_lvl_step": 1,
             "bl_dac_set_lvl_stop": 31,
             "bl_dac_set_lvl_start": 0,
-            "adc_upper_write_ref_lvl": 15,
-            "adc_lower_write_ref_lvl": 3,
-            "adc_upper_read_ref_lvl": 21,
+            "adc_upper_write_ref_lvl": 21,
+            "adc_lower_write_ref_lvl": 2,
+            "adc_upper_read_ref_lvl": 25,
             "adc_read_dac_lvl": 15,
             "adc_clamp_ref_lvl": 63
         },
@@ -88,8 +88,8 @@
             "bl_dac_set_lvl_step": 1,
             "bl_dac_set_lvl_stop": 31,
             "bl_dac_set_lvl_start": 0,
-            "adc_upper_write_ref_lvl": 61,
-            "adc_lower_write_ref_lvl": 39,
+            "adc_upper_write_ref_lvl": 63,
+            "adc_lower_write_ref_lvl": 33,
             "adc_upper_read_ref_lvl": 63,
             "adc_read_dac_lvl": 15,
             "adc_clamp_ref_lvl": 63

@@ -26,9 +26,9 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
   ember.fast_mode()
   addr = args.start_addr
   while addr < args.end_addr:
-    for pw_exp, pw_mantissa in [(0,1),(0,2),(0,4),(0,8),(0,16)]:
-      for vwl in [0]:
-        for vbsl in [31] if args.reset else list(range(0, 24, 1)):
+    for pw_exp, pw_mantissa in [(0,1)]: #,(0,2),(0,4),(0,8),(0,16)]:
+      for vwl in list(range(0,256,8)) + [255]:
+        for vbsl in range(32): #[31] if args.reset else list(range(0, 24, 1)):
           # Run experiment
           ember.set_addr(addr if not args.shuffle else shuffled_addrs[addr])
           preread = ember.superread()

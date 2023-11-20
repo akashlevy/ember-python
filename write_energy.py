@@ -29,7 +29,7 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
   print([vddio.measure(), vdd.measure()])
 
   # Increment maximum attempts
-  for att in [255]: #[1, 2, 4, 8] + list(range(16, 256, 32)):
+  for att in [255]: #, 1, 2, 4, 8] + list(range(16, 256, 32)):
     with EMBERDriver(args.chipname, args.config) as ember:
       # Put into fast mode
       ember.fast_mode()
