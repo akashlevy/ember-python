@@ -1,3 +1,4 @@
-python read_chip.py CHIP10 postform.csv --super
-python reset_chip.py CHIP10 --native --superfast
-python read_chip.py CHIP10 reset.csv --super
+python sweep_chip.py CHIP1 set_sweep.csv --shuffle
+python sweep_chip.py CHIP1 reset_sweep.csv --reset --shuffle
+python sweep_chip.py CHIP1 reset_sweep.csv --reset --shuffle
+python sweep_chip.py CHIP1 reset_sweep.csv --reset --shuffle

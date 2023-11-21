@@ -260,7 +260,7 @@ class EMBERDriver(object):
     
     # Log the READ
     self.mlogfile.write("%s,%s,%s," % (self.chip, time.time(), self.addr))
-    self.mlogfile.write("MLCREAD,%s,%s\n" % (mask, ",".join([str(d) for d in data])))
+    self.mlogfile.write("MLCREAD,%s,%s\n" % (self.settings["di_init_mask"], ",".join([str(d) for d in data])))
 
     # Get diagnostics if requested 
     if diag:
