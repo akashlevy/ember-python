@@ -1,0 +1,1 @@
+{"successes": 10000, "failures": 395867, "reads": 150000, "sets": 60000, "resets": 19999, "cycles": 2729995, "read_bits": 1209981, "set_bits": 659960, "reset_bits": 175878}

@@ -14,10 +14,11 @@ parser.add_argument("--config", type=str, default="settings/1bpc.json", help="co
 parser.add_argument("--start-addr", type=int, default=0, help="start address")
 parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
-parser.add_argument("--max-attempts", type=int, default=16, help="address stride")
+parser.add_argument("--max-attempts", type=int, default=255, help="address stride")
 parser.add_argument("--cb", action="store_true", help="use checkerboard data pattern")
 parser.add_argument("--lfsr", action="store_true", help="use LFSR data pattern")
 parser.add_argument("--checktime", type=float, default=0, help="time interval to check")
+parser.add_argument("--stop-cycles", type=float, default=1e5, help="number of cycles after which to stop")
 args = parser.parse_args()
 
 # Initialize EMBER system and output file
@@ -36,7 +37,8 @@ with EMBERDriver(args.chipname, args.config) as ember, open(args.outfile, "a") a
   t0 = time.time()
 
   # Intermittent diagnostic check
-  while True:
+  diag = {"successes": 0}
+  while diag["successes"]/(len(range(args.start_addr, args.end_addr, args.step_addr))) < args.stop_cycles:
     try:
       time.sleep(args.checktime)
       t = time.time() - t0

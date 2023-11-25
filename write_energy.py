@@ -9,7 +9,7 @@ from fluke8808a import Fluke8808A
 # Get arguments
 parser = argparse.ArgumentParser(description="Write energy measurement.")
 parser.add_argument("chipname", help="chip name for logging")
-parser.add_argument("--config", type=str, default="settings/1bpc.json", help="config file")
+parser.add_argument("--config", type=str, default="settings/config.json", help="config file")
 parser.add_argument("--start-addr", type=int, default=0, help="start address")
 parser.add_argument("--end-addr", type=int, default=65536, help="end address")
 parser.add_argument("--step-addr", type=int, default=1, help="address stride")
@@ -115,20 +115,20 @@ with Fluke8808A("/dev/ttyUSB3") as vdd, \
             print("READ", read)
         np.savetxt(f"opt/data/postread/postsuperread_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(reads), fmt='%s', delimiter=',')
 
-      # # Measure energy when writing (only if it won't hurt the endurance by more than 5 cycles)
-      # if dt >= 0.2:
-      #   ember.set_addr(args.start_addr+args.step_addr, args.end_addr-1, args.step_addr)
-      #   ember.write(0, use_multi_addrs=True, cb=args.cb, lfsr=args.lfsr, loop_mode=True)
-      #   time.sleep(1)
+      # Measure energy when writing (only if it won't hurt the endurance by more than ~100 cycles for 1bpc and ~10 cycles for 2bpc)
+      if real_att >= 16:
+        ember.set_addr(args.start_addr+args.step_addr, args.end_addr-1, args.step_addr)
+        ember.write(0, use_multi_addrs=True, cb=args.cb, lfsr=args.lfsr, loop_mode=True)
+        time.sleep(1)
           
-      #   # Energy measurement
-      #   for vname, vdev in zip(["vdd", "vddio"], [vdd, vddio]):
-      #     # Try to measure
-      #     measurements = []
-      #     for i in range(1):
-      #       measurements.append(vdev.measure())
-      #       # time.sleep(1)
+        # Energy measurement
+        for vname, vdev in zip(["vdd", "vddio"], [vdd, vddio]):
+          # Try to measure
+          measurements = []
+          for i in range(1):
+            measurements.append(vdev.measure())
+            # time.sleep(1)
           
-      #     # Measurements
-      #     print("Measurements:", measurements)
-      #     np.savetxt(f"opt/data/power/{vname}_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_power_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(measurements), fmt='%s', delimiter=',')
+          # Measurements
+          print("Measurements:", measurements)
+          np.savetxt(f"opt/data/power/{vname}_{'cb' if args.cb else 'lfsr' if args.lfsr else Exception('Neither CB nor LFSR')}_power_{args.config.split('/')[-1][:-5]}_{real_att}.csv", np.array(measurements), fmt='%s', delimiter=',')
