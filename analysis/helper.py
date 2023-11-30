@@ -95,7 +95,7 @@ class PPFScale(mscale.ScaleBase):
             def __call__(self, x, pos=None):
                 return f"{x}"[1:]
 
-        axis.set_major_locator(FixedLocator(np.array([0,.0001,.001,.01,.1,.2,.3,.4,.5,.6,.7,.8,.9,.99,.999,.9999,1])))
+        axis.set_major_locator(FixedLocator(np.array([0,.0001,.001,.01,.1,.5,.9,.99,.999,.9999,1])))
         axis.set_major_formatter(VarFormatter())
 
 
